@@ -22,31 +22,17 @@ export type Service = {
   description: string;
 };
 
-export type DecorativeAsset = PortfolioImage & {
-  className: string;
-  motion: {
-    delay: number;
-    x: number;
-    y: number;
-    duration: number;
-  };
-};
-
 export const profile = {
   name: "Jack",
-  title: "Jack - 3D Creator",
-  heroTitle: "Hi, i'm jack",
+  title: "Jack - Creative Portfolio",
+  heroTitle: "Hi, i'm Jack",
   heroDescription:
-    "a 3d creator driven by crafting striking and unforgettable projects",
+    "a visual creator crafting striking brands, web experiences, motion, and unforgettable digital projects",
   aboutTitle: "About me",
   about:
     "With more than five years of experience in design, i focus on branding, web design, and user experience, i truly enjoy working with businesses that aim to stand out and present their best image. Let's build something incredible together!",
   contactLabel: "Contact Me",
   contactUrl: "mailto:jack@example.com",
-  portrait: {
-    src: "https://shrug-person-78902957.figma.site/_components/v2/d24c01ad3a56fc65e942a1f501eb73db42d7cf9a/Rectangle_40443.81459862.png",
-    alt: "Jack portrait in a glossy 3D creator style",
-  },
 };
 
 export const navLinks = [
@@ -140,37 +126,6 @@ export const marqueeImages: PortfolioImage[] = [
   {
     src: "https://motionsites.ai/assets/hero-celestia-preview-0yO3jXO8.gif",
     alt: "Celestia motion preview",
-  },
-];
-
-export const decorativeAssets: DecorativeAsset[] = [
-  {
-    src: "https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/moon_icon.11395d36.png",
-    alt: "Floating moon 3D icon",
-    className:
-      "top-[4%] left-[1%] w-[120px] sm:left-[2%] sm:w-[160px] md:left-[4%] md:w-[210px]",
-    motion: { delay: 0.1, x: -80, y: 0, duration: 0.9 },
-  },
-  {
-    src: "https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/p59_1.4659672e.png",
-    alt: "Floating abstract 3D object",
-    className:
-      "bottom-[8%] left-[3%] w-[100px] sm:left-[6%] sm:w-[140px] md:left-[10%] md:w-[180px]",
-    motion: { delay: 0.25, x: -80, y: 0, duration: 0.9 },
-  },
-  {
-    src: "https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/lego_icon-1.703bb594.png",
-    alt: "Floating lego 3D icon",
-    className:
-      "top-[4%] right-[1%] w-[120px] sm:right-[2%] sm:w-[160px] md:right-[4%] md:w-[210px]",
-    motion: { delay: 0.15, x: 80, y: 0, duration: 0.9 },
-  },
-  {
-    src: "https://shrug-person-78902957.figma.site/_components/v2/ebb2b8f25d8e24d5f0a5ca8af4c950de81aa2fd7/Group_134-1.2e04f3ce.png",
-    alt: "Floating clustered 3D forms",
-    className:
-      "bottom-[8%] right-[3%] w-[130px] sm:right-[6%] sm:w-[170px] md:right-[10%] md:w-[220px]",
-    motion: { delay: 0.3, x: 80, y: 0, duration: 0.9 },
   },
 ];
 

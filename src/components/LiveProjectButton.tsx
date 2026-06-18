@@ -11,7 +11,7 @@ export function LiveProjectButton({ href, className }: LiveProjectButtonProps) {
     <a
       href={href}
       className={cn(
-        "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full border-2 border-mist px-6 py-3 text-xs font-medium uppercase tracking-widest text-mist transition duration-200 hover:bg-mist/10 active:scale-[0.98] sm:px-8 sm:py-3.5 sm:text-sm md:px-10",
+        "liquid-glass inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full px-5 py-2.5 text-sm font-medium text-white transition duration-200 hover:bg-white/10 active:scale-[0.98]",
         className,
       )}
       aria-label="Open live project"

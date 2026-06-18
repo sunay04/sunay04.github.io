@@ -21,7 +21,7 @@ type CharacterProps = {
 function AnimatedCharacter({ children, index, total, progress }: CharacterProps) {
   const start = total <= 1 ? 0 : index / total;
   const end = total <= 1 ? 1 : Math.min(1, start + 0.16);
-  const opacity = useTransform(progress, [start, end], [0.2, 1]);
+  const opacity = useTransform(progress, [start, end], [0.55, 1]);
 
   return (
     <span className="relative inline-block">

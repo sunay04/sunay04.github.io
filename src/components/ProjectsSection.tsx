@@ -1,5 +1,3 @@
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
 import { LiveProjectButton } from "./LiveProjectButton";
 import { FadeIn } from "./FadeIn";
 import { Project, projects } from "../content/portfolio";
@@ -7,36 +5,22 @@ import { Project, projects } from "../content/portfolio";
 type ProjectCardProps = {
   project: Project;
   index: number;
-  total: number;
 };
 
-function ProjectCard({ project, index, total }: ProjectCardProps) {
-  const ref = useRef<HTMLDivElement>(null);
-  const shouldReduceMotion = useReducedMotion();
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end start"],
-  });
-  const targetScale = 1 - (total - 1 - index) * 0.03;
-  const scale = useTransform(scrollYProgress, [0, 1], [1, targetScale]);
-
+function ProjectCard({ project, index }: ProjectCardProps) {
   return (
-    <div ref={ref} className="relative h-auto py-8 md:h-[85vh]">
-      <motion.article
-        className="sticky top-20 overflow-hidden rounded-[32px] border-2 border-mist bg-ink p-4 sm:top-24 sm:rounded-[44px] sm:p-6 md:top-32 md:rounded-[60px] md:p-8"
-        style={{
-          scale: shouldReduceMotion ? 1 : scale,
-          top: `calc(5rem + ${index * 28}px)`,
-        }}
+    <FadeIn delay={index * 0.08} y={36}>
+      <article
+        className="liquid-glass overflow-hidden rounded-[1.25rem] p-4 sm:p-6 md:p-8"
       >
-        <div className="grid gap-6 pb-6 md:grid-cols-[0.32fr_0.28fr_1fr_auto] md:items-end md:gap-7 md:pb-8">
-          <span className="text-[clamp(3rem,10vw,140px)] font-black leading-none text-mist">
+        <div className="grid gap-5 pb-6 md:grid-cols-[auto_0.3fr_1fr_auto] md:items-end md:gap-7 md:pb-8">
+          <span className="font-heading text-[clamp(3.2rem,9vw,8rem)] italic leading-none text-white">
             {project.number}
           </span>
-          <p className="text-sm font-medium uppercase tracking-widest text-mist/70 sm:text-base">
+          <p className="liquid-glass w-fit rounded-full px-3 py-1 text-xs font-light text-white/80 sm:text-sm">
             {project.category}
           </p>
-          <h3 className="text-[clamp(2rem,5vw,5.4rem)] font-black uppercase leading-none tracking-tight text-mist">
+          <h3 className="font-heading text-[clamp(2.6rem,6vw,5.8rem)] italic leading-[0.88] tracking-[-0.03em] text-white">
             {project.name}
           </h3>
           <LiveProjectButton href={project.liveUrl} />
@@ -47,25 +31,25 @@ function ProjectCard({ project, index, total }: ProjectCardProps) {
             <img
               src={project.images.leftTop.src}
               alt={project.images.leftTop.alt}
-              className="h-[clamp(130px,16vw,230px)] w-full rounded-[28px] object-cover sm:rounded-[40px] md:rounded-[52px]"
+              className="h-[clamp(130px,16vw,230px)] w-full rounded-[1.25rem] object-cover"
               loading="lazy"
             />
             <img
               src={project.images.leftBottom.src}
               alt={project.images.leftBottom.alt}
-              className="h-[clamp(160px,22vw,340px)] w-full rounded-[28px] object-cover sm:rounded-[40px] md:rounded-[52px]"
+              className="h-[clamp(160px,22vw,340px)] w-full rounded-[1.25rem] object-cover"
               loading="lazy"
             />
           </div>
           <img
             src={project.images.featured.src}
             alt={project.images.featured.alt}
-            className="h-[360px] w-full rounded-[28px] object-cover sm:h-[520px] sm:rounded-[40px] md:h-full md:min-h-[520px] md:rounded-[52px]"
+            className="h-[360px] w-full rounded-[1.25rem] object-cover sm:h-[520px] md:h-full md:min-h-[520px]"
             loading="lazy"
           />
         </div>
-      </motion.article>
-    </div>
+      </article>
+    </FadeIn>
   );
 }
 
@@ -73,18 +57,21 @@ export function ProjectsSection() {
   return (
     <section
       id="projects"
-      className="relative z-10 -mt-10 rounded-t-[40px] bg-ink px-5 py-20 sm:-mt-12 sm:rounded-t-[50px] sm:px-8 sm:py-24 md:-mt-14 md:rounded-t-[60px] md:px-10 md:py-32"
+      className="relative z-10 bg-ink px-5 py-24 sm:px-8 md:px-10 md:py-32"
     >
-      <FadeIn as="h2" className="hero-heading mb-14 text-center text-[clamp(3rem,12vw,160px)] font-black uppercase leading-none tracking-tight sm:mb-20">
-        Project
+      <div className="pointer-events-none absolute inset-x-8 top-0 h-px bg-white/20 md:inset-x-16" />
+      <FadeIn
+        as="h2"
+        className="cosmic-heading mb-14 pb-2 text-center text-[clamp(4.2rem,12vw,9.5rem)] leading-[0.9] sm:mb-20"
+      >
+        Projects
       </FadeIn>
-      <div className="mx-auto max-w-7xl">
+      <div className="mx-auto grid max-w-7xl gap-8 md:gap-10">
         {projects.map((project, index) => (
           <ProjectCard
             key={project.id}
             project={project}
             index={index}
-            total={projects.length}
           />
         ))}
       </div>

@@ -7,7 +7,7 @@ import { ServicesSection } from "./components/ServicesSection";
 
 export function App() {
   return (
-    <main className="min-h-screen overflow-x-clip bg-ink font-kanit">
+    <main className="min-h-screen overflow-x-clip bg-ink font-body">
       <HeroSection />
       <MarqueeSection />
       <AboutSection />

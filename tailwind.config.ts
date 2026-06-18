@@ -5,17 +5,18 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        kanit: ["Kanit", "sans-serif"],
+        body: ["Barlow", "sans-serif"],
+        heading: ["Instrument Serif", "serif"],
       },
       colors: {
-        ink: "#0C0C0C",
-        mist: "#D7E2EA",
-        graphite: "#646973",
-        frost: "#BBCCD7",
+        ink: "#000000",
+        mist: "#FFFFFF",
+        graphite: "rgba(255,255,255,0.64)",
+        frost: "rgba(255,255,255,0.9)",
       },
       boxShadow: {
-        "contact-inner":
-          "0px 4px 4px rgba(181, 1, 167, 0.25), 4px 4px 12px #7721B1 inset",
+        "glass-inner":
+          "inset 0 1px 1px rgba(255,255,255,0.14), 0 18px 80px rgba(0,0,0,0.16)",
       },
     },
   },

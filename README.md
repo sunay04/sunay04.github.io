@@ -1,4 +1,4 @@
-# Jack - 3D Creator Portfolio
+# Jack - Creative Portfolio
 
 这是一个适合部署到 GitHub Pages 的个人作品集网站，使用 Vite、React、TypeScript、Tailwind CSS、Framer Motion 和 Lucide React 构建。页面内容集中在配置文件中，后续新增作品或替换个人资料时不需要重写页面结构。
 
@@ -83,18 +83,14 @@ src/content/portfolio.ts
 ```ts
 export const profile = {
   name: "Jack",
-  title: "Jack - 3D Creator",
-  heroTitle: "Hi, i'm jack",
+  title: "Jack - Creative Portfolio",
+  heroTitle: "Hi, i'm Jack",
   heroDescription:
-    "a 3d creator driven by crafting striking and unforgettable projects",
+    "a visual creator crafting striking brands, web experiences, motion, and unforgettable digital projects",
   aboutTitle: "About me",
   about: "With more than five years of experience...",
   contactLabel: "Contact Me",
   contactUrl: "mailto:jack@example.com",
-  portrait: {
-    src: "https://...",
-    alt: "Jack portrait in a glossy 3D creator style",
-  },
 };
 ```
 
@@ -172,24 +168,35 @@ export const services = [
 
 可以新增、删除或重新排序。页面会自动渲染列表。
 
-## 替换首页与装饰图片
+## 替换视频与动效素材
 
-首页人物图：
+首页与底部联系区的视频背景在组件内配置：
 
-```ts
-profile.portrait.src
+```text
+src/components/HeroSection.tsx
+src/components/FooterSection.tsx
 ```
 
-About 区域四个装饰图：
-
-```ts
-decorativeAssets
-```
-
-作品滚动墙图片：
+作品滚动墙图片在：
 
 ```ts
 marqueeImages
+```
+
+当前主题使用 cinematic space-travel / liquid-glass 视觉语言，不再渲染此前的特殊 3D 人物图或漂浮装饰。
+
+如果你想替换为自己的视频，建议使用压缩后的 `.mp4`，并保持暗色、高对比、主体不遮挡文字。
+
+## 视觉主题说明
+
+本版本保留作品集的信息结构，并把视觉主题切换为：
+
+```text
+黑色全屏背景
+循环视频氛围
+液态玻璃导航、按钮和卡片
+Instrument Serif 斜体标题
+Barlow 正文字体
 ```
 
 如果你不想使用远程图片，可以下载到 `public/artworks/` 或 `public/assets/` 后改成站内路径。
