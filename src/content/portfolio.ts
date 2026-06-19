@@ -23,16 +23,16 @@ export type Service = {
 };
 
 export const profile = {
-  name: "Jack",
-  title: "Jack - Creative Portfolio",
-  heroTitle: "Hi, i'm Jack",
+  name: "Sunay",
+  title: "Sunay - Creative Portfolio",
+  heroTitle: "Hi, i'm Sunay",
   heroDescription:
     "a visual creator crafting striking brands, web experiences, motion, and unforgettable digital projects",
   aboutTitle: "About me",
   about:
     "With more than five years of experience in design, i focus on branding, web design, and user experience, i truly enjoy working with businesses that aim to stand out and present their best image. Let's build something incredible together!",
   contactLabel: "Contact Me",
-  contactUrl: "mailto:jack@example.com",
+  contactUrl: "mailto:sunay@example.com",
 };
 
 export const navLinks = [

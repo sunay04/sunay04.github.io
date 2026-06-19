@@ -10,7 +10,7 @@ Visitors are potential clients, collaborators, or hiring reviewers scanning a cr
 
 ## Product Purpose
 
-The site presents Jack's creative work, services, and contact path in a memorable single-page portfolio. Success means the visitor understands the work quickly and feels enough trust to reach out.
+The site presents Sunay's creative work, services, and contact path in a memorable single-page portfolio. Success means the visitor understands the work quickly and feels enough trust to reach out.
 
 ## Brand Personality
 

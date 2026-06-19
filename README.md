@@ -1,4 +1,4 @@
-# Jack - Creative Portfolio
+# Sunay - Creative Portfolio
 
 这是一个适合部署到 GitHub Pages 的个人作品集网站，使用 Vite、React、TypeScript、Tailwind CSS、Framer Motion 和 Lucide React 构建。页面内容集中在配置文件中，后续新增作品或替换个人资料时不需要重写页面结构。
 
@@ -82,15 +82,15 @@ src/content/portfolio.ts
 
 ```ts
 export const profile = {
-  name: "Jack",
-  title: "Jack - Creative Portfolio",
-  heroTitle: "Hi, i'm Jack",
+  name: "Sunay",
+  title: "Sunay - Creative Portfolio",
+  heroTitle: "Hi, i'm Sunay",
   heroDescription:
     "a visual creator crafting striking brands, web experiences, motion, and unforgettable digital projects",
   aboutTitle: "About me",
   about: "With more than five years of experience...",
   contactLabel: "Contact Me",
-  contactUrl: "mailto:jack@example.com",
+  contactUrl: "mailto:sunay@example.com",
 };
 ```
 

@@ -24,7 +24,7 @@ export function FooterSection() {
               href={profile.contactUrl}
               className="inline-flex items-center gap-2 text-sm font-medium text-white/78 transition hover:text-white"
             >
-              jack@example.com
+              sunay@example.com
               <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
             </a>
           </div>
