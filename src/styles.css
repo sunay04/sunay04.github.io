@@ -14,7 +14,7 @@ body,
   padding: 0;
   background: #050607;
   color: #fff;
-  font-family: "Barlow", sans-serif;
+  font-family: "Barlow", "PingFang SC", "Microsoft YaHei", sans-serif;
   scroll-behavior: smooth;
 }
 
@@ -195,10 +195,10 @@ select {
 
 .cosmic-heading {
   color: #fff;
-  font-family: "Instrument Serif", serif;
+  font-family: "Instrument Serif", "PingFang SC", "Microsoft YaHei", serif;
   font-style: italic;
   font-weight: 400;
-  letter-spacing: -0.035em;
+  letter-spacing: 0;
   text-wrap: balance;
 }
 
@@ -212,8 +212,8 @@ select {
 }
 
 .glass-media {
-  filter: saturate(0.82) brightness(0.72) contrast(0.96);
-  opacity: 0.92;
+  filter: saturate(0.98) brightness(0.92) contrast(1.02);
+  opacity: 1;
 }
 
 .glass-media-frame {

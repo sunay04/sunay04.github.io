@@ -24,10 +24,20 @@ export function AboutSection() {
           {profile.aboutTitle}
         </FadeIn>
         <div className="liquid-glass flex flex-col items-center gap-12 rounded-[1.25rem] px-6 py-8 sm:px-10 sm:py-12 md:gap-14">
+          <p className="rounded-full bg-white px-4 py-1.5 text-xs font-semibold uppercase text-black">
+            {profile.title}
+          </p>
           <AnimatedText
             text={profile.about}
             className="cosmic-copy max-w-[620px] text-center text-[clamp(1rem,2vw,1.35rem)] font-light leading-relaxed"
           />
+          <div className="flex flex-wrap justify-center gap-2 text-xs text-white/78">
+            <span className="liquid-glass rounded-full px-3 py-1">Figma</span>
+            <span className="liquid-glass rounded-full px-3 py-1">PS / PR / 剪映</span>
+            <span className="liquid-glass rounded-full px-3 py-1">Midjourney</span>
+            <span className="liquid-glass rounded-full px-3 py-1">即梦 / 可灵 / 豆包</span>
+            <span className="liquid-glass rounded-full px-3 py-1">Blender / 3ds Max</span>
+          </div>
           <FadeIn delay={0.25} y={24}>
             <ContactButton />
           </FadeIn>

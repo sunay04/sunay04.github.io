@@ -1,12 +1,12 @@
 import { ArrowUpRight } from "lucide-react";
-import { ContactButton } from "./ContactButton";
 import { friendLinks, profile } from "../content/portfolio";
 
 const START_YEAR = 2026;
 
 export function FooterSection() {
   const currentYear = new Date().getFullYear();
-  const yearRange = currentYear > START_YEAR ? `${START_YEAR} - ${currentYear}` : `${START_YEAR}`;
+  const yearRange =
+    currentYear > START_YEAR ? `${START_YEAR} - ${currentYear}` : `${START_YEAR}`;
 
   return (
     <footer
@@ -16,7 +16,7 @@ export function FooterSection() {
       <div className="relative z-10 mx-auto flex min-h-[calc(82dvh-8rem)] max-w-7xl flex-col justify-between gap-16">
         <div className="max-w-5xl mist-readable">
           <p className="cosmic-heading pb-2 text-[clamp(4rem,13vw,10rem)] leading-[0.86]">
-            Build something unforgettable.
+            Let the work speak first.
           </p>
         </div>
         <div
@@ -25,25 +25,44 @@ export function FooterSection() {
         >
           <div className="grid gap-8 p-6 md:grid-cols-[minmax(0,1fr)_auto] md:items-end md:p-8 lg:p-10">
             <p className="cosmic-copy max-w-2xl text-sm font-light leading-relaxed md:text-base">
-              Ready to shape a brand, website, render, or motion system with a cinematic edge.
+              这是我的在线作品入口。投递时可以直接附上网站，也可以下载完整 PDF 作品集和两版岗位导向简历。联系方式请以简历 PDF 为准。
             </p>
-            <div className="flex flex-col items-start gap-4 md:items-end">
-              <ContactButton />
+            <div className="flex flex-col items-start gap-3 md:items-end">
               <a
-                href="mailto:sunay@example.com"
+                href={profile.portfolioUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="liquid-glass-strong inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full px-5 py-2.5 text-sm font-medium text-white transition duration-200 hover:scale-[1.02] active:scale-[0.98]"
+              >
+                打开完整作品集 PDF
+                <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
+              </a>
+              <a
+                href={profile.resumeOpsUrl}
+                target="_blank"
+                rel="noreferrer"
                 className="inline-flex items-center gap-2 text-sm font-medium text-white/78 transition hover:text-white"
               >
-                sunay@example.com
+                下载 AIGC / 运营简历
+                <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
+              </a>
+              <a
+                href={profile.resumeVisualUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 text-sm font-medium text-white/78 transition hover:text-white"
+              >
+                下载视觉 / AIGC 设计简历
                 <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
               </a>
             </div>
           </div>
           <div className="grid gap-5 border-t border-white/15 px-6 py-5 text-xs text-white/65 md:grid-cols-[1fr_auto_auto] md:items-center md:px-8 lg:px-10">
             <span>
-              © {yearRange} {profile.name}㋛. All Rights Reserved.
+              © {yearRange} {profile.name}. Portfolio for internship applications.
             </span>
             <div className="flex flex-wrap items-center gap-3">
-              <span className="text-white/45">友情链接</span>
+              <span className="text-white/45">Links</span>
               {friendLinks.map((link) => (
                 <a
                   key={link.href}

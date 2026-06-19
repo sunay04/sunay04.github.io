@@ -2,15 +2,7 @@ import { FadeIn } from "./FadeIn";
 import { Service, services } from "../content/portfolio";
 
 function serviceTag(service: Service) {
-  const tags: Record<string, string> = {
-    "3D Modeling": "Spatial craft",
-    Rendering: "Light study",
-    "Motion Design": "Kinetic system",
-    Branding: "Identity work",
-    "Web Design": "Digital surface",
-  };
-
-  return tags[service.name] ?? "Creative service";
+  return service.tag;
 }
 
 export function ServicesSection() {
@@ -24,7 +16,7 @@ export function ServicesSection() {
         as="h2"
         className="cosmic-heading mx-auto mb-16 max-w-5xl pb-2 text-center text-[clamp(4.2rem,12vw,9.5rem)] leading-[0.9] sm:mb-20 md:mb-24"
       >
-        Services
+        Skill Set
       </FadeIn>
       <div className="mx-auto grid max-w-6xl grid-cols-1 gap-5 md:grid-cols-3">
         {services.slice(0, 3).map((service, index) => (
@@ -43,7 +35,7 @@ export function ServicesSection() {
               </span>
             </div>
             <div className="mt-auto pt-12">
-              <h3 className="font-heading text-3xl italic leading-none tracking-[-0.02em] text-white md:text-4xl">
+              <h3 className="font-heading text-3xl italic leading-none text-white md:text-4xl">
                 {service.name}
               </h3>
               <p className="cosmic-copy mt-4 max-w-[32ch] text-sm font-light leading-snug">
@@ -70,7 +62,7 @@ export function ServicesSection() {
               </span>
             </div>
             <div className="mt-auto pt-12">
-              <h3 className="font-heading text-3xl italic leading-none tracking-[-0.02em] text-white md:text-4xl">
+              <h3 className="font-heading text-3xl italic leading-none text-white md:text-4xl">
                 {service.name}
               </h3>
               <p className="cosmic-copy mt-4 max-w-[42ch] text-sm font-light leading-snug">

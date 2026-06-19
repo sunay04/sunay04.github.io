@@ -9,7 +9,7 @@ type BlurTextProps = {
 
 export function BlurText({ text, className }: BlurTextProps) {
   const ref = useRef<HTMLParagraphElement>(null);
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(true);
   const shouldReduceMotion = useReducedMotion();
   const words = text.split(" ");
 
