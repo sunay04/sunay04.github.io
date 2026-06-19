@@ -4,6 +4,12 @@ export type PortfolioImage = {
   type?: "image" | "video";
 };
 
+export type ProjectResource = {
+  label: string;
+  href: string;
+  note?: string;
+};
+
 export type Project = {
   id: string;
   number: string;
@@ -16,6 +22,7 @@ export type Project = {
   metrics: string[];
   liveUrl: string;
   linkLabel: string;
+  resources?: ProjectResource[];
   images: {
     leftTop: PortfolioImage;
     leftBottom: PortfolioImage;
@@ -119,6 +126,23 @@ export const projects: Project[] = [
     metrics: ["3 分钟成片", "成片关键帧", "从剧本到成片独立完成"],
     liveUrl: "/portfolio/liuyan-portfolio-aigc.pdf",
     linkLabel: "打开作品集 PDF",
+    resources: [
+      {
+        label: "观看《悬置》视频",
+        href: "/portfolio/xuanzhi-film.mp4",
+        note: "网页播放版",
+      },
+      {
+        label: "打开分镜剧本",
+        href: "/portfolio/xuanzhi-story-script.pdf",
+        note: "PDF",
+      },
+      {
+        label: "查看《悬置》PPT",
+        href: "#xuanzhi-ppt",
+        note: "可返回本板块",
+      },
+    ],
     images: {
       leftTop: {
         src: "/portfolio/xuanzhi-storyboard.png",
@@ -129,8 +153,9 @@ export const projects: Project[] = [
         alt: "《悬置》AI 短片课程展示与制作过程",
       },
       featured: {
-        src: "/portfolio/xuanzhi-keyframes.png",
+        src: "/portfolio/xuanzhi-film.mp4",
         alt: "《悬置》AI 短片关键帧，包含压抑开场与温暖家庭段落",
+        type: "video",
       },
     },
   },
