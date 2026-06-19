@@ -5,9 +5,8 @@ const BGM_SRC = "/audio/bgm.mp3";
 
 export function AudioToggle() {
   const audioRef = useRef<HTMLAudioElement>(null);
+  const toggleButtonRef = useRef<HTMLButtonElement>(null);
   const [isMuted, setIsMuted] = useState(false);
-  const [needsGesture, setNeedsGesture] = useState(false);
-  const isSoundOff = isMuted || needsGesture;
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -17,44 +16,60 @@ export function AudioToggle() {
     }
 
     audio.volume = 0.34;
-    audio.muted = isMuted;
 
-    if (!isMuted) {
-      void audio
-        .play()
-        .then(() => setNeedsGesture(false))
-        .catch(() => setNeedsGesture(true));
-    }
-  }, [isMuted]);
+    const playWhenAllowed = (event?: Event) => {
+      if (
+        event?.target instanceof Node &&
+        toggleButtonRef.current?.contains(event.target)
+      ) {
+        return;
+      }
 
-  const startAudio = () => {
+      if (audio.muted) {
+        return;
+      }
+
+      void audio.play().catch(() => undefined);
+    };
+
+    playWhenAllowed();
+
+    window.addEventListener("pointerdown", playWhenAllowed, { once: true });
+    window.addEventListener("keydown", playWhenAllowed, { once: true });
+
+    return () => {
+      window.removeEventListener("pointerdown", playWhenAllowed);
+      window.removeEventListener("keydown", playWhenAllowed);
+    };
+  }, []);
+
+  useEffect(() => {
     const audio = audioRef.current;
 
-    if (audio) {
-      audio.muted = false;
-      void audio
-        .play()
-        .then(() => {
-          setNeedsGesture(false);
-          setIsMuted(false);
-        })
-        .catch(() => setNeedsGesture(true));
-    }
-  };
-
-  const handleToggle = () => {
-    const audio = audioRef.current;
-
-    if (isSoundOff || audio?.paused) {
-      startAudio();
+    if (!audio) {
       return;
     }
 
+    audio.muted = isMuted;
+
+    if (!isMuted) {
+      void audio.play().catch(() => undefined);
+    }
+  }, [isMuted]);
+
+  const handleToggle = () => {
+    const audio = audioRef.current;
+    const nextMuted = !isMuted;
+
     if (audio) {
-      audio.muted = true;
+      audio.muted = nextMuted;
+
+      if (!nextMuted) {
+        void audio.play().catch(() => undefined);
+      }
     }
 
-    setIsMuted(true);
+    setIsMuted(nextMuted);
   };
 
   return (
@@ -69,14 +84,15 @@ export function AudioToggle() {
         muted={isMuted}
       />
       <button
+        ref={toggleButtonRef}
         type="button"
         className="liquid-glass flex h-12 w-12 items-center justify-center rounded-full text-white transition duration-200 hover:bg-white/10 active:scale-[0.98]"
         onClick={handleToggle}
-        aria-label={isSoundOff ? "开启背景音乐" : "关闭背景音乐"}
-        aria-pressed={!isSoundOff}
-        title={isSoundOff ? "开启背景音乐" : "关闭背景音乐"}
+        aria-label={isMuted ? "开启背景音乐" : "关闭背景音乐"}
+        aria-pressed={!isMuted}
+        title={isMuted ? "开启背景音乐" : "关闭背景音乐"}
       >
-        {isSoundOff ? (
+        {isMuted ? (
           <VolumeX aria-hidden="true" className="h-5 w-5" />
         ) : (
           <Volume2 aria-hidden="true" className="h-5 w-5" />

@@ -2,8 +2,11 @@ import { ArrowUpRight } from "lucide-react";
 import { ContactButton } from "./ContactButton";
 import { friendLinks, profile } from "../content/portfolio";
 
+const START_YEAR = 2026;
+
 export function FooterSection() {
   const currentYear = new Date().getFullYear();
+  const yearRange = currentYear > START_YEAR ? `${START_YEAR} - ${currentYear}` : `${START_YEAR}`;
 
   return (
     <footer
@@ -16,47 +19,52 @@ export function FooterSection() {
             Build something unforgettable.
           </p>
         </div>
-        <div className="liquid-glass grid gap-8 rounded-[1.25rem] p-6 md:grid-cols-[1fr_auto] md:items-end md:p-8">
-          <p className="cosmic-copy max-w-xl text-sm font-light leading-relaxed md:text-base">
-            Ready to shape a brand, website, render, or motion system with a cinematic edge.
-          </p>
-          <div className="flex flex-col items-start gap-5 md:items-end">
-            <ContactButton />
+        <div
+          id="footer-contact"
+          className="liquid-glass overflow-hidden rounded-[1.25rem]"
+        >
+          <div className="grid gap-8 p-6 md:grid-cols-[minmax(0,1fr)_auto] md:items-end md:p-8 lg:p-10">
+            <p className="cosmic-copy max-w-2xl text-sm font-light leading-relaxed md:text-base">
+              Ready to shape a brand, website, render, or motion system with a cinematic edge.
+            </p>
+            <div className="flex flex-col items-start gap-4 md:items-end">
+              <ContactButton />
+              <a
+                href="mailto:sunay@example.com"
+                className="inline-flex items-center gap-2 text-sm font-medium text-white/78 transition hover:text-white"
+              >
+                sunay@example.com
+                <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
+              </a>
+            </div>
+          </div>
+          <div className="grid gap-5 border-t border-white/15 px-6 py-5 text-xs text-white/65 md:grid-cols-[1fr_auto_auto] md:items-center md:px-8 lg:px-10">
+            <span>
+              © {yearRange} {profile.name}㋛. All Rights Reserved.
+            </span>
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="text-white/45">友情链接</span>
+              {friendLinks.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  className="inline-flex items-center gap-1 transition hover:text-white"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {link.label}
+                  <ArrowUpRight aria-hidden="true" className="h-3.5 w-3.5" />
+                </a>
+              ))}
+            </div>
             <a
-              href="mailto:sunay@example.com"
-              className="inline-flex items-center gap-2 text-sm font-medium text-white/78 transition hover:text-white"
+              href="#"
+              className="inline-flex items-center gap-2 transition hover:text-white md:justify-self-end"
             >
-              sunay@example.com
+              回到顶部
               <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
             </a>
           </div>
-        </div>
-        <div className="grid gap-5 border-t border-white/15 pt-6 text-xs text-white/65 md:grid-cols-[1fr_auto_auto] md:items-center">
-          <span>
-            © 2026 - {currentYear} {profile.name}㋛. All Rights Reserved.
-          </span>
-          <div className="flex flex-wrap items-center gap-3">
-            <span className="text-white/45">Friends</span>
-            {friendLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="inline-flex items-center gap-1 transition hover:text-white"
-                target="_blank"
-                rel="noreferrer"
-              >
-                {link.label}
-                <ArrowUpRight aria-hidden="true" className="h-3.5 w-3.5" />
-              </a>
-            ))}
-          </div>
-          <a
-            href="#"
-            className="inline-flex items-center gap-2 transition hover:text-white md:justify-self-end"
-          >
-            Back to top
-            <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
-          </a>
         </div>
       </div>
     </footer>

@@ -37,14 +37,14 @@ export const profile = {
   about:
     "With more than five years of experience in design, i focus on branding, web design, and user experience, i truly enjoy working with businesses that aim to stand out and present their best image. Let's build something incredible together!",
   contactLabel: "Contact Me",
-  contactUrl: "#contact",
+  contactUrl: "#footer-contact",
 };
 
 export const navLinks = [
   { label: "关于我", href: "#about" },
-  { label: "合作", href: "#services" },
-  { label: "作品", href: "#projects" },
-  { label: "联系我", href: "#contact" },
+  { label: "商业合作", href: "#services" },
+  { label: "艺术作品", href: "#projects" },
+  { label: "联系我", href: "#footer-contact" },
 ];
 
 export const friendLinks: FriendLink[] = [
