@@ -70,43 +70,150 @@ cp .env.example .env.local
 VITE_BASE_PATH=/portfolio/
 ```
 
-## 修改个人信息
+## 内容配置文件说明
 
-主要内容都在：
+网站的主要文案、导航、服务、作品和友情链接都集中在：
 
 ```text
 src/content/portfolio.ts
 ```
 
-常用字段：
+这份文件是内容配置文件。一般只需要改这里，就能更新网站上的大部分可见信息；页面结构、动画和样式在 `src/components/` 与 `src/styles.css` 中维护。
+
+### 类型定义
+
+文件顶部的 `PortfolioImage`、`Project`、`Service`、`FriendLink` 是 TypeScript 类型定义，用来约束后面配置项的格式。
+
+```ts
+export type PortfolioImage = {
+  src: string;
+  alt: string;
+};
+```
+
+`PortfolioImage` 表示一张作品图片：
+
+- `src`：图片地址。可以是站内路径，例如 `/artworks/project-name/cover.webp`，也可以是完整的远程图片 URL。
+- `alt`：图片替代文本。图片加载失败、读屏软件读取页面、搜索引擎理解图片时都会用到它。建议写清楚图片内容，不要留空。
+
+```ts
+export type Project = {
+  id: string;
+  number: string;
+  name: string;
+  category: string;
+  liveUrl: string;
+  images: {
+    leftTop: PortfolioImage;
+    leftBottom: PortfolioImage;
+    featured: PortfolioImage;
+  };
+};
+```
+
+`Project` 表示一个作品卡片：
+
+- `id`：作品的唯一标识，用作 React 渲染列表时的 key。建议使用小写英文和短横线，例如 `aura-brand-identity`。
+- `number`：页面上显示的作品编号，例如 `01`、`02`。它不会自动计算，调整排序后需要手动同步。
+- `name`：作品名称，会显示为作品卡片的大标题。
+- `category`：作品类别，会显示在作品卡片的小标签里，例如 `Client`、`Personal`、`Commercial`。
+- `liveUrl`：作品按钮的跳转地址。可以写外部链接，例如 `https://example.com`，也可以写页面锚点，例如 `#contact` 或 `#footer-contact`。
+- `images.leftTop`：作品卡片左侧上方的小图。
+- `images.leftBottom`：作品卡片左侧下方的小图。
+- `images.featured`：作品卡片右侧主图，是视觉权重最高的一张图。
+
+```ts
+export type Service = {
+  number: string;
+  name: string;
+  description: string;
+};
+```
+
+`Service` 表示一个服务项目：
+
+- `number`：服务编号，例如 `01`。只负责显示，不会自动排序。
+- `name`：服务名称，例如 `Branding`、`Web Design`。
+- `description`：服务说明文字，显示在服务卡片正文中。
+
+```ts
+export type FriendLink = {
+  label: string;
+  href: string;
+};
+```
+
+`FriendLink` 表示页脚友情链接：
+
+- `label`：页面上显示的链接名称。
+- `href`：链接地址。建议使用完整地址，例如 `https://cloud09.space`。
+
+### `profile`
+
+`profile` 控制网站的个人信息、首页主文案和通用联系按钮。
 
 ```ts
 export const profile = {
   name: "Sunay",
   title: "Sunay",
-  heroTitle: "Hi, i'm Sunay",
+  heroTitle: "Hi,I'm Sunay",
   heroDescription:
     "a visual creator crafting striking brands, web experiences, motion, and unforgettable digital projects",
   aboutTitle: "About me",
   about: "With more than five years of experience...",
   contactLabel: "Contact Me",
-  contactUrl: "mailto:sunay@example.com",
+  contactUrl: "#footer-contact",
 };
 ```
 
-把 `contactUrl` 改成你的邮箱、社交链接或联系表单地址。例如：
+- `name`：站点主名称。当前会用于左上角 logo 的可访问名称、联系按钮的可访问名称，以及页脚版权中的名字。
+- `title`：站点标题/身份名称的保留字段。当前页面没有直接渲染它，保留它是为了后续扩展 SEO、页面标题或个人身份展示。
+- `heroTitle`：首页第一屏的大标题。
+- `heroDescription`：首页第一屏标题下方的简介文字。
+- `aboutTitle`：关于我区域的标题。
+- `about`：关于我区域的正文介绍。
+- `contactLabel`：所有通用联系按钮上的文字。
+- `contactUrl`：通用联系按钮的跳转地址。当前推荐使用 `#footer-contact`，点击后会跳到页脚联系方式区域。也可以改为邮箱、社交主页或联系表单地址。
+
+常见 `contactUrl` 写法：
 
 ```ts
+// 跳到页脚联系方式
+contactUrl: "#footer-contact"
+
+// 打开邮箱客户端
 contactUrl: "mailto:your-name@example.com"
+
+// 跳到外部链接
+contactUrl: "https://example.com/contact"
 ```
 
-## 修改友情链接
+### `navLinks`
 
-页脚友情链接在：
+`navLinks` 控制桌面端顶部导航的页签文字和跳转位置。
 
-```text
-src/content/portfolio.ts
+```ts
+export const navLinks = [
+  { label: "关于我", href: "#about" },
+  { label: "商业合作", href: "#services" },
+  { label: "艺术作品", href: "#projects" },
+  { label: "联系我", href: "#footer-contact" },
+];
 ```
+
+- `label`：导航中显示的文字。
+- `href`：点击后的跳转地址。站内区域一般使用 `#区域id`，例如 `#about`、`#services`、`#projects`、`#footer-contact`。
+
+注意事项：
+
+- `href` 需要和页面里真实存在的 `id` 对应，否则点击后不会跳到正确位置。
+- 数组顺序就是导航显示顺序。
+- 可以新增或删除导航项，但顶部导航空间有限，不建议放太多项。
+- 当前移动端顶部导航会隐藏文字页签，只保留左侧 logo 和右侧音乐按钮。
+
+### `friendLinks`
+
+`friendLinks` 控制页脚的友情链接。
 
 ```ts
 export const friendLinks = [
@@ -114,11 +221,41 @@ export const friendLinks = [
 ];
 ```
 
-可以继续往数组里新增链接。
+- `label`：页脚显示的链接名称。
+- `href`：点击后打开的地址。友情链接会在新标签页中打开。
 
-## 新增或替换作品
+新增多个友情链接时，继续往数组里加对象即可：
 
-作品数据在 `projects` 数组中：
+```ts
+export const friendLinks = [
+  { label: "Cloud09", href: "https://cloud09.space" },
+  { label: "Example", href: "https://example.com" },
+];
+```
+
+### `services`
+
+`services` 控制“商业合作”区域展示的服务项目。
+
+```ts
+export const services = [
+  {
+    number: "01",
+    name: "3D Modeling",
+    description: "Creation of detailed objects...",
+  },
+];
+```
+
+- `number`：服务编号，会显示在服务卡片左上角。
+- `name`：服务名称，会显示为服务卡片标题。
+- `description`：服务说明，会显示为服务卡片正文。
+
+页面会按数组顺序渲染服务。当前布局会把前 3 项放在第一行，后面的项目放在下一组更宽的卡片中；如果服务数量变化较大，建议顺手检查一下页面布局。
+
+### `projects`
+
+`projects` 控制“艺术作品”区域展示的作品列表。
 
 ```ts
 export const projects = [
@@ -146,6 +283,18 @@ export const projects = [
 ];
 ```
 
+- `id`：作品唯一标识。不要和其他作品重复，建议只用小写英文、数字和短横线。
+- `number`：作品编号，会显示在作品卡片左侧。
+- `name`：作品名称，会显示为作品卡片主标题。
+- `category`：作品类型标签。
+- `liveUrl`：作品按钮跳转地址。可以是线上作品地址，也可以是站内锚点。
+- `images.leftTop.src`：左上图片地址。
+- `images.leftTop.alt`：左上图片替代文本。
+- `images.leftBottom.src`：左下图片地址。
+- `images.leftBottom.alt`：左下图片替代文本。
+- `images.featured.src`：主图地址。
+- `images.featured.alt`：主图替代文本。
+
 推荐把作品图片放到：
 
 ```text
@@ -168,34 +317,30 @@ detail-2.webp    1200 x 1200
 
 尽量使用 `.webp` 或压缩后的 `.jpg`，避免直接上传超大的原始渲染图。
 
-## 修改服务项目
-
-服务内容在 `services` 数组中：
+图片路径规则：
 
 ```ts
-export const services = [
-  {
-    number: "01",
-    name: "3D Modeling",
-    description: "Creation of detailed objects...",
-  },
-];
+// public/artworks/aura/cover.webp
+src: "/artworks/aura/cover.webp"
+
+// 远程图片
+src: "https://example.com/image.webp"
 ```
 
-可以新增、删除或重新排序。页面会自动渲染列表。
+### 新增作品的推荐步骤
 
-## 替换背景与动效素材
+1. 把图片放到 `public/artworks/你的作品目录/`。
+2. 在 `projects` 数组末尾复制一个作品对象。
+3. 修改 `id`、`number`、`name`、`category`、`liveUrl`。
+4. 修改三张图片的 `src` 和 `alt`。
+5. 执行 `npm run dev` 本地预览，确认图片比例、文字长度和按钮跳转正常。
+
+## 背景与主题相关文件
 
 全站共享的雾面玻璃背景在全局样式里维护：
 
 ```text
 src/styles.css
-```
-
-作品滚动墙图片在：
-
-```ts
-marqueeImages
 ```
 
 当前主题使用 cinematic space-travel / liquid-glass 视觉语言，不再渲染此前的特殊 3D 人物图或漂浮装饰。
