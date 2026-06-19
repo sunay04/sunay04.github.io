@@ -1,8 +1,10 @@
 import { ArrowUpRight } from "lucide-react";
 import { ContactButton } from "./ContactButton";
-import { profile } from "../content/portfolio";
+import { friendLinks, profile } from "../content/portfolio";
 
 export function FooterSection() {
+  const currentYear = new Date().getFullYear();
+
   return (
     <footer
       id="contact"
@@ -29,11 +31,28 @@ export function FooterSection() {
             </a>
           </div>
         </div>
-        <div className="flex flex-wrap items-center justify-between gap-4 border-t border-white/15 pt-6 text-xs text-white/65">
-          <span>{profile.title}</span>
+        <div className="grid gap-5 border-t border-white/15 pt-6 text-xs text-white/65 md:grid-cols-[1fr_auto_auto] md:items-center">
+          <span>
+            © 2026 - {currentYear} {profile.name}㋛. All Rights Reserved.
+          </span>
+          <div className="flex flex-wrap items-center gap-3">
+            <span className="text-white/45">Friends</span>
+            {friendLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className="inline-flex items-center gap-1 transition hover:text-white"
+                target="_blank"
+                rel="noreferrer"
+              >
+                {link.label}
+                <ArrowUpRight aria-hidden="true" className="h-3.5 w-3.5" />
+              </a>
+            ))}
+          </div>
           <a
             href="#"
-            className="inline-flex items-center gap-2 transition hover:text-white"
+            className="inline-flex items-center gap-2 transition hover:text-white md:justify-self-end"
           >
             Back to top
             <ArrowUpRight aria-hidden="true" className="h-4 w-4" />

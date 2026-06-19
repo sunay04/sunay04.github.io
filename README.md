@@ -1,4 +1,4 @@
-# Sunay - Creative Portfolio
+# Sunay
 
 这是一个适合部署到 GitHub Pages 的个人作品集网站，使用 Vite、React、TypeScript、Tailwind CSS、Framer Motion 和 Lucide React 构建。页面内容集中在配置文件中，后续新增作品或替换个人资料时不需要重写页面结构。
 
@@ -83,7 +83,7 @@ src/content/portfolio.ts
 ```ts
 export const profile = {
   name: "Sunay",
-  title: "Sunay - Creative Portfolio",
+  title: "Sunay",
   heroTitle: "Hi, i'm Sunay",
   heroDescription:
     "a visual creator crafting striking brands, web experiences, motion, and unforgettable digital projects",
@@ -99,6 +99,22 @@ export const profile = {
 ```ts
 contactUrl: "mailto:your-name@example.com"
 ```
+
+## 修改友情链接
+
+页脚友情链接在：
+
+```text
+src/content/portfolio.ts
+```
+
+```ts
+export const friendLinks = [
+  { label: "Cloud09", href: "https://cloud09.space" },
+];
+```
+
+可以继续往数组里新增链接。
 
 ## 新增或替换作品
 

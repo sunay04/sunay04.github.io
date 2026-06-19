@@ -22,9 +22,14 @@ export type Service = {
   description: string;
 };
 
+export type FriendLink = {
+  label: string;
+  href: string;
+};
+
 export const profile = {
   name: "Sunay",
-  title: "Sunay - Creative Portfolio",
+  title: "Sunay",
   heroTitle: "Hi, i'm Sunay",
   heroDescription:
     "a visual creator crafting striking brands, web experiences, motion, and unforgettable digital projects",
@@ -40,6 +45,10 @@ export const navLinks = [
   { label: "Price", href: "#services" },
   { label: "Projects", href: "#projects" },
   { label: "Contact", href: "#contact" },
+];
+
+export const friendLinks: FriendLink[] = [
+  { label: "Cloud09", href: "https://cloud09.space" },
 ];
 
 export const marqueeImages: PortfolioImage[] = [
