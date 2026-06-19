@@ -7,7 +7,7 @@ export function AboutSection() {
   return (
     <section
       id="about"
-      className="relative flex min-h-[90dvh] items-center justify-center overflow-hidden bg-ink px-5 py-24 sm:px-8 md:px-10 md:py-32"
+      className="relative flex min-h-[90dvh] items-center justify-center overflow-hidden px-5 py-24 sm:px-8 md:px-10 md:py-32"
     >
       <div className="pointer-events-none absolute inset-0 opacity-80">
         <div className="absolute left-1/2 top-0 h-px w-[85vw] -translate-x-1/2 bg-white/20" />

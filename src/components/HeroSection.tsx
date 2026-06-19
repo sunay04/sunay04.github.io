@@ -2,21 +2,11 @@ import { ArrowUpRight } from "lucide-react";
 import { ContactButton } from "./ContactButton";
 import { FadeIn } from "./FadeIn";
 import { BlurText } from "./BlurText";
-import { FadingVideo } from "./FadingVideo";
 import { navLinks, profile } from "../content/portfolio";
-
-const heroVideo =
-  "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260418_080021_d598092b-c4c2-4e53-8e46-94cf9064cd50.mp4";
 
 export function HeroSection() {
   return (
-    <section className="relative flex min-h-[100dvh] flex-col overflow-hidden bg-ink">
-      <FadingVideo
-        src={heroVideo}
-        className="left-1/2 top-0 z-0 -translate-x-1/2 object-cover object-top"
-        style={{ width: "120%", height: "120%" }}
-      />
-
+    <section className="relative flex min-h-[100dvh] flex-col overflow-hidden">
       <FadeIn
         as="nav"
         immediate
@@ -56,7 +46,7 @@ export function HeroSection() {
         </div>
       </FadeIn>
 
-      <div className="relative z-10 flex flex-1 flex-col items-center justify-center px-4 pt-24 text-center video-readable">
+      <div className="relative z-10 flex flex-1 flex-col items-center justify-center px-4 pt-24 text-center mist-readable">
         <FadeIn
           immediate
           delay={0.35}
@@ -106,7 +96,7 @@ export function HeroSection() {
         immediate
         delay={1.2}
         y={18}
-        className="relative z-10 flex flex-col items-center gap-4 px-5 pb-8 text-center video-readable"
+        className="relative z-10 flex flex-col items-center gap-4 px-5 pb-8 text-center mist-readable"
       >
         <span className="liquid-glass rounded-full px-3.5 py-1 text-xs font-medium text-white">
           Available for selected creative commissions
@@ -118,8 +108,6 @@ export function HeroSection() {
           <span>Rendering</span>
         </div>
       </FadeIn>
-
-      <div className="absolute inset-x-0 bottom-0 z-[1] h-48 bg-gradient-to-t from-black to-transparent" />
     </section>
   );
 }

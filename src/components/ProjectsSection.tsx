@@ -31,20 +31,20 @@ function ProjectCard({ project, index }: ProjectCardProps) {
             <img
               src={project.images.leftTop.src}
               alt={project.images.leftTop.alt}
-              className="h-[clamp(130px,16vw,230px)] w-full rounded-[1.25rem] object-cover"
+              className="glass-media h-[clamp(130px,16vw,230px)] w-full rounded-[1.25rem] object-cover"
               loading="lazy"
             />
             <img
               src={project.images.leftBottom.src}
               alt={project.images.leftBottom.alt}
-              className="h-[clamp(160px,22vw,340px)] w-full rounded-[1.25rem] object-cover"
+              className="glass-media h-[clamp(160px,22vw,340px)] w-full rounded-[1.25rem] object-cover"
               loading="lazy"
             />
           </div>
           <img
             src={project.images.featured.src}
             alt={project.images.featured.alt}
-            className="h-[360px] w-full rounded-[1.25rem] object-cover sm:h-[520px] md:h-full md:min-h-[520px]"
+            className="glass-media h-[360px] w-full rounded-[1.25rem] object-cover sm:h-[520px] md:h-full md:min-h-[520px]"
             loading="lazy"
           />
         </div>
@@ -57,7 +57,7 @@ export function ProjectsSection() {
   return (
     <section
       id="projects"
-      className="relative z-10 bg-ink px-5 py-24 sm:px-8 md:px-10 md:py-32"
+      className="relative z-10 px-5 py-24 sm:px-8 md:px-10 md:py-32"
     >
       <div className="pointer-events-none absolute inset-x-8 top-0 h-px bg-white/20 md:inset-x-16" />
       <FadeIn

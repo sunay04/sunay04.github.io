@@ -7,13 +7,16 @@ import { ServicesSection } from "./components/ServicesSection";
 
 export function App() {
   return (
-    <main className="min-h-screen overflow-x-clip bg-ink font-body">
-      <HeroSection />
-      <MarqueeSection />
-      <AboutSection />
-      <ServicesSection />
-      <ProjectsSection />
-      <FooterSection />
+    <main className="relative min-h-screen overflow-x-clip bg-ink font-body text-white">
+      <div className="site-backdrop" aria-hidden="true" />
+      <div className="relative z-10">
+        <HeroSection />
+        <MarqueeSection />
+        <AboutSection />
+        <ServicesSection />
+        <ProjectsSection />
+        <FooterSection />
+      </div>
     </main>
   );
 }

@@ -168,13 +168,12 @@ export const services = [
 
 可以新增、删除或重新排序。页面会自动渲染列表。
 
-## 替换视频与动效素材
+## 替换背景与动效素材
 
-首页与底部联系区的视频背景在组件内配置：
+全站共享的雾面玻璃背景在全局样式里维护：
 
 ```text
-src/components/HeroSection.tsx
-src/components/FooterSection.tsx
+src/styles.css
 ```
 
 作品滚动墙图片在：
@@ -185,16 +184,16 @@ marqueeImages
 
 当前主题使用 cinematic space-travel / liquid-glass 视觉语言，不再渲染此前的特殊 3D 人物图或漂浮装饰。
 
-如果你想替换为自己的视频，建议使用压缩后的 `.mp4`，并保持暗色、高对比、主体不遮挡文字。
+如果你想调整背景质感，优先修改 `.site-backdrop`、`.liquid-glass` 和 `.liquid-glass-strong`，这样整站效果会保持一致。
 
 ## 视觉主题说明
 
 本版本保留作品集的信息结构，并把视觉主题切换为：
 
 ```text
-黑色全屏背景
-循环视频氛围
+统一暗色雾面玻璃背景
 液态玻璃导航、按钮和卡片
+统一压色的作品媒体
 Instrument Serif 斜体标题
 Barlow 正文字体
 ```

@@ -20,7 +20,7 @@ export function MarqueeSection() {
   const rowTwoX = useTransform(scrollYProgress, [0, 1], [220, -220]);
 
   return (
-    <section ref={ref} className="overflow-hidden bg-ink py-20 sm:py-24 md:py-28">
+    <section ref={ref} className="overflow-hidden py-20 sm:py-24 md:py-28">
       <div className="mb-10 px-5 text-center sm:px-8 md:px-10">
         <FadeIn
           as="p"
@@ -37,12 +37,12 @@ export function MarqueeSection() {
           {firstRow.map((image, index) => (
             <div
               key={`${image.src}-top-${index}`}
-              className="liquid-glass h-[190px] w-[300px] flex-none rounded-[1.25rem] p-1 sm:h-[230px] sm:w-[360px] md:h-[270px] md:w-[420px]"
+              className="liquid-glass glass-media-frame h-[190px] w-[300px] flex-none rounded-[1.25rem] p-1 sm:h-[230px] sm:w-[360px] md:h-[270px] md:w-[420px]"
             >
               <img
                 src={image.src}
                 alt={image.alt}
-                className="h-full w-full rounded-[1rem] object-cover"
+                className="glass-media h-full w-full rounded-[1rem] object-cover"
                 loading="lazy"
               />
             </div>
@@ -55,12 +55,12 @@ export function MarqueeSection() {
           {secondRow.map((image, index) => (
             <div
               key={`${image.src}-bottom-${index}`}
-              className="liquid-glass h-[190px] w-[300px] flex-none rounded-[1.25rem] p-1 sm:h-[230px] sm:w-[360px] md:h-[270px] md:w-[420px]"
+              className="liquid-glass glass-media-frame h-[190px] w-[300px] flex-none rounded-[1.25rem] p-1 sm:h-[230px] sm:w-[360px] md:h-[270px] md:w-[420px]"
             >
               <img
                 src={image.src}
                 alt={image.alt}
-                className="h-full w-full rounded-[1rem] object-cover"
+                className="glass-media h-full w-full rounded-[1rem] object-cover"
                 loading="lazy"
               />
             </div>
