@@ -30,112 +30,25 @@ export type FriendLink = {
 export const profile = {
   name: "Sunay",
   title: "Sunay",
-  heroTitle: "Hi, i'm Sunay",
+  heroTitle: "Hi,I'm Sunay",
   heroDescription:
     "a visual creator crafting striking brands, web experiences, motion, and unforgettable digital projects",
   aboutTitle: "About me",
   about:
     "With more than five years of experience in design, i focus on branding, web design, and user experience, i truly enjoy working with businesses that aim to stand out and present their best image. Let's build something incredible together!",
   contactLabel: "Contact Me",
-  contactUrl: "mailto:sunay@example.com",
+  contactUrl: "#contact",
 };
 
 export const navLinks = [
-  { label: "About", href: "#about" },
-  { label: "Price", href: "#services" },
-  { label: "Projects", href: "#projects" },
-  { label: "Contact", href: "#contact" },
+  { label: "关于我", href: "#about" },
+  { label: "合作", href: "#services" },
+  { label: "作品", href: "#projects" },
+  { label: "联系我", href: "#contact" },
 ];
 
 export const friendLinks: FriendLink[] = [
   { label: "Cloud09", href: "https://cloud09.space" },
-];
-
-export const marqueeImages: PortfolioImage[] = [
-  {
-    src: "https://motionsites.ai/assets/hero-space-voyage-preview-eECLH3Yc.gif",
-    alt: "Space voyage motion preview",
-  },
-  {
-    src: "https://motionsites.ai/assets/hero-codenest-preview-Cgppc2qV.gif",
-    alt: "Codenest motion preview",
-  },
-  {
-    src: "https://motionsites.ai/assets/hero-vex-ventures-preview-BczMFIiw.gif",
-    alt: "Vex ventures motion preview",
-  },
-  {
-    src: "https://motionsites.ai/assets/hero-stellar-ai-v2-preview-DjvxjG3C.gif",
-    alt: "Stellar AI motion preview",
-  },
-  {
-    src: "https://motionsites.ai/assets/hero-asme-preview-B_nGDnTP.gif",
-    alt: "Asme motion preview",
-  },
-  {
-    src: "https://motionsites.ai/assets/hero-transform-data-preview-Cx5OU29N.gif",
-    alt: "Transform data motion preview",
-  },
-  {
-    src: "https://motionsites.ai/assets/hero-vitara-preview-Cjz2QYyU.gif",
-    alt: "Vitara motion preview",
-  },
-  {
-    src: "https://motionsites.ai/assets/hero-terra-preview-BFjrCr7T.gif",
-    alt: "Terra motion preview",
-  },
-  {
-    src: "https://motionsites.ai/assets/hero-skyelite-preview-DHaZIgUv.gif",
-    alt: "Skyelite motion preview",
-  },
-  {
-    src: "https://motionsites.ai/assets/hero-aethera-preview-DknSlcTa.gif",
-    alt: "Aethera motion preview",
-  },
-  {
-    src: "https://motionsites.ai/assets/hero-designpro-preview-D8c5_een.gif",
-    alt: "Designpro motion preview",
-  },
-  {
-    src: "https://motionsites.ai/assets/hero-stellar-ai-preview-D3HL6bw1.gif",
-    alt: "Stellar AI concept preview",
-  },
-  {
-    src: "https://motionsites.ai/assets/hero-xportfolio-preview-D4A8maiC.gif",
-    alt: "Xportfolio motion preview",
-  },
-  {
-    src: "https://motionsites.ai/assets/hero-orbit-web3-preview-BXt4OttD.gif",
-    alt: "Orbit web3 motion preview",
-  },
-  {
-    src: "https://motionsites.ai/assets/hero-nexora-preview-cx5HmUgo.gif",
-    alt: "Nexora motion preview",
-  },
-  {
-    src: "https://motionsites.ai/assets/hero-evr-ventures-preview-DZxeVFEX.gif",
-    alt: "EVR ventures motion preview",
-  },
-  {
-    src: "https://motionsites.ai/assets/hero-planet-orbit-preview-DWAP8Z1P.gif",
-    alt: "Planet orbit motion preview",
-  },
-  {
-    src: "https://motionsites.ai/assets/hero-new-era-preview-CocuDUm9.gif",
-    alt: "New era motion preview",
-  },
-  {
-    src: "https://motionsites.ai/assets/hero-wealth-preview-B70idl_u.gif",
-    alt: "Wealth motion preview",
-  },
-  {
-    src: "https://motionsites.ai/assets/hero-luminex-preview-CxOP7ce6.gif",
-    alt: "Luminex motion preview",
-  },
-  {
-    src: "https://motionsites.ai/assets/hero-celestia-preview-0yO3jXO8.gif",
-    alt: "Celestia motion preview",
-  },
 ];
 
 export const services: Service[] = [

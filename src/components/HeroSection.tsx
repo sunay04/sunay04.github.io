@@ -1,4 +1,5 @@
 import { ArrowUpRight } from "lucide-react";
+import { AudioToggle } from "./AudioToggle";
 import { ContactButton } from "./ContactButton";
 import { FadeIn } from "./FadeIn";
 import { BlurText } from "./BlurText";
@@ -35,14 +36,7 @@ export function HeroSection() {
             ))}
           </ul>
 
-          <ContactButton className="hidden md:inline-flex" />
-          <a
-            href="#contact"
-            className="liquid-glass flex h-12 w-12 items-center justify-center rounded-full text-sm font-medium text-white md:hidden"
-            aria-label="Open contact section"
-          >
-            <ArrowUpRight aria-hidden="true" className="h-5 w-5" />
-          </a>
+          <AudioToggle />
         </div>
       </FadeIn>
 
@@ -80,14 +74,15 @@ export function HeroSection() {
           immediate
           delay={1}
           y={18}
-          className="mt-7 flex flex-wrap items-center justify-center gap-5"
+          className="mt-7 flex flex-wrap items-center justify-center gap-3"
         >
           <ContactButton />
           <a
             href="#projects"
-            className="inline-flex items-center gap-2 rounded-full px-1 py-2 text-sm font-medium text-white transition duration-200 hover:text-white/70"
+            className="liquid-glass inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full px-5 py-2.5 text-sm font-medium text-white transition duration-200 hover:bg-white/10 active:scale-[0.98]"
           >
             View Projects
+            <ArrowUpRight aria-hidden="true" className="h-5 w-5" />
           </a>
         </FadeIn>
       </div>

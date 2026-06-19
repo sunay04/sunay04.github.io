@@ -23,7 +23,7 @@ export function FooterSection() {
           <div className="flex flex-col items-start gap-5 md:items-end">
             <ContactButton />
             <a
-              href={profile.contactUrl}
+              href="mailto:sunay@example.com"
               className="inline-flex items-center gap-2 text-sm font-medium text-white/78 transition hover:text-white"
             >
               sunay@example.com
