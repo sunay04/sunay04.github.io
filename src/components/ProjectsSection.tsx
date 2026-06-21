@@ -49,23 +49,48 @@ function MediaFrame({
   variant = "gallery",
 }: {
   media: PortfolioImage;
-  variant?: "hero" | "gallery";
+  variant?: "hero" | "gallery" | "natural";
 }) {
   const isWide = media.span === "wide";
+  const isNatural = variant === "natural";
+  const heroHeightClass =
+    media.height === "tall"
+      ? "h-[clamp(520px,58vw,760px)]"
+      : isWide
+        ? "h-[clamp(300px,42vw,520px)]"
+        : "h-[clamp(420px,56vw,760px)]";
 
   return (
     <figure
       className={cn(
         "group relative overflow-hidden rounded-[1.25rem] border border-white/10 bg-white/[0.035]",
-        variant === "hero"
-          ? isWide
-            ? "h-[clamp(300px,42vw,520px)]"
-            : "h-[clamp(420px,56vw,760px)]"
-          : "h-[clamp(260px,34vw,440px)]",
+        isNatural ? "" : variant === "hero" ? heroHeightClass : "h-[clamp(260px,34vw,440px)]",
         isWide && variant === "gallery" ? "md:col-span-2" : "",
       )}
     >
-      <ProjectMedia media={media} />
+      {isNatural ? (
+        media.type === "video" ? (
+          <video
+            src={media.src}
+            aria-label={media.alt}
+            className="glass-media h-auto w-full bg-black object-contain"
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="metadata"
+          />
+        ) : (
+          <img
+            src={media.src}
+            alt={media.alt}
+            className="glass-media h-auto w-full bg-[#f3f0ea] object-contain"
+            loading="lazy"
+          />
+        )
+      ) : (
+        <ProjectMedia media={media} />
+      )}
       {media.caption ? (
         <figcaption className="absolute left-3 top-3 rounded-full bg-black/42 px-3 py-1 text-[11px] font-medium text-white backdrop-blur-md">
           {media.caption}
@@ -143,12 +168,23 @@ function ProjectFullLayout({ project }: { project: Project }) {
   );
 }
 
+function ProjectHeroStack({ project }: { project: Project }) {
+  return (
+    <div className="grid content-start gap-4">
+      <MediaFrame media={project.hero} variant="hero" />
+      {project.heroSupport ? (
+        <MediaFrame media={project.heroSupport} variant="natural" />
+      ) : null}
+    </div>
+  );
+}
+
 function ProjectCard({ project, index }: ProjectCardProps) {
   return (
     <FadeIn delay={index * 0.08} y={36}>
       <article id={project.id} className="liquid-glass scroll-mt-24 overflow-hidden rounded-[1.25rem] p-4 sm:p-6 md:p-8">
         <div className="grid gap-7 lg:grid-cols-[minmax(0,1.55fr)_minmax(320px,0.45fr)] lg:items-stretch">
-          <MediaFrame media={project.hero} variant="hero" />
+          <ProjectHeroStack project={project} />
 
           <div className="flex min-w-0 flex-col gap-6 rounded-[1.25rem] bg-black/14 p-5 sm:p-6">
             <div className="flex items-start justify-between gap-5">

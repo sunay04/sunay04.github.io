@@ -5,6 +5,7 @@
   fit?: "cover" | "contain";
   caption?: string;
   span?: "normal" | "wide";
+  height?: "standard" | "tall";
 };
 
 export type ProjectResource = {
@@ -27,6 +28,7 @@ export type Project = {
   linkLabel: string;
   resources?: ProjectResource[];
   hero: PortfolioImage;
+  heroSupport?: PortfolioImage;
   gallery: PortfolioImage[];
   fullLayout?: PortfolioImage;
 };
@@ -151,6 +153,12 @@ export const projects: Project[] = [
       caption: "成片关键帧",
       span: "wide",
     },
+    heroSupport: {
+      src: "/portfolio/xuanzhi-hero-support.png",
+      alt: "《悬置》酒吧角色关键帧，蓝色压抑情绪",
+      fit: "cover",
+      caption: "情绪补充画面",
+    },
     gallery: [
       {
         src: "/portfolio/xuanzhi-board-01.jpg",
@@ -234,18 +242,18 @@ export const projects: Project[] = [
     hero: {
       src: "/portfolio/gentle-fold-main-visual-01.png",
       alt: "GENTLE MONSTER 折叠的维度主视觉，以虫观我",
-      fit: "cover",
+      fit: "contain",
       caption: "主图 01",
       span: "wide",
+      height: "tall",
+    },
+    heroSupport: {
+      src: "/portfolio/gentle-fold-main-visual-02.jpg",
+      alt: "GENTLE MONSTER 折叠的维度主视觉，以镜观骨",
+      fit: "contain",
+      caption: "主图 02",
     },
     gallery: [
-      {
-        src: "/portfolio/gentle-fold-main-visual-02.jpg",
-        alt: "GENTLE MONSTER 折叠的维度主视觉，以镜观骨",
-        fit: "cover",
-        caption: "主图 02",
-        span: "wide",
-      },
       {
         src: "/portfolio/gentle-fold-cover.png",
         alt: "GENTLE MONSTER 折叠的维度项目封面",
