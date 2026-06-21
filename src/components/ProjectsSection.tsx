@@ -1,6 +1,7 @@
-import { LiveProjectButton } from "./LiveProjectButton";
+﻿import { LiveProjectButton } from "./LiveProjectButton";
 import { FadeIn } from "./FadeIn";
 import { PortfolioImage, Project, projects } from "../content/portfolio";
+import { cn } from "../lib/utils";
 
 type ProjectCardProps = {
   project: Project;
@@ -9,16 +10,21 @@ type ProjectCardProps = {
 
 type ProjectMediaProps = {
   media: PortfolioImage;
-  className: string;
+  className?: string;
 };
 
 function ProjectMedia({ media, className }: ProjectMediaProps) {
+  const fitClass =
+    media.fit === "contain"
+      ? "object-contain bg-[#f3f0ea]"
+      : "object-cover";
+
   if (media.type === "video") {
     return (
       <video
         src={media.src}
         aria-label={media.alt}
-        className={className}
+        className={cn("glass-media h-full w-full", fitClass, className)}
         autoPlay
         loop
         muted
@@ -32,9 +38,38 @@ function ProjectMedia({ media, className }: ProjectMediaProps) {
     <img
       src={media.src}
       alt={media.alt}
-      className={className}
+      className={cn("glass-media h-full w-full", fitClass, className)}
       loading="lazy"
     />
+  );
+}
+
+function MediaFrame({
+  media,
+  variant = "gallery",
+}: {
+  media: PortfolioImage;
+  variant?: "hero" | "gallery";
+}) {
+  const isWide = media.span === "wide";
+
+  return (
+    <figure
+      className={cn(
+        "group relative overflow-hidden rounded-[1.25rem] border border-white/10 bg-white/[0.035]",
+        variant === "hero"
+          ? "h-[clamp(420px,56vw,760px)]"
+          : "h-[clamp(260px,34vw,440px)]",
+        isWide && variant === "gallery" ? "md:col-span-2" : "",
+      )}
+    >
+      <ProjectMedia media={media} />
+      {media.caption ? (
+        <figcaption className="absolute left-3 top-3 rounded-full bg-black/42 px-3 py-1 text-[11px] font-medium text-white backdrop-blur-md">
+          {media.caption}
+        </figcaption>
+      ) : null}
+    </figure>
   );
 }
 
@@ -71,44 +106,46 @@ function ProjectResources({ resources }: { resources?: Project["resources"] }) {
     </div>
   );
 }
-
 function ProjectCard({ project, index }: ProjectCardProps) {
   return (
     <FadeIn delay={index * 0.08} y={36}>
-      <article
-        id={project.id}
-        className="liquid-glass scroll-mt-24 overflow-hidden rounded-[1.25rem] p-4 sm:p-6 md:p-8"
-      >
-        <div className="grid gap-5 pb-6 md:grid-cols-[auto_minmax(0,1fr)_auto] md:items-end md:gap-7 md:pb-8">
-          <span className="font-heading text-[clamp(3.2rem,9vw,8rem)] italic leading-none text-white">
-            {project.number}
-          </span>
-          <div className="min-w-0">
-            <div className="flex flex-wrap items-center gap-2">
-              <p className="liquid-glass w-fit rounded-full px-3 py-1 text-xs font-light text-white/80 sm:text-sm">
-                {project.category}
-              </p>
-              <p className="text-xs font-light uppercase text-white/45">{project.year}</p>
-            </div>
-            <h3 className="mt-3 font-heading text-[clamp(2.5rem,5.6vw,5.5rem)] italic leading-[0.92] text-white">
-              {project.name}
-            </h3>
-          </div>
-          <LiveProjectButton href={project.liveUrl} label={project.linkLabel} />
-        </div>
+      <article id={project.id} className="liquid-glass scroll-mt-24 overflow-hidden rounded-[1.25rem] p-4 sm:p-6 md:p-8">
+        <div className="grid gap-7 lg:grid-cols-[minmax(0,1.55fr)_minmax(320px,0.45fr)] lg:items-stretch">
+          <MediaFrame media={project.hero} variant="hero" />
 
-        <div className="grid gap-4 lg:grid-cols-[0.42fr_0.58fr]">
-          <div className="grid gap-4">
-            <ProjectMedia
-              media={project.images.leftTop}
-              className="glass-media h-[clamp(130px,16vw,230px)] w-full rounded-[1.25rem] object-cover"
-            />
-            <div className="liquid-glass rounded-[1.25rem] p-5">
-              <p className="text-xs uppercase text-white/45">Role</p>
-              <p className="cosmic-copy mt-3 text-sm font-light leading-relaxed">
-                {project.role}
+          <div className="flex min-w-0 flex-col gap-6 rounded-[1.25rem] bg-black/14 p-5 sm:p-6">
+            <div className="flex items-start justify-between gap-5">
+              <span className="font-heading text-[clamp(3.4rem,8vw,7rem)] italic leading-none text-white">
+                {project.number}
+              </span>
+              <div className="flex flex-col items-end gap-2 pt-2">
+                <p className="liquid-glass w-fit rounded-full px-3 py-1 text-xs font-light text-white/80">
+                  {project.category}
+                </p>
+                <p className="text-xs font-light uppercase text-white/45">
+                  {project.year}
+                </p>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="font-heading text-[clamp(2.4rem,4.6vw,4.8rem)] italic leading-[0.94] text-white">
+                {project.name}
+              </h3>
+              <p className="cosmic-copy mt-5 text-sm font-light leading-relaxed md:text-base">
+                {project.summary}
               </p>
-              <div className="mt-5 flex flex-wrap gap-2">
+            </div>
+
+            <div className="mt-auto space-y-5">
+              <div>
+                <p className="text-xs uppercase text-white/45">Role</p>
+                <p className="cosmic-copy mt-2 text-sm font-light leading-relaxed">
+                  {project.role}
+                </p>
+              </div>
+
+              <div className="flex flex-wrap gap-2">
                 {project.tags.map((tag) => (
                   <span
                     key={tag}
@@ -118,22 +155,8 @@ function ProjectCard({ project, index }: ProjectCardProps) {
                   </span>
                 ))}
               </div>
-            </div>
-            <ProjectMedia
-              media={project.images.leftBottom}
-              className="glass-media h-[clamp(160px,22vw,340px)] w-full rounded-[1.25rem] object-cover"
-            />
-          </div>
-          <div className="grid gap-4">
-            <ProjectMedia
-              media={project.images.featured}
-              className="glass-media h-[360px] w-full rounded-[1.25rem] object-cover sm:h-[520px] lg:h-[560px]"
-            />
-            <div className="grid gap-4 md:grid-cols-[1fr_auto] md:items-end">
-              <p className="cosmic-copy max-w-3xl text-sm font-light leading-relaxed md:text-base">
-                {project.summary}
-              </p>
-              <div className="flex flex-wrap gap-2 md:max-w-[320px] md:justify-end">
+
+              <div className="flex flex-wrap gap-2">
                 {project.metrics.map((metric) => (
                   <span
                     key={metric}
@@ -143,9 +166,18 @@ function ProjectCard({ project, index }: ProjectCardProps) {
                   </span>
                 ))}
               </div>
+
+              <LiveProjectButton href={project.liveUrl} label={project.linkLabel} />
+
+              <ProjectResources resources={project.resources} />
             </div>
-            <ProjectResources resources={project.resources} />
           </div>
+        </div>
+
+        <div className="mt-4 grid gap-4 md:grid-cols-2">
+          {project.gallery.map((media) => (
+            <MediaFrame key={`${project.id}-${media.src}`} media={media} />
+          ))}
         </div>
       </article>
     </FadeIn>
@@ -157,7 +189,7 @@ function XuanzhiPptSection() {
     <FadeIn y={36}>
       <article
         id="xuanzhi-ppt"
-        className="mx-auto mt-10 max-w-7xl scroll-mt-24 overflow-hidden rounded-[1.25rem] border border-white/12 bg-white/[0.07] p-4 shadow-2xl shadow-black/20 backdrop-blur-xl sm:p-6 md:p-8"
+        className="mx-auto mt-10 max-w-[92rem] scroll-mt-24 overflow-hidden rounded-[1.25rem] border border-white/12 bg-white/[0.07] p-4 shadow-2xl shadow-black/20 backdrop-blur-xl sm:p-6 md:p-8"
       >
         <div className="mb-5 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div>
@@ -199,7 +231,6 @@ function XuanzhiPptSection() {
     </FadeIn>
   );
 }
-
 export function ProjectsSection() {
   return (
     <section
@@ -219,7 +250,7 @@ export function ProjectsSection() {
       >
         这里不是把作品一张张贴上来，而是按面试官最容易理解的方式展示：我做了什么、为什么这样做、用了哪些工具、最终留下了什么结果。
       </FadeIn>
-      <div className="mx-auto grid max-w-7xl gap-8 md:gap-10">
+      <div className="mx-auto grid max-w-[92rem] gap-8 md:gap-10">
         {projects.map((project, index) => (
           <ProjectCard
             key={project.id}
@@ -232,3 +263,4 @@ export function ProjectsSection() {
     </section>
   );
 }
+

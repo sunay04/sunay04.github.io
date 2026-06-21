@@ -1,7 +1,10 @@
-export type PortfolioImage = {
+﻿export type PortfolioImage = {
   src: string;
   alt: string;
   type?: "image" | "video";
+  fit?: "cover" | "contain";
+  caption?: string;
+  span?: "normal" | "wide";
 };
 
 export type ProjectResource = {
@@ -23,11 +26,8 @@ export type Project = {
   liveUrl: string;
   linkLabel: string;
   resources?: ProjectResource[];
-  images: {
-    leftTop: PortfolioImage;
-    leftBottom: PortfolioImage;
-    featured: PortfolioImage;
-  };
+  hero: PortfolioImage;
+  gallery: PortfolioImage[];
 };
 
 export type Service = {
@@ -143,21 +143,77 @@ export const projects: Project[] = [
         note: "可返回本板块",
       },
     ],
-    images: {
-      leftTop: {
+    hero: {
+      src: "/portfolio/xuanzhi-keyframes.png",
+      alt: "《悬置》AI 短片关键帧，包含压抑开场与温暖家庭段落",
+      fit: "contain",
+      caption: "成片关键帧",
+    },
+    gallery: [
+      {
+        src: "/portfolio/xuanzhi-board-01.jpg",
+        alt: "AI 短片分镜图：角色情绪镜头",
+        fit: "cover",
+        caption: "分镜图 01",
+        span: "wide",
+      },
+      {
+        src: "/portfolio/xuanzhi-board-02.jpg",
+        alt: "AI 短片分镜图：酒吧环境镜头",
+        fit: "cover",
+        caption: "分镜图 02",
+      },
+      {
+        src: "/portfolio/xuanzhi-board-03.jpg",
+        alt: "AI 短片分镜图：手部特写镜头",
+        fit: "cover",
+        caption: "分镜图 03",
+      },
+      {
+        src: "/portfolio/xuanzhi-board-04.jpg",
+        alt: "AI 短片分镜图：人物冲突镜头",
+        fit: "cover",
+        caption: "分镜图 04",
+      },
+      {
+        src: "/portfolio/xuanzhi-board-05.jpg",
+        alt: "AI 短片分镜图：人物表情特写",
+        fit: "cover",
+        caption: "分镜图 05",
+      },
+      {
+        src: "/portfolio/xuanzhi-board-06.jpg",
+        alt: "AI 短片分镜图：黑白人物镜头",
+        fit: "cover",
+        caption: "分镜图 06",
+      },
+      {
+        src: "/portfolio/xuanzhi-frame-oppressive.png",
+        alt: "《悬置》压抑开场关键帧",
+        fit: "cover",
+        caption: "压抑中心构图",
+      },
+      {
+        src: "/portfolio/xuanzhi-frame-warm.png",
+        alt: "《悬置》温暖家庭结尾关键帧",
+        fit: "cover",
+        caption: "暖色家庭结尾",
+      },
+      {
         src: "/portfolio/xuanzhi-storyboard.png",
         alt: "《悬置》AI 短片分镜表与镜头规划",
+        fit: "contain",
+        caption: "分镜表",
+        span: "wide",
       },
-      leftBottom: {
+      {
         src: "/portfolio/xuanzhi-process.png",
         alt: "《悬置》AI 短片课程展示与制作过程",
+        fit: "contain",
+        caption: "课堂展示过程",
+        span: "wide",
       },
-      featured: {
-        src: "/portfolio/xuanzhi-film.mp4",
-        alt: "《悬置》AI 短片关键帧，包含压抑开场与温暖家庭段落",
-        type: "video",
-      },
-    },
+    ],
   },
   {
     id: "gentle-monster-folded-dimension",
@@ -172,20 +228,45 @@ export const projects: Project[] = [
     metrics: ["5 人团队协作", "完整品牌延展", "多场景应用"],
     liveUrl: "/portfolio/liuyan-portfolio-aigc.pdf",
     linkLabel: "查看项目页",
-    images: {
-      leftTop: {
-        src: "/portfolio/gentle-system.jpg",
-        alt: "GENTLE MONSTER 项目的字体与视觉系统",
+    resources: [
+      {
+        label: "查看完整长图排版",
+        href: "/portfolio/gentle-full-layout.jpg",
+        note: "完整作品源图",
       },
-      leftBottom: {
-        src: "/portfolio/gentle-application.jpg",
-        alt: "GENTLE MONSTER 项目的品牌延展应用",
-      },
-      featured: {
-        src: "/portfolio/gentle-hero.jpg",
-        alt: "GENTLE MONSTER 折叠的维度主视觉",
-      },
+    ],    hero: {
+      src: "/portfolio/gentle-full-cover.jpg",
+      alt: "GENTLE MONSTER 折叠的维度完整作品排版顶部节选",
+      fit: "contain",
+      caption: "完整排版节选",
     },
+    gallery: [
+      {
+        src: "/portfolio/gentle-full-concept.jpg",
+        alt: "GENTLE MONSTER 视觉概念与草图阶段",
+        fit: "contain",
+        caption: "概念与草图",
+        span: "wide",
+      },
+      {
+        src: "/portfolio/gentle-full-color.jpg",
+        alt: "GENTLE MONSTER 色稿与字体设计阶段",
+        fit: "contain",
+        caption: "色稿与字体",
+      },
+      {
+        src: "/portfolio/gentle-full-extension.jpg",
+        alt: "GENTLE MONSTER 品牌延展与周边应用",
+        fit: "contain",
+        caption: "品牌延展",
+      },
+      {
+        src: "/portfolio/gentle-full-window.jpg",
+        alt: "GENTLE MONSTER 橱窗与线下应用效果",
+        fit: "contain",
+        caption: "橱窗应用",
+      },
+    ],
   },
   {
     id: "future-echoes-visual-extension",
@@ -200,21 +281,39 @@ export const projects: Project[] = [
     metrics: ["4 张静态延展", "3 段动态视频", "海报到空间场景"],
     liveUrl: "/portfolio/future-echoes-motion-poster.mp4",
     linkLabel: "观看动态海报",
-    images: {
-      leftTop: {
+    hero: {
+      src: "/portfolio/future-echoes-motion-poster.mp4",
+      alt: "Future Echoes 动态海报视频",
+      type: "video",
+      fit: "contain",
+      caption: "动态海报",
+    },
+    gallery: [
+      {
+        src: "/portfolio/future-echoes-poster.jpg",
+        alt: "Future Echoes 主海报",
+        fit: "contain",
+        caption: "主海报",
+      },
+      {
         src: "/portfolio/future-echoes-badge.jpg",
         alt: "Future Echoes 嘉宾证与工作证物料样机",
+        fit: "cover",
+        caption: "证件物料",
       },
-      leftBottom: {
+      {
         src: "/portfolio/future-echoes-space.jpg",
         alt: "Future Echoes 空间延展场景",
+        fit: "cover",
+        caption: "空间延展",
       },
-      featured: {
-        src: "/portfolio/future-echoes-motion-poster.mp4",
-        alt: "Future Echoes 动态海报视频",
-        type: "video",
+      {
+        src: "/portfolio/future-echoes-contact.png",
+        alt: "Future Echoes 多媒介视觉延展合集",
+        fit: "contain",
+        caption: "延展合集",
       },
-    },
+    ],
   },
   {
     id: "henna-pop-up-market",
@@ -229,20 +328,44 @@ export const projects: Project[] = [
     metrics: ["2 个月运营", "10+ 店铺调研", "36 篇小红书笔记"],
     liveUrl: "/portfolio/liuyan-portfolio-aigc.pdf",
     linkLabel: "查看运营案例",
-    images: {
-      leftTop: {
-        src: "/portfolio/haina-contact.png",
-        alt: "海娜文化快闪集市项目视觉与运营素材合集",
-      },
-      leftBottom: {
-        src: "/portfolio/haina-scene.jpg",
-        alt: "海娜文化快闪集市线下服务场景",
-      },
-      featured: {
-        src: "/portfolio/haina-contact.png",
-        alt: "海娜文化快闪集市内容运营与活动物料",
-      },
+    hero: {
+      src: "/portfolio/haina-market-service.png",
+      alt: "海娜文化快闪集市现场服务与招牌",
+      fit: "contain",
+      caption: "线下快闪服务现场",
     },
+    gallery: [
+      {
+        src: "/portfolio/haina-market-signage.png",
+        alt: "海娜文化快闪集市招牌与摊位展示",
+        fit: "contain",
+        caption: "摊位招牌",
+      },
+      {
+        src: "/portfolio/haina-henna-detail-02.png",
+        alt: "海娜手绘服务交付细节",
+        fit: "cover",
+        caption: "服务交付细节",
+      },
+      {
+        src: "/portfolio/haina-henna-detail-03.png",
+        alt: "海娜手绘图案落地效果",
+        fit: "cover",
+        caption: "图案落地效果",
+      },
+      {
+        src: "/portfolio/haina-market-reference.png",
+        alt: "海娜文化快闪集市同类市集与摊位参考",
+        fit: "contain",
+        caption: "市集氛围参考",
+      },
+      {
+        src: "/portfolio/haina-research-questionnaire.jpg",
+        alt: "海娜文化快闪集市用户调研问卷",
+        fit: "contain",
+        caption: "用户调研问卷",
+      },
+    ],
   },
   {
     id: "shanxia-yousong-fragrance-illustration",
@@ -258,19 +381,40 @@ export const projects: Project[] = [
     liveUrl:
       "https://www.xiaohongshu.com/discovery/item/69f8503f0000000023006d3a?source=webshare&xhsshare=pc_web&xsec_token=AB1aPAVasTLsu4cvIcOvxnYpV5XZtfwbY4yBOkCjJmdyA=&xsec_source=pc_share",
     linkLabel: "查看发布笔记",
-    images: {
-      leftTop: {
-        src: "/portfolio/shanxia-hero.jpg",
-        alt: "山下有松香氛插画视觉细节",
-      },
-      leftBottom: {
-        src: "/portfolio/shanxia-contact.png",
-        alt: "山下有松品牌插画发布与延展素材",
-      },
-      featured: {
-        src: "/portfolio/shanxia-contact.png",
-        alt: "山下有松香氛插画项目合集",
-      },
+    hero: {
+      src: "/portfolio/shanxia-songmont-hero.png",
+      alt: "山下有松 Songmont 香氛主视觉插画",
+      fit: "contain",
+      caption: "香氛主视觉",
     },
+    gallery: [
+      {
+        src: "/portfolio/shanxia-songmont-incense.png",
+        alt: "山下有松 Songmont 香氛烟雾插画",
+        fit: "contain",
+        caption: "香气流动视觉",
+      },
+      {
+        src: "/portfolio/shanxia-product-mockup.jpg",
+        alt: "山下有松香氛产品与包装样机",
+        fit: "cover",
+        caption: "包装样机",
+      },
+      {
+        src: "/portfolio/shanxia-product-concept.jpg",
+        alt: "山下有松香氛产品理念页",
+        fit: "contain",
+        caption: "产品理念",
+      },
+      {
+        src: "/portfolio/shanxia-contact.png",
+        alt: "山下有松品牌插画发布与社媒数据",
+        fit: "contain",
+        caption: "社媒发布数据",
+      },
+    ],
   },
 ];
+
+
+
