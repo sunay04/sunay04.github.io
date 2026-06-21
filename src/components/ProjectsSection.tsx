@@ -58,7 +58,9 @@ function MediaFrame({
       className={cn(
         "group relative overflow-hidden rounded-[1.25rem] border border-white/10 bg-white/[0.035]",
         variant === "hero"
-          ? "h-[clamp(420px,56vw,760px)]"
+          ? isWide
+            ? "h-[clamp(300px,42vw,520px)]"
+            : "h-[clamp(420px,56vw,760px)]"
           : "h-[clamp(260px,34vw,440px)]",
         isWide && variant === "gallery" ? "md:col-span-2" : "",
       )}
@@ -106,6 +108,41 @@ function ProjectResources({ resources }: { resources?: Project["resources"] }) {
     </div>
   );
 }
+function ProjectFullLayout({ project }: { project: Project }) {
+  if (!project.fullLayout) {
+    return null;
+  }
+
+  return (
+    <details
+      id={`${project.id}-full-layout`}
+      className="mt-4 overflow-hidden rounded-[1.25rem] border border-white/12 bg-white/[0.06]"
+    >
+      <summary className="flex cursor-pointer list-none flex-col gap-3 px-5 py-4 text-white transition hover:bg-white/[0.04] sm:flex-row sm:items-center sm:justify-between sm:px-6">
+        <span>
+          <span className="block text-xs uppercase tracking-[0.22em] text-white/45">
+            Full Version
+          </span>
+          <span className="mt-1 block text-base font-medium">
+            点击展开 / 收起完整版长图
+          </span>
+        </span>
+        <span className="w-fit rounded-full border border-white/16 px-4 py-2 text-xs text-white/72">
+          {project.fullLayout.caption ?? "完整版"}
+        </span>
+      </summary>
+      <div className="border-t border-white/10 bg-[#f3f0ea] p-2 sm:p-3">
+        <img
+          src={project.fullLayout.src}
+          alt={project.fullLayout.alt}
+          className="h-auto w-full rounded-[0.85rem] object-contain"
+          loading="lazy"
+        />
+      </div>
+    </details>
+  );
+}
+
 function ProjectCard({ project, index }: ProjectCardProps) {
   return (
     <FadeIn delay={index * 0.08} y={36}>
@@ -179,6 +216,8 @@ function ProjectCard({ project, index }: ProjectCardProps) {
             <MediaFrame key={`${project.id}-${media.src}`} media={media} />
           ))}
         </div>
+
+        <ProjectFullLayout project={project} />
       </article>
     </FadeIn>
   );
@@ -263,4 +302,3 @@ export function ProjectsSection() {
     </section>
   );
 }
-

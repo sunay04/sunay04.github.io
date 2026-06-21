@@ -28,6 +28,7 @@ export type Project = {
   resources?: ProjectResource[];
   hero: PortfolioImage;
   gallery: PortfolioImage[];
+  fullLayout?: PortfolioImage;
 };
 
 export type Service = {
@@ -148,6 +149,7 @@ export const projects: Project[] = [
       alt: "《悬置》AI 短片关键帧，包含压抑开场与温暖家庭段落",
       fit: "contain",
       caption: "成片关键帧",
+      span: "wide",
     },
     gallery: [
       {
@@ -224,51 +226,60 @@ export const projects: Project[] = [
     linkLabel: "查看项目页",
     resources: [
       {
-        label: "查看完整长图排版",
-        href: "/portfolio/gentle-full-layout.jpg",
-        note: "完整作品源图",
+        label: "打开完整版长图",
+        href: "/portfolio/gentle-fold-full-layout.jpg",
+        note: "原图文件",
       },
     ],
     hero: {
-      src: "/portfolio/gentle-hero.jpg",
-      alt: "GENTLE MONSTER 折叠的维度主视觉横向展示",
+      src: "/portfolio/gentle-fold-main-visual-01.png",
+      alt: "GENTLE MONSTER 折叠的维度主视觉，以虫观我",
       fit: "cover",
-      caption: "主视觉横向展示",
+      caption: "主图 01",
+      span: "wide",
     },
     gallery: [
       {
-        src: "/portfolio/gentle-full-cover.jpg",
-        alt: "GENTLE MONSTER 折叠的维度完整排版顶部节选",
+        src: "/portfolio/gentle-fold-main-visual-02.jpg",
+        alt: "GENTLE MONSTER 折叠的维度主视觉，以镜观骨",
         fit: "cover",
-        caption: "完整排版节选",
+        caption: "主图 02",
         span: "wide",
       },
       {
-        src: "/portfolio/gentle-system.jpg",
-        alt: "GENTLE MONSTER 视觉系统与品牌语境",
+        src: "/portfolio/gentle-fold-cover.png",
+        alt: "GENTLE MONSTER 折叠的维度项目封面",
         fit: "cover",
-        caption: "视觉系统",
+        caption: "项目封面",
+        span: "wide",
       },
       {
-        src: "/portfolio/gentle-application.jpg",
-        alt: "GENTLE MONSTER 色稿与应用阶段",
+        src: "/portfolio/gentle-fold-mockup-01.png",
+        alt: "GENTLE MONSTER 折叠的维度橱窗样机，以镜观骨",
         fit: "cover",
-        caption: "色稿与应用",
+        caption: "橱窗样机 01",
       },
       {
-        src: "/portfolio/gentle-full-extension.jpg",
-        alt: "GENTLE MONSTER 品牌延展与周边应用",
+        src: "/portfolio/gentle-fold-mockup-02.png",
+        alt: "GENTLE MONSTER 折叠的维度橱窗样机，以虫观我",
         fit: "cover",
-        caption: "品牌延展",
+        caption: "橱窗样机 02",
       },
       {
-        src: "/portfolio/gentle-full-window.jpg",
-        alt: "GENTLE MONSTER 橱窗与线下应用效果",
+        src: "/portfolio/gentle-fold-dynamic-visual.mp4",
+        alt: "GENTLE MONSTER 折叠的维度延展动态视觉",
+        type: "video",
         fit: "cover",
-        caption: "橱窗应用",
+        caption: "延展动态视觉",
         span: "wide",
       },
     ],
+    fullLayout: {
+      src: "/portfolio/gentle-fold-full-layout.jpg",
+      alt: "GENTLE MONSTER 折叠的维度完整版长图排版",
+      fit: "contain",
+      caption: "完整版长图",
+    },
   },
   {
     id: "future-echoes-visual-extension",
@@ -333,8 +344,9 @@ export const projects: Project[] = [
     hero: {
       src: "/portfolio/haina-market-service.png",
       alt: "海娜文化快闪集市现场服务与招牌",
-      fit: "contain",
+      fit: "cover",
       caption: "线下快闪服务现场",
+      span: "wide",
     },
     gallery: [
       {
@@ -411,6 +423,3 @@ export const projects: Project[] = [
     ],
   },
 ];
-
-
-
