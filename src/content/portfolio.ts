@@ -24,8 +24,8 @@ export type Project = {
   summary: string;
   tags: string[];
   metrics: string[];
-  liveUrl: string;
-  linkLabel: string;
+  liveUrl?: string;
+  linkLabel?: string;
   resources?: ProjectResource[];
   hero: PortfolioImage;
   heroSupport?: PortfolioImage;
@@ -57,7 +57,6 @@ export const profile = {
   availability: "上海线下暑期实习 / 每周 5 天 / 3 个月以上",
   contactLabel: "查看作品集与简历",
   contactUrl: "#footer-contact",
-  portfolioUrl: "/portfolio/liuyan-portfolio-aigc.pdf",
   resumeOpsUrl: "/portfolio/liuyan-resume-aigc-ops.pdf",
   resumeVisualUrl: "/portfolio/liuyan-resume-visual-aigc.pdf",
 };
@@ -127,8 +126,6 @@ export const projects: Project[] = [
       "一支 3 分钟自我表达短片，以年轻人被现实与理想拉扯的双重生活为核心。项目把剧本拆成可执行的镜头系统，再用 AI 生成与剪辑完成压抑到温暖的情绪转向，重点展示我对主题、分镜、镜头情绪和成片节奏的控制。",
     tags: ["49 镜头分镜", "Midjourney", "即梦", "可灵", "PR / 剪映"],
     metrics: ["3 分钟成片", "成片关键帧", "从剧本到成片独立完成"],
-    liveUrl: "/portfolio/liuyan-portfolio-aigc.pdf",
-    linkLabel: "打开作品集 PDF",
     resources: [
       {
         label: "观看《悬置》视频",
@@ -230,8 +227,6 @@ export const projects: Project[] = [
       "围绕 GENTLE MONSTER 的先锋、异质和实验感，建立一套带有冒险叙事的品牌视觉系统。项目覆盖主视觉、海报、橱窗、产品视觉、周边与动态延展，重点体现从单张视觉到品牌应用场景的完整推演。",
     tags: ["品牌命题", "主视觉", "字体设计", "橱窗 / 周边", "动态延展"],
     metrics: ["5 人团队协作", "完整品牌延展", "多场景应用"],
-    liveUrl: "/portfolio/liuyan-portfolio-aigc.pdf",
-    linkLabel: "查看项目页",
     resources: [
       {
         label: "打开完整版长图",
@@ -347,8 +342,6 @@ export const projects: Project[] = [
       "在山西大同东南邑落地 2 个月线下快闪项目。前期通过实地与线上调研观察 10+ 同类店铺，随后设计套餐、物料和小红书发布节奏，把文化体验转化为可被游客理解和购买的线下服务。",
     tags: ["线下快闪", "小红书运营", "服务设计", "活动策划"],
     metrics: ["2 个月运营", "10+ 店铺调研", "36 篇小红书笔记"],
-    liveUrl: "/portfolio/liuyan-portfolio-aigc.pdf",
-    linkLabel: "查看运营案例",
     hero: {
       src: "/portfolio/haina-market-service.png",
       alt: "海娜文化快闪集市现场服务与招牌",

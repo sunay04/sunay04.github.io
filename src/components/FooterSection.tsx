@@ -25,18 +25,9 @@ export function FooterSection() {
         >
           <div className="grid gap-8 p-6 md:grid-cols-[minmax(0,1fr)_auto] md:items-end md:p-8 lg:p-10">
             <p className="cosmic-copy max-w-2xl text-sm font-light leading-relaxed md:text-base">
-              这是我的在线作品入口。投递时可以直接附上网站，也可以下载完整 PDF 作品集和两版岗位导向简历。联系方式请以简历 PDF 为准。
+              这是我的在线作品入口。投递时可以直接附上网站，也可以下载两版岗位导向简历。联系方式请以简历 PDF 为准。
             </p>
             <div className="flex flex-col items-start gap-3 md:items-end">
-              <a
-                href={profile.portfolioUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="liquid-glass-strong inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full px-5 py-2.5 text-sm font-medium text-white transition duration-200 hover:scale-[1.02] active:scale-[0.98]"
-              >
-                打开完整作品集 PDF
-                <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
-              </a>
               <a
                 href={profile.resumeOpsUrl}
                 target="_blank"

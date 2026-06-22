@@ -240,7 +240,9 @@ function ProjectCard({ project, index }: ProjectCardProps) {
                 ))}
               </div>
 
-              <LiveProjectButton href={project.liveUrl} label={project.linkLabel} />
+              {project.liveUrl ? (
+                <LiveProjectButton href={project.liveUrl} label={project.linkLabel} />
+              ) : null}
 
               <ProjectResources resources={project.resources} />
             </div>
