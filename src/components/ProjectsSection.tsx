@@ -49,7 +49,7 @@ function MediaFrame({
   variant = "gallery",
 }: {
   media: PortfolioImage;
-  variant?: "hero" | "gallery" | "natural";
+  variant?: "hero" | "gallery" | "natural" | "feature";
 }) {
   const isWide = media.span === "wide";
   const isNatural = variant === "natural";
@@ -64,7 +64,13 @@ function MediaFrame({
     <figure
       className={cn(
         "group relative overflow-hidden rounded-[1.25rem] border border-white/10 bg-white/[0.035]",
-        isNatural ? "" : variant === "hero" ? heroHeightClass : "h-[clamp(260px,34vw,440px)]",
+        isNatural
+          ? ""
+          : variant === "hero"
+            ? heroHeightClass
+            : variant === "feature"
+              ? "h-[clamp(520px,62vw,780px)]"
+              : "h-[clamp(260px,34vw,440px)]",
         isWide && variant === "gallery" ? "md:col-span-2" : "",
       )}
     >
@@ -97,6 +103,34 @@ function MediaFrame({
         </figcaption>
       ) : null}
     </figure>
+  );
+}
+
+function ProjectGallery({ project }: { project: Project }) {
+  if (!project.gallery.length) {
+    return null;
+  }
+
+  if (project.galleryLayout === "feature-left-stack-right" && project.gallery.length >= 3) {
+    const [feature, top, bottom] = project.gallery;
+
+    return (
+      <div className="mt-4 grid gap-4 lg:grid-cols-[minmax(0,1.08fr)_minmax(320px,0.92fr)]">
+        <MediaFrame media={feature} variant="feature" />
+        <div className="grid gap-4">
+          <MediaFrame media={top} />
+          <MediaFrame media={bottom} />
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="mt-4 grid gap-4 md:grid-cols-2">
+      {project.gallery.map((media) => (
+        <MediaFrame key={`${project.id}-${media.src}`} media={media} />
+      ))}
+    </div>
   );
 }
 
@@ -240,6 +274,25 @@ function ProjectCard({ project, index }: ProjectCardProps) {
                 ))}
               </div>
 
+              {project.takeaways?.length ? (
+                <div className="rounded-[1rem] border border-white/10 bg-white/[0.055] p-4">
+                  <p className="text-xs uppercase tracking-[0.18em] text-white/42">
+                    Interview Focus
+                  </p>
+                  <ul className="mt-3 space-y-2">
+                    {project.takeaways.map((takeaway) => (
+                      <li
+                        key={takeaway}
+                        className="cosmic-copy flex gap-2 text-xs font-light leading-relaxed text-white/72"
+                      >
+                        <span className="mt-[0.45rem] h-1.5 w-1.5 shrink-0 rounded-full bg-white/70" />
+                        <span>{takeaway}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
+
               {project.liveUrl ? (
                 <LiveProjectButton href={project.liveUrl} label={project.linkLabel} />
               ) : null}
@@ -249,11 +302,7 @@ function ProjectCard({ project, index }: ProjectCardProps) {
           </div>
         </div>
 
-        <div className="mt-4 grid gap-4 md:grid-cols-2">
-          {project.gallery.map((media) => (
-            <MediaFrame key={`${project.id}-${media.src}`} media={media} />
-          ))}
-        </div>
+        <ProjectGallery project={project} />
 
         <ProjectFullLayout project={project} />
       </article>

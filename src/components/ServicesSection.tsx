@@ -1,5 +1,5 @@
 import { FadeIn } from "./FadeIn";
-import { Service, services } from "../content/portfolio";
+import { Service, highlights, services } from "../content/portfolio";
 
 function serviceTag(service: Service) {
   return service.tag;
@@ -18,6 +18,26 @@ export function ServicesSection() {
       >
         Skill Set
       </FadeIn>
+      <div className="mx-auto mb-8 grid max-w-6xl grid-cols-1 gap-4 md:grid-cols-4">
+        {highlights.map((item, index) => (
+          <FadeIn
+            key={item.label}
+            immediate
+            delay={index * 0.08}
+            className="liquid-glass flex min-h-[170px] flex-col rounded-[1.25rem] p-5"
+          >
+            <p className="text-xs font-medium uppercase tracking-[0.18em] text-white/42">
+              {item.label}
+            </p>
+            <p className="mt-4 text-base font-medium leading-snug text-white">
+              {item.value}
+            </p>
+            <p className="cosmic-copy mt-auto pt-5 text-xs font-light leading-relaxed text-white/64">
+              {item.detail}
+            </p>
+          </FadeIn>
+        ))}
+      </div>
       <div className="mx-auto grid max-w-6xl grid-cols-1 gap-5 md:grid-cols-3">
         {services.slice(0, 3).map((service, index) => (
           <FadeIn
