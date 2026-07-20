@@ -10,7 +10,6 @@ export function FooterSection() {
 
   return (
     <footer
-      id="contact"
       className="relative min-h-[82dvh] overflow-hidden px-5 pb-10 pt-24 text-white sm:px-8 md:px-10 md:pt-32"
     >
       <div className="relative z-10 mx-auto flex min-h-[calc(82dvh-8rem)] max-w-7xl flex-col justify-between gap-16">

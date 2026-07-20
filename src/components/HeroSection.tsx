@@ -1,45 +1,12 @@
 import { ArrowUpRight } from "lucide-react";
-import { AudioToggle } from "./AudioToggle";
 import { ContactButton } from "./ContactButton";
 import { FadeIn } from "./FadeIn";
 import { BlurText } from "./BlurText";
-import { navLinks, profile } from "../content/portfolio";
+import { profile } from "../content/portfolio";
 
 export function HeroSection() {
   return (
     <section className="relative flex min-h-[100dvh] flex-col overflow-hidden">
-      <FadeIn
-        as="nav"
-        immediate
-        y={-20}
-        className="fixed left-0 right-0 top-4 z-50 px-4 md:px-8 lg:px-16"
-      >
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-3">
-          <a
-            href="#"
-            aria-label={`${profile.name} home`}
-            className="liquid-glass flex h-12 w-12 items-center justify-center rounded-full font-heading text-3xl italic leading-none text-white"
-          >
-            {profile.name.charAt(0).toLowerCase()}
-          </a>
-
-          <ul className="liquid-glass hidden items-center gap-1 rounded-full px-1.5 py-1.5 md:flex">
-            {navLinks.map((link) => (
-              <li key={link.href}>
-                <a
-                  className="block whitespace-nowrap rounded-full px-3 py-2 text-sm font-medium text-white/90 transition duration-200 hover:bg-white/10 hover:text-white"
-                  href={link.href}
-                >
-                  {link.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-
-          <AudioToggle />
-        </div>
-      </FadeIn>
-
       <div className="relative z-10 flex flex-1 flex-col items-center justify-center px-4 pt-24 text-center mist-readable">
         <FadeIn
           immediate

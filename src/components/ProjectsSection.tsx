@@ -360,7 +360,6 @@ function XuanzhiPptSection() {
 export function ProjectsSection() {
   return (
     <section
-      id="projects"
       className="relative z-10 px-5 py-24 sm:px-8 md:px-10 md:py-32"
     >
       <div className="pointer-events-none absolute inset-x-8 top-0 h-px bg-white/20 md:inset-x-16" />

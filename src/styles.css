@@ -19,7 +19,53 @@ body,
 }
 
 body {
-  overflow-x: clip;
+  overflow: hidden;
+}
+
+.horizontal-viewport {
+  display: flex;
+  width: 100%;
+  height: 100dvh;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.horizontal-viewport::-webkit-scrollbar,
+.nav-switcher::-webkit-scrollbar {
+  display: none;
+}
+
+.horizontal-panel {
+  flex: 0 0 100vw;
+  width: 100vw;
+  height: 100dvh;
+  min-width: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  scrollbar-color: rgba(255, 255, 255, 0.28) transparent;
+  scrollbar-width: thin;
+}
+
+.nav-switcher {
+  scrollbar-width: none;
+}
+
+.nav-switcher a[data-active="true"] {
+  background: #fff;
+  color: #050607;
+}
+
+@media (max-width: 359px) {
+  .site-logo {
+    display: none;
+  }
 }
 
 .site-backdrop {

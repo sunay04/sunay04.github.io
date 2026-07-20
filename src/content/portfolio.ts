@@ -91,7 +91,7 @@ export const navLinks = [
   { label: "关于", href: "#about" },
   { label: "能力", href: "#services" },
   { label: "作品", href: "#projects" },
-  { label: "联系", href: "#footer-contact" },
+  { label: "联系", href: "#contact" },
 ];
 
 export const friendLinks: FriendLink[] = [

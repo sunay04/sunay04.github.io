@@ -6,7 +6,6 @@ import { profile } from "../content/portfolio";
 export function AboutSection() {
   return (
     <section
-      id="about"
       className="relative flex min-h-[90dvh] items-center justify-center overflow-hidden px-5 py-24 sm:px-8 md:px-10 md:py-32"
     >
       <div className="pointer-events-none absolute inset-0 opacity-80">
