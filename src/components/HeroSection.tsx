@@ -25,8 +25,8 @@ export function HeroSection() {
   return (
     <section className="relative min-h-[100dvh] overflow-hidden px-5 pb-10 pt-24 sm:px-8 md:px-10 lg:pt-28">
       <div className="pointer-events-none absolute inset-0 opacity-70" aria-hidden="true">
-        <div className="absolute left-[-15%] top-[12%] h-[34rem] w-[34rem] rounded-full border border-white/10" />
-        <div className="absolute bottom-[-30%] right-[-12%] h-[38rem] w-[38rem] rounded-full border border-white/10" />
+        <div className="hero-orbit hero-orbit-left" />
+        <div className="hero-orbit hero-orbit-right" />
       </div>
 
       <div className="relative z-10 mx-auto flex min-h-[calc(100dvh-8.5rem)] max-w-5xl flex-col items-center justify-center text-center mist-readable lg:min-h-[calc(100dvh-9.5rem)]">

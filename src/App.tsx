@@ -2,6 +2,7 @@ import { HeroSection } from "./components/HeroSection";
 import { ProjectsSection } from "./components/ProjectsSection";
 import { ServicesSection } from "./components/ServicesSection";
 import { SiteNavigation } from "./components/SiteNavigation";
+import { IntroAnimation } from "./components/IntroAnimation";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 const sectionIds = ["about", "services", "projects"];
@@ -11,6 +12,9 @@ export function App() {
   const navigationTargetRef = useRef<string | null>(null);
   const scrollEndTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [activeSection, setActiveSection] = useState("about");
+  const [introComplete, setIntroComplete] = useState(false);
+
+  const completeIntro = useCallback(() => setIntroComplete(true), []);
 
   const navigateTo = useCallback((sectionId: string, updateHistory = true) => {
     const target = document.getElementById(sectionId);
@@ -78,18 +82,21 @@ export function App() {
   return (
     <main className="relative h-[100dvh] overflow-hidden bg-ink font-body text-white">
       <div className="site-backdrop" aria-hidden="true" />
-      <SiteNavigation activeSection={activeSection} onNavigate={navigateTo} />
-      <div ref={viewportRef} className="horizontal-viewport relative z-10">
-        <div id="about" className="horizontal-panel">
-          <HeroSection />
-        </div>
-        <div id="services" className="horizontal-panel">
-          <ServicesSection />
-        </div>
-        <div id="projects" className="horizontal-panel">
-          <ProjectsSection />
+      <div className={introComplete ? "site-content is-ready" : "site-content"}>
+        <SiteNavigation activeSection={activeSection} onNavigate={navigateTo} />
+        <div ref={viewportRef} className="horizontal-viewport relative z-10">
+          <div id="about" className="horizontal-panel">
+            <HeroSection />
+          </div>
+          <div id="services" className="horizontal-panel">
+            <ServicesSection />
+          </div>
+          <div id="projects" className="horizontal-panel">
+            <ProjectsSection />
+          </div>
         </div>
       </div>
+      <IntroAnimation onComplete={completeIntro} />
     </main>
   );
 }
