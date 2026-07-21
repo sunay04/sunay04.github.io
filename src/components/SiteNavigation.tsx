@@ -120,31 +120,33 @@ export function SiteNavigation({
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: -6, scale: 0.98 }}
                   transition={{ duration: 0.18, ease: "easeOut" }}
-                  className="liquid-glass-strong absolute right-0 top-14 w-44 overflow-hidden rounded-2xl p-2 shadow-2xl shadow-black/30"
+                  className="absolute right-0 top-14 w-44 origin-top-right"
                 >
-                  <ul className="space-y-1">
-                    {navLinks.map((link) => {
-                      const sectionId = link.href.slice(1);
-                      const isActive = activeSection === sectionId;
+                  <div className="liquid-glass-strong overflow-hidden rounded-2xl p-2 shadow-2xl shadow-black/30">
+                    <ul className="space-y-1">
+                      {navLinks.map((link) => {
+                        const sectionId = link.href.slice(1);
+                        const isActive = activeSection === sectionId;
 
-                      return (
-                        <li key={link.href}>
-                          <a
-                            href={link.href}
-                            data-active={isActive}
-                            aria-current={isActive ? "page" : undefined}
-                            className="block min-h-11 rounded-xl px-4 py-3 text-sm font-medium text-white/75 transition duration-200 hover:bg-white/10 hover:text-white data-[active=true]:bg-white data-[active=true]:text-ink"
-                            onClick={(event) => {
-                              event.preventDefault();
-                              handleNavigate(sectionId);
-                            }}
-                          >
-                            {link.label}
-                          </a>
-                        </li>
-                      );
-                    })}
-                  </ul>
+                        return (
+                          <li key={link.href}>
+                            <a
+                              href={link.href}
+                              data-active={isActive}
+                              aria-current={isActive ? "page" : undefined}
+                              className="block min-h-11 rounded-xl px-4 py-3 text-sm font-medium text-white/75 transition duration-200 hover:bg-white/10 hover:text-white data-[active=true]:bg-white data-[active=true]:text-ink"
+                              onClick={(event) => {
+                                event.preventDefault();
+                                handleNavigate(sectionId);
+                              }}
+                            >
+                              {link.label}
+                            </a>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
                 </motion.div>
               )}
             </AnimatePresence>
