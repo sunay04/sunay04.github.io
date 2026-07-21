@@ -178,19 +178,19 @@ select {
 
 .liquid-glass,
 .liquid-glass-strong {
-  background: rgba(255, 255, 255, 0.035);
+  background: rgba(28, 28, 30, 0.58);
   background-blend-mode: luminosity;
   border: none;
   box-shadow:
-    0 20px 80px rgba(0, 0, 0, 0.18),
-    inset 0 1px 1px rgba(255, 255, 255, 0.13);
+    0 18px 48px rgba(0, 0, 0, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
   overflow: hidden;
   position: relative;
 }
 
 .liquid-glass {
-  -webkit-backdrop-filter: blur(18px) saturate(1.08);
-  backdrop-filter: blur(18px) saturate(1.08);
+  -webkit-backdrop-filter: blur(24px) saturate(1.55);
+  backdrop-filter: blur(24px) saturate(1.55);
 }
 
 .liquid-glass-strong {
@@ -256,6 +256,30 @@ select {
   text-wrap: pretty;
 }
 
+.apple-title,
+.project-card {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-optical-sizing: auto;
+}
+
+.apple-title {
+  letter-spacing: 0;
+  text-wrap: balance;
+}
+
+.apple-control {
+  touch-action: manipulation;
+  transition: background-color 160ms ease-out, color 160ms ease-out;
+}
+
+.apple-control:hover {
+  background-color: rgba(70, 70, 72, 0.72);
+}
+
+.project-card {
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.16);
+}
+
 .mist-readable {
   text-shadow: 0 2px 30px rgba(0, 0, 0, 0.5);
 }
@@ -284,5 +308,22 @@ select {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .liquid-glass,
+  .liquid-glass-strong {
+    background: rgb(36, 36, 38);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+
+@media (prefers-contrast: more) {
+  .liquid-glass,
+  .liquid-glass-strong {
+    background: rgba(18, 18, 20, 0.94);
+    outline: 1px solid rgba(255, 255, 255, 0.55);
   }
 }
