@@ -35,14 +35,9 @@ export function HeroSection() {
             immediate
             delay={0.2}
             y={18}
-            className="liquid-glass mb-6 flex w-full max-w-[18rem] flex-wrap items-center justify-center gap-2 rounded-[1.25rem] px-2 py-1 sm:w-auto sm:max-w-full sm:flex-nowrap sm:rounded-full"
+            className="mb-6 rounded-full bg-white px-3 py-1 text-xs font-semibold text-black"
           >
-            <span className="rounded-full bg-white px-3 py-1 text-xs font-semibold text-black">
-              Portfolio
-            </span>
-            <span className="min-w-0 basis-full whitespace-normal px-2 text-center text-xs font-light text-white/90 sm:basis-auto sm:pr-3 sm:text-sm">
-              AIGC Creative / Content Ops / Visual Design
-            </span>
+            Portfolio
           </FadeIn>
 
           <BlurText
@@ -69,7 +64,17 @@ export function HeroSection() {
           <FadeIn
             as="p"
             immediate
-            delay={0.6}
+            delay={0.58}
+            y={12}
+            className="mt-3 text-xs font-light text-white/72 sm:text-sm"
+          >
+            AIGC Creative / Content Ops / Visual Design
+          </FadeIn>
+
+          <FadeIn
+            as="p"
+            immediate
+            delay={0.68}
             y={18}
             className="mt-6 max-w-[46rem] text-base font-normal leading-relaxed text-white/92 sm:text-lg md:text-xl"
           >
