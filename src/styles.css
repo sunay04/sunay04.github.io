@@ -49,8 +49,11 @@ body {
   overscroll-behavior-y: contain;
   scroll-snap-align: start;
   scroll-snap-stop: always;
-  scrollbar-color: rgba(255, 255, 255, 0.28) transparent;
-  scrollbar-width: thin;
+  scrollbar-width: none;
+}
+
+.horizontal-panel::-webkit-scrollbar {
+  display: none;
 }
 
 .nav-switcher {
