@@ -33,7 +33,8 @@ export function App() {
   }, []);
 
   useEffect(() => {
-    const targetId = window.location.hash.slice(1) || "about";
+    const hash = window.location.hash.slice(1);
+    const targetId = hash.startsWith("project/") ? "projects" : hash || "about";
 
     if (sectionIds.includes(targetId)) {
       requestAnimationFrame(() => navigateTo(targetId, false));
