@@ -21,16 +21,16 @@ export function SiteNavigation({
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-3">
         <a
-          href="#home"
-          aria-label={`${profile.name} home`}
-          aria-current={activeSection === "home" ? "page" : undefined}
+          href="#about"
+          aria-label={`${profile.name} about`}
+          aria-current={activeSection === "about" ? "page" : undefined}
           onClick={(event) => {
             event.preventDefault();
-            onNavigate("home");
+            onNavigate("about");
           }}
           className="site-logo liquid-glass flex h-12 w-12 shrink-0 items-center justify-center rounded-full font-heading text-3xl italic leading-none text-white"
         >
-          {profile.name.charAt(0).toLowerCase()}
+          {profile.name.charAt(0).toUpperCase()}
         </a>
 
         <ul className="liquid-glass nav-switcher flex min-w-0 items-center gap-1 overflow-x-auto rounded-full px-1.5 py-1.5">

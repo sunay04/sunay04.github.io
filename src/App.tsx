@@ -1,18 +1,16 @@
-import { AboutSection } from "./components/AboutSection";
-import { FooterSection } from "./components/FooterSection";
 import { HeroSection } from "./components/HeroSection";
 import { ProjectsSection } from "./components/ProjectsSection";
 import { ServicesSection } from "./components/ServicesSection";
 import { SiteNavigation } from "./components/SiteNavigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 
-const sectionIds = ["home", "about", "services", "projects", "contact"];
+const sectionIds = ["about", "services", "projects"];
 
 export function App() {
   const viewportRef = useRef<HTMLDivElement>(null);
   const navigationTargetRef = useRef<string | null>(null);
   const scrollEndTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const [activeSection, setActiveSection] = useState("home");
+  const [activeSection, setActiveSection] = useState("about");
 
   const navigateTo = useCallback((sectionId: string, updateHistory = true) => {
     const target = document.getElementById(sectionId);
@@ -35,7 +33,7 @@ export function App() {
   }, []);
 
   useEffect(() => {
-    const targetId = window.location.hash.slice(1) || "home";
+    const targetId = window.location.hash.slice(1) || "about";
 
     if (sectionIds.includes(targetId)) {
       requestAnimationFrame(() => navigateTo(targetId, false));
@@ -81,20 +79,14 @@ export function App() {
       <div className="site-backdrop" aria-hidden="true" />
       <SiteNavigation activeSection={activeSection} onNavigate={navigateTo} />
       <div ref={viewportRef} className="horizontal-viewport relative z-10">
-        <div id="home" className="horizontal-panel">
-          <HeroSection />
-        </div>
         <div id="about" className="horizontal-panel">
-          <AboutSection />
+          <HeroSection />
         </div>
         <div id="services" className="horizontal-panel">
           <ServicesSection />
         </div>
         <div id="projects" className="horizontal-panel">
           <ProjectsSection />
-        </div>
-        <div id="contact" className="horizontal-panel">
-          <FooterSection />
         </div>
       </div>
     </main>

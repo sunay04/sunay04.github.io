@@ -42,26 +42,17 @@ export type Service = {
   tag: string;
 };
 
-export type FriendLink = {
-  label: string;
-  href: string;
-};
-
 export const profile = {
   name: "sunay",
   title: "AIGC Creative Portfolio",
-  heroTitle: "sunay",
+  heroTitle: "Sunay",
+  education: ["太原理工大学（211）", "数字媒体艺术", "27届"],
   heroDescription:
-    "数字媒体艺术在读，关注 AIGC 影像叙事、视觉系统与内容运营。能从概念、分镜、提示词、生成、剪辑到社媒发布，把想法做成可展示、可传播、可落地的作品。",
-  aboutTitle: "About",
-  about:
-    "我不是只会把作品做漂亮的人。我更在意一个想法如何被看见：它先要有清楚的主题，再有能撑住情绪的视觉语言，最后还要变成适合平台传播的内容。现在我希望进入成熟的公司实习，在 AIGC、内容运营或视觉设计方向继续把创意和执行力磨得更锋利。",
-  availability: "北京线下实习 / 每周 4-5 天 / 3 个月",
-  contactLabel: "查看作品集与简历",
-  contactUrl: "#footer-contact",
-  portfolioPdfUrl: "/portfolio/liuyan-portfolio-aigc.pdf",
-  resumeOpsUrl: "/portfolio/liuyan-resume-aigc-ops.pdf",
-  resumeVisualUrl: "/portfolio/liuyan-resume-visual-aigc.pdf",
+    "聚焦 AIGC 视觉叙事，具备从创意概念、提示词生成到剪辑发布的全流程落地与内容运营能力。",
+  aboutIntro: "相比单纯的好看，我更加注重",
+  aboutEmphasis: "内容的传播属性与落地价值",
+  aboutClosing:
+    "——从确立明确主题，到构建情绪化视觉，再到针对平台做定制化运营。希望加入成熟的团队（AIGC / 内容运营 / 视觉设计方向），在实际业务中继续锻炼自己的创意与全流程的执行力。",
 };
 
 export const highlights = [
@@ -71,19 +62,9 @@ export const highlights = [
     detail: "适配互联网活动视觉、品牌传播、创意内容与 AI 工作流岗位。",
   },
   {
-    label: "到岗条件",
-    value: "北京线下 / 每周 4-5 天 / 3 个月",
-    detail: "暑期可稳定实习，能尽快进入真实业务节奏。",
-  },
-  {
     label: "核心工具",
     value: "Figma / PS / PR / Blender / 3ds Max / Midjourney",
     detail: "同时使用即梦、可灵、豆包等 AI 工具完成图像、视频与流程探索。",
-  },
-  {
-    label: "作品证据",
-    value: "AI 短片、品牌视觉、真实团购、叙事插画",
-    detail: "覆盖从概念、视觉、动态到内容发布的完整执行链路。",
   },
 ];
 
@@ -91,15 +72,6 @@ export const navLinks = [
   { label: "关于", href: "#about" },
   { label: "能力", href: "#services" },
   { label: "作品", href: "#projects" },
-  { label: "联系", href: "#contact" },
-];
-
-export const friendLinks: FriendLink[] = [
-  {
-    label: "小红书作品",
-    href: "https://www.xiaohongshu.com/discovery/item/69f8503f0000000023006d3a?source=webshare&xhsshare=pc_web&xsec_token=AB1aPAVasTLsu4cvIcOvxnYpV5XZtfwbY4yBOkCjJmdyA=&xsec_source=pc_share",
-  },
-  { label: "GitHub", href: "https://github.com/sunay04/sunay04.github.io" },
 ];
 
 export const services: Service[] = [
@@ -126,7 +98,7 @@ export const services: Service[] = [
   },
   {
     number: "04",
-    name: "动态与三维表达",
+    name: "三维镜头表现",
     tag: "Motion / 3D",
     description:
       "熟悉 PR、剪映、Blender、3ds Max 等工具，可以把静态视觉继续推进成动态镜头、空间氛围和展示视频。",
