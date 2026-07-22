@@ -74,13 +74,6 @@ const project = {
         span: "wide",
       },
     ],
-    fullLayout: {
-      src: asset0,
-      alt: "GENTLE MONSTER 折叠的维度完整版长图排版",
-      fit: "contain",
-      caption: "完整版长图",
-    },
   } satisfies Project;
 
 export default project;
-

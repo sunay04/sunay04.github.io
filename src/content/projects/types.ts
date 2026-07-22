@@ -32,8 +32,6 @@ export type Project = {
   hero: PortfolioImage;
   heroSupport?: PortfolioImage;
   gallery: PortfolioImage[];
-  galleryLayout?: "default" | "feature-left-stack-right" | "landscape-sequence" | "poster-grid";
-  fullLayout?: PortfolioImage;
+  galleryLayout?: "feature-poster" | "sequence-grid";
   detailLayout?: "default" | "poster-pair";
 };
-

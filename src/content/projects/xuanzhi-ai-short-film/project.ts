@@ -56,7 +56,7 @@ const project = {
         src: asset3,
         alt: "AI 短片分镜图：主角情绪凝滞的室内镜头",
         fit: "cover",
-        caption: "分镜图 07",
+        caption: "分镜图 01",
         span: "wide",
       },
       {
@@ -94,9 +94,10 @@ const project = {
         alt: "《悬置》压抑开场关键帧",
         fit: "cover",
         caption: "压抑中心构图",
+        orientation: "landscape",
       },
     ],
-    galleryLayout: "landscape-sequence",
+    galleryLayout: "sequence-grid",
   } satisfies Project;
 
 export default project;

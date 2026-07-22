@@ -51,8 +51,6 @@ const project = {
         orientation: "landscape",
       },
     ],
-    galleryLayout: "landscape-sequence",
   } satisfies Project;
 
 export default project;
-

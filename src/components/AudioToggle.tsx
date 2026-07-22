@@ -3,7 +3,11 @@ import { Volume2, VolumeX } from "lucide-react";
 
 const BGM_SRC = "/audio/bgm.mp3";
 
-export function AudioToggle() {
+type AudioToggleProps = {
+  enabled: boolean;
+};
+
+export function AudioToggle({ enabled }: AudioToggleProps) {
   const audioRef = useRef<HTMLAudioElement>(null);
   const toggleButtonRef = useRef<HTMLButtonElement>(null);
   const [isMuted, setIsMuted] = useState(false);
@@ -16,6 +20,11 @@ export function AudioToggle() {
     }
 
     audio.volume = 0.34;
+
+    if (!enabled) {
+      audio.pause();
+      return;
+    }
 
     const playWhenAllowed = (event?: Event) => {
       if (
@@ -41,7 +50,7 @@ export function AudioToggle() {
       window.removeEventListener("pointerdown", playWhenAllowed);
       window.removeEventListener("keydown", playWhenAllowed);
     };
-  }, []);
+  }, [enabled]);
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -52,10 +61,10 @@ export function AudioToggle() {
 
     audio.muted = isMuted;
 
-    if (!isMuted) {
+    if (enabled && !isMuted) {
       void audio.play().catch(() => undefined);
     }
-  }, [isMuted]);
+  }, [enabled, isMuted]);
 
   const handleToggle = () => {
     const audio = audioRef.current;
@@ -64,7 +73,7 @@ export function AudioToggle() {
     if (audio) {
       audio.muted = nextMuted;
 
-      if (!nextMuted) {
+      if (enabled && !nextMuted) {
         void audio.play().catch(() => undefined);
       }
     }
@@ -77,7 +86,6 @@ export function AudioToggle() {
       <audio
         ref={audioRef}
         src={BGM_SRC}
-        autoPlay
         loop
         playsInline
         preload="auto"

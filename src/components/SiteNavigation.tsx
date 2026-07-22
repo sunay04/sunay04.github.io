@@ -7,11 +7,13 @@ import { navLinks, profile } from "../content/site";
 
 type SiteNavigationProps = {
   activeSection: string;
+  audioEnabled: boolean;
   onNavigate: (sectionId: string) => void;
 };
 
 export function SiteNavigation({
   activeSection,
+  audioEnabled,
   onNavigate,
 }: SiteNavigationProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -94,7 +96,7 @@ export function SiteNavigation({
         </ul>
 
         <div className="ml-auto flex items-center gap-2 md:ml-0">
-          <AudioToggle />
+          <AudioToggle enabled={audioEnabled} />
 
           <div ref={mobileMenuRef} className="relative md:hidden">
             <button

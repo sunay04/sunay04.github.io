@@ -59,7 +59,6 @@ const project = {
         orientation: "panorama",
       },
     ],
-    galleryLayout: "feature-left-stack-right",
   } satisfies Project;
 
 export default project;

@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
+import { createPortal } from "react-dom";
+import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight, ExternalLink, X, ZoomIn } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { FadeIn } from "./FadeIn";
 import { LiveProjectButton } from "./LiveProjectButton";
@@ -48,51 +49,63 @@ function PreviewCard({ project, onOpen }: { project: Project; onOpen: () => void
   );
 }
 
-function MediaFrame({ media, className }: { media: PortfolioImage; className?: string }) {
+function MediaFrame({ media, className, onOpen }: { media: PortfolioImage; className?: string; onOpen?: () => void }) {
   const orientation = media.orientation ?? (media.height === "tall" ? "portrait" : "natural");
+  const mediaClassName = cn(
+    orientation === "landscape" && "aspect-video",
+    orientation === "portrait" && "aspect-[3/4]",
+    orientation === "panorama" && "aspect-[2/1]",
+  );
+  const content = (
+    <div className={mediaClassName}>
+      <ProjectMedia media={media} className="bg-[#ece9e2]" />
+    </div>
+  );
+
   return (
     <figure className={cn("group relative overflow-hidden rounded-lg bg-white/[0.045]", orientation === "portrait" && "mx-auto w-full max-w-2xl", className)}>
-      <div className={cn(
-        orientation === "landscape" && "aspect-video",
-        orientation === "portrait" && "aspect-[3/4]",
-        orientation === "panorama" && "aspect-[2/1]",
-      )}>
-        <ProjectMedia media={media} className="bg-[#ece9e2]" />
-      </div>
+      {onOpen && media.type !== "video" ? (
+        <button type="button" onClick={onOpen} aria-label={`放大查看${media.caption ?? media.alt}`} className="relative block w-full cursor-zoom-in overflow-hidden text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-white">
+          {content}
+          <span className="absolute bottom-3 right-3 flex h-11 w-11 items-center justify-center rounded-full bg-black/65 text-white opacity-80 backdrop-blur-md transition-opacity group-hover:opacity-100">
+            <ZoomIn className="h-4 w-4" />
+          </span>
+        </button>
+      ) : content}
       {media.caption && <figcaption className="absolute left-3 top-3 rounded-full bg-black/65 px-3 py-1 text-[11px] text-white backdrop-blur-md">{media.caption}</figcaption>}
     </figure>
   );
 }
 
-function Gallery({ project }: { project: Project }) {
+function Gallery({ project, onOpen }: { project: Project; onOpen: (media: PortfolioImage) => void }) {
   if (!project.gallery.length) return null;
-  const layout = project.galleryLayout ?? "default";
+  const columns = project.gallery.length > 4 ? "sm:columns-2 lg:columns-3" : "sm:columns-2";
+  const renderMedia = (media: PortfolioImage, className?: string) => (
+    <MediaFrame key={media.src} media={media} className={className} onOpen={media.type === "video" ? undefined : () => onOpen(media)} />
+  );
+
   return (
     <section className="mt-16 md:mt-24" aria-label="项目作品展示">
-      <div className="mb-6 flex items-end justify-between gap-4 border-b border-white/15 pb-4">
+      <div className="mb-6 flex items-end justify-between gap-4">
         <h3 className="text-xl font-medium text-white sm:text-2xl">作品呈现</h3>
         <span className="text-sm text-white/50">{project.gallery.length} 项</span>
       </div>
-      <div className={cn(
-        "grid gap-4 md:gap-6",
-        layout === "default" && "md:grid-cols-2",
-        layout === "feature-left-stack-right" && "md:grid-cols-12",
-        layout === "landscape-sequence" && "md:grid-cols-2",
-        layout === "poster-grid" && "sm:grid-cols-2 lg:grid-cols-3",
-      )}>
-        {project.gallery.map((media, index) => (
-          <MediaFrame
-            key={media.src}
-            media={media}
-            className={cn(
-              media.span === "wide" && "md:col-span-2",
-              layout === "feature-left-stack-right" && index === 0 && "md:col-span-7 md:row-span-2",
-              layout === "feature-left-stack-right" && index > 0 && "md:col-span-5",
-              layout === "poster-grid" && media.orientation === "panorama" && "sm:col-span-2 lg:col-span-3",
-            )}
-          />
-        ))}
-      </div>
+      {project.galleryLayout === "feature-poster" ? (
+        <div className="grid gap-4 sm:grid-cols-[minmax(0,0.78fr)_minmax(0,1fr)] md:gap-6">
+          {renderMedia(project.gallery[0])}
+          <div className="grid content-start gap-4 md:gap-6">
+            {project.gallery.slice(1).map((media) => renderMedia(media))}
+          </div>
+        </div>
+      ) : project.galleryLayout === "sequence-grid" ? (
+        <div className="grid gap-4 sm:grid-cols-2 md:gap-6">
+          {project.gallery.map((media, index) => renderMedia(media, index === project.gallery.length - 1 ? "sm:col-span-2" : undefined))}
+        </div>
+      ) : (
+        <div className={cn("columns-1 gap-4 md:gap-6", columns)}>
+          {project.gallery.map((media) => renderMedia(media, "mb-4 inline-block w-full break-inside-avoid md:mb-6"))}
+        </div>
+      )}
     </section>
   );
 }
@@ -122,13 +135,13 @@ function ProjectOverview({ project }: { project: Project }) {
   );
 }
 
-function HeroShowcase({ project }: { project: Project }) {
+function HeroShowcase({ project, onOpen }: { project: Project; onOpen: (media: PortfolioImage) => void }) {
   const paired = project.detailLayout === "poster-pair" && project.heroSupport;
   return (
     <section className={cn("mt-10 md:mt-14", paired && "mx-auto grid max-w-5xl gap-4 sm:grid-cols-2 md:gap-6")} aria-label="项目主视觉">
-      <MediaFrame media={project.hero} className={cn(!paired && project.hero.height === "tall" && "max-w-3xl", !paired && project.hero.orientation !== "portrait" && "max-w-none")} />
-      {paired && <MediaFrame media={project.heroSupport!} />}
-      {!paired && project.heroSupport && <MediaFrame media={project.heroSupport} className="mt-4 md:mt-6" />}
+      <MediaFrame media={project.hero} onOpen={project.hero.type === "video" ? undefined : () => onOpen(project.hero)} className={cn(!paired && project.hero.height === "tall" && "max-w-3xl", !paired && project.hero.orientation !== "portrait" && "max-w-none")} />
+      {paired && <MediaFrame media={project.heroSupport!} onOpen={() => onOpen(project.heroSupport!)} />}
+      {!paired && project.heroSupport && <MediaFrame media={project.heroSupport} onOpen={() => onOpen(project.heroSupport!)} className="mt-4 md:mt-6" />}
     </section>
   );
 }
@@ -148,7 +161,7 @@ function ProjectEvidence({ project }: { project: Project }) {
 }
 
 function ProjectResources({ project }: { project: Project }) {
-  if (!project.resources?.length && !project.fullLayout) return null;
+  if (!project.resources?.length) return null;
   return (
     <section className="mt-16 md:mt-24">
       <h3 className="text-xl font-medium text-white sm:text-2xl">项目资料</h3>
@@ -160,42 +173,107 @@ function ProjectResources({ project }: { project: Project }) {
           </a>
         ))}
       </div>
-      {project.fullLayout && (
-        <details className="mt-5 border-t border-white/15">
-          <summary className="flex cursor-pointer items-center justify-between py-5 text-sm font-medium text-white">查看完整项目长图 <span className="text-white/45">展开 / 收起</span></summary>
-          <img src={project.fullLayout.src} alt={project.fullLayout.alt} className="h-auto w-full bg-[#ece9e2] object-contain" loading="lazy" />
-        </details>
-      )}
     </section>
   );
 }
 
-function ProjectDetail({ project, onBack, onPrevious, onNext }: { project: Project; onBack: () => void; onPrevious: () => void; onNext: () => void }) {
-  return (
-    <FadeIn key={project.id} y={24}>
-      <div className="mx-auto max-w-[92rem]">
-        <nav className="mb-10 flex items-center justify-between gap-3 md:mb-14" aria-label="作品导航">
-          <motion.button type="button" onClick={onBack} whileTap={{ scale: 0.96 }} className="apple-control flex min-h-11 items-center gap-2 rounded-full border border-white/20 px-4 text-sm text-white"><ArrowLeft className="h-4 w-4" /> 返回作品列表</motion.button>
-          <div className="flex gap-2">
-            <motion.button type="button" onClick={onPrevious} whileTap={{ scale: 0.92 }} title="上一个作品" aria-label="上一个作品" className="apple-control flex h-11 w-11 items-center justify-center rounded-full border border-white/20"><ChevronLeft className="h-5 w-5" /></motion.button>
-            <motion.button type="button" onClick={onNext} whileTap={{ scale: 0.92 }} title="下一个作品" aria-label="下一个作品" className="apple-control flex h-11 w-11 items-center justify-center rounded-full border border-white/20"><ChevronRight className="h-5 w-5" /></motion.button>
-          </div>
-        </nav>
+function ImageLightbox({ images, index, onChange, onClose }: { images: PortfolioImage[]; index: number; onChange: (index: number) => void; onClose: () => void }) {
+  const media = images[index];
+  const move = (offset: number) => onChange((index + offset + images.length) % images.length);
 
-        <article>
-          <ProjectOverview project={project} />
-          <HeroShowcase project={project} />
-          <ProjectEvidence project={project} />
-          <Gallery project={project} />
-          <ProjectResources project={project} />
-        </article>
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") onClose();
+      if (event.key === "ArrowLeft" && images.length > 1) move(-1);
+      if (event.key === "ArrowRight" && images.length > 1) move(1);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  });
 
-        <nav className="mt-20 grid grid-cols-2 border-t border-white/15 pt-5" aria-label="浏览其他作品">
-          <button type="button" onClick={onPrevious} className="flex min-h-14 items-center justify-start gap-2 text-sm text-white/75 hover:text-white"><ChevronLeft className="h-5 w-5" /> 上一个作品</button>
-          <button type="button" onClick={onNext} className="flex min-h-14 items-center justify-end gap-2 text-sm text-white/75 hover:text-white">下一个作品 <ChevronRight className="h-5 w-5" /></button>
-        </nav>
+  return createPortal(
+    <motion.div
+      role="dialog"
+      aria-modal="true"
+      aria-label="作品图片放大查看"
+      className="fixed inset-0 z-[60] flex items-center justify-center bg-black/95 px-4 py-20 sm:px-20"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.18 }}
+      onClick={onClose}
+    >
+      <button type="button" onClick={onClose} autoFocus aria-label="关闭图片查看" className="absolute right-4 top-4 flex h-11 w-11 items-center justify-center rounded-full bg-white/12 text-white transition hover:bg-white/20 sm:right-6 sm:top-6">
+        <X className="h-5 w-5" />
+      </button>
+
+      {images.length > 1 && (
+        <>
+          <button type="button" onClick={(event) => { event.stopPropagation(); move(-1); }} aria-label="查看上一张图片" className="absolute left-3 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/12 text-white transition hover:bg-white/20 sm:left-6">
+            <ChevronLeft className="h-6 w-6" />
+          </button>
+          <button type="button" onClick={(event) => { event.stopPropagation(); move(1); }} aria-label="查看下一张图片" className="absolute right-3 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/12 text-white transition hover:bg-white/20 sm:right-6">
+            <ChevronRight className="h-6 w-6" />
+          </button>
+        </>
+      )}
+
+      <motion.img
+        key={media.src}
+        src={media.src}
+        alt={media.alt}
+        className="max-h-[calc(100dvh-10rem)] max-w-full object-contain"
+        initial={{ opacity: 0, scale: 0.985 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.18 }}
+        onClick={(event) => event.stopPropagation()}
+      />
+
+      <div className="pointer-events-none absolute inset-x-16 bottom-5 flex items-center justify-center gap-3 text-center text-sm text-white/75 sm:bottom-7">
+        <span>{media.caption ?? media.alt}</span>
+        <span className="text-white/45">{index + 1} / {images.length}</span>
       </div>
-    </FadeIn>
+    </motion.div>,
+    document.body,
+  );
+}
+
+function ProjectDetail({ project, onBack, onPrevious, onNext }: { project: Project; onBack: () => void; onPrevious: () => void; onNext: () => void }) {
+  const images = [project.hero, ...(project.heroSupport ? [project.heroSupport] : []), ...project.gallery].filter((media) => media.type !== "video");
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const openMedia = (media: PortfolioImage) => {
+    const index = images.findIndex((image) => image.src === media.src);
+    if (index >= 0) setLightboxIndex(index);
+  };
+
+  return (
+    <>
+      <FadeIn key={project.id} y={24}>
+        <div className="mx-auto max-w-[92rem]">
+          <nav className="mb-10 flex items-center justify-between gap-3 md:mb-14" aria-label="作品导航">
+            <motion.button type="button" onClick={onBack} whileTap={{ scale: 0.96 }} className="apple-control flex min-h-11 items-center gap-2 rounded-full border border-white/20 px-4 text-sm text-white"><ArrowLeft className="h-4 w-4" /> 返回作品列表</motion.button>
+            <div className="flex gap-2">
+              <motion.button type="button" onClick={onPrevious} whileTap={{ scale: 0.92 }} title="上一个作品" aria-label="上一个作品" className="apple-control flex h-11 w-11 items-center justify-center rounded-full border border-white/20"><ChevronLeft className="h-5 w-5" /></motion.button>
+              <motion.button type="button" onClick={onNext} whileTap={{ scale: 0.92 }} title="下一个作品" aria-label="下一个作品" className="apple-control flex h-11 w-11 items-center justify-center rounded-full border border-white/20"><ChevronRight className="h-5 w-5" /></motion.button>
+            </div>
+          </nav>
+
+          <article>
+            <ProjectOverview project={project} />
+            <HeroShowcase project={project} onOpen={openMedia} />
+            <ProjectEvidence project={project} />
+            <Gallery project={project} onOpen={openMedia} />
+            <ProjectResources project={project} />
+          </article>
+
+          <nav className="mt-20 grid grid-cols-2 border-t border-white/15 pt-5" aria-label="浏览其他作品">
+            <button type="button" onClick={onPrevious} className="flex min-h-14 items-center justify-start gap-2 text-sm text-white/75 hover:text-white"><ChevronLeft className="h-5 w-5" /> 上一个作品</button>
+            <button type="button" onClick={onNext} className="flex min-h-14 items-center justify-end gap-2 text-sm text-white/75 hover:text-white">下一个作品 <ChevronRight className="h-5 w-5" /></button>
+          </nav>
+        </div>
+      </FadeIn>
+      <AnimatePresence>{lightboxIndex !== null && <ImageLightbox images={images} index={lightboxIndex} onChange={setLightboxIndex} onClose={() => setLightboxIndex(null)} />}</AnimatePresence>
+    </>
   );
 }
 

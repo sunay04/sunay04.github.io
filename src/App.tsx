@@ -83,7 +83,7 @@ export function App() {
     <main className="relative h-[100dvh] overflow-hidden bg-ink font-body text-white">
       <div className="site-backdrop" aria-hidden="true" />
       <div className={introComplete ? "site-content is-ready" : "site-content"}>
-        <SiteNavigation activeSection={activeSection} onNavigate={navigateTo} />
+        <SiteNavigation activeSection={activeSection} audioEnabled={introComplete} onNavigate={navigateTo} />
         <div ref={viewportRef} className="horizontal-viewport relative z-10">
           <div id="about" className="horizontal-panel">
             <HeroSection />

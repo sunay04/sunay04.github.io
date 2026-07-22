@@ -53,7 +53,7 @@ const project = {
         orientation: "landscape",
       },
     ],
-    galleryLayout: "poster-grid",
+    galleryLayout: "sequence-grid",
   } satisfies Project;
 
 export default project;
