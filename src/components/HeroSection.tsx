@@ -1,6 +1,6 @@
 import { FadeIn } from "./FadeIn";
 import { BlurText } from "./BlurText";
-import { profile } from "../content/portfolio";
+import { profile } from "../content/site";
 import { SiGmail, SiGithub, SiXiaohongshu } from "react-icons/si";
 
 const contactLinks = [

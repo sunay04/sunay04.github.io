@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { AudioToggle } from "./AudioToggle";
 import { FadeIn } from "./FadeIn";
-import { navLinks, profile } from "../content/portfolio";
+import { navLinks, profile } from "../content/site";
 
 type SiteNavigationProps = {
   activeSection: string;

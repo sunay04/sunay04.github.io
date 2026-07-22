@@ -1,5 +1,5 @@
 import { FadeIn } from "./FadeIn";
-import { Service, highlights, services } from "../content/portfolio";
+import { Service, highlights, services } from "../content/site";
 import { SiAutodesk, SiBlender, SiFigma } from "react-icons/si";
 import { AiFillOpenAI } from "react-icons/ai";
 import {

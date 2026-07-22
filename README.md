@@ -1,27 +1,13 @@
-# sunay 个人作品集网站
+# Sunay 个人作品集
 
-这是基于原 Sunay 个人网站模板整理后的求职向作品集网站，已插入真实项目、项目文案、作品图、作品集 PDF 和两版岗位导向简历。
+基于 React、TypeScript 与 Vite 的个人作品集网站。
 
-## 已插入内容
-
-- 《悬置》AI 短片
-- 《悬置》网页播放版视频、分镜剧本 PDF、课程 PPT 跳转区
-- GENTLE MONSTER《折叠的维度：先锋个性大冒险》
-- Future Echoes 视觉延展
-- 海娜文化快闪集市
-- 山下有松香氛插画
-- 完整作品集 PDF
-- AIGC / 内容运营方向简历
-- 视觉 / AIGC 设计方向简历
-
-## 本地预览
+## 本地开发
 
 ```bash
 npm install
 npm run dev
 ```
-
-浏览器打开终端里显示的本地地址即可。
 
 ## 构建
 
@@ -29,20 +15,20 @@ npm run dev
 npm run build
 ```
 
-项目已经包含 GitHub Pages 自动部署配置：
+仓库通过 `.github/workflows/deploy.yml` 自动部署到 GitHub Pages。
+
+## 作品管理
+
+每个作品都是 `src/content/projects/<project-id>/` 下的独立单元：
 
 ```text
-.github/workflows/deploy.yml
+<project-id>/
+|-- project.ts       # 作品信息与展示配置
+`-- assets/          # 图片、视频、PDF 等作品源文件
 ```
 
-如果仓库的 `Settings > Pages` 使用的是 `GitHub Actions`，把代码推送到 `main` 后会自动发布 `dist`。
+新增作品时，创建上述目录并在 `src/content/projects/index.ts` 中导入配置。
+`projects` 数组的顺序就是页面展示顺序。
 
-如果你的 Pages 目前直接读取仓库根目录，本次也同步了根目录的 `index.html`、`assets/`、`portfolio/`，上传后同样可以访问。
-
-## 主要可编辑位置
-
-```text
-src/content/portfolio.ts
-```
-
-个人介绍、项目文案、项目图片、PDF 链接和导航都集中在这里。后续想换项目顺序或继续润色文案，优先改这个文件。
+个人资料、导航和服务内容位于 `src/content/site.ts`；作品共享类型位于
+`src/content/projects/types.ts`。
