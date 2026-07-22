@@ -1,4 +1,4 @@
-import { ElementType, ReactNode } from "react";
+import { ElementType, ReactNode, useMemo } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 
 type FadeInProps = {
@@ -23,7 +23,9 @@ export function FadeIn({
   y = 30,
 }: FadeInProps) {
   const shouldReduceMotion = useReducedMotion();
-  const Component = motion.create(as);
+  // Keep the motion component identity stable so descendants are not remounted
+  // whenever their parent re-renders (notably the persistent audio player).
+  const Component = useMemo(() => motion.create(as), [as]);
 
   if (shouldReduceMotion) {
     return <Component className={className}>{children}</Component>;

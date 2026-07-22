@@ -125,9 +125,14 @@ function ProjectOverview({ project }: { project: Project }) {
         </div>
         <div>
           <h3 className="text-sm font-medium text-white">项目成果</h3>
-          <ul className="mt-3 grid gap-2 sm:grid-cols-2 md:grid-cols-1 xl:grid-cols-2">
-            {project.metrics.map((metric) => <li key={metric} className="border-t border-white/15 pt-2 text-sm leading-snug text-white/75">{metric}</li>)}
-          </ul>
+          <ol className="mt-3 space-y-2.5">
+            {project.metrics.map((metric, index) => (
+              <li key={metric} className="grid grid-cols-[1.5rem_minmax(0,1fr)] items-baseline gap-2 text-sm leading-relaxed text-white/75">
+                <span className="text-xs tabular-nums text-white/35">{String(index + 1).padStart(2, "0")}</span>
+                <span>{metric}</span>
+              </li>
+            ))}
+          </ol>
         </div>
         {project.liveUrl && <LiveProjectButton href={project.liveUrl} label={project.linkLabel} />}
       </div>
@@ -149,7 +154,7 @@ function HeroShowcase({ project, onOpen }: { project: Project; onOpen: (media: P
 function ProjectEvidence({ project }: { project: Project }) {
   if (!project.takeaways?.length) return null;
   return (
-    <section className="mt-16 border-y border-white/15 py-8 md:mt-24 md:py-12">
+    <section className="mt-16 md:mt-24">
       <h3 className="text-xl font-medium text-white sm:text-2xl">关键决策与贡献</h3>
       <ol className="mt-6 grid gap-5 md:grid-cols-3 md:gap-8">
         {project.takeaways.map((item, index) => (
