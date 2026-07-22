@@ -27,17 +27,17 @@ function ProjectMedia({ media, className, eager = false }: { media: PortfolioIma
   return <img src={media.src} alt={media.alt} className={cn("h-full w-full", fit, className)} loading={eager ? "eager" : "lazy"} />;
 }
 
-function PreviewCard({ project, onOpen, featured }: { project: Project; onOpen: () => void; featured: boolean }) {
+function PreviewCard({ project, onOpen }: { project: Project; onOpen: () => void }) {
   return (
-    <motion.article layout className={cn("project-card group overflow-hidden rounded-lg bg-white/[0.055]", featured && "sm:col-span-2 xl:col-span-2")} whileHover={{ y: -4 }} transition={appleSpring}>
-      <button type="button" onClick={onOpen} className={cn("relative block w-full overflow-hidden text-left", featured ? "aspect-[16/8]" : "aspect-[16/11]")}>
+    <motion.article layout className="project-card group flex h-full flex-col overflow-hidden rounded-lg bg-white/[0.055]" whileHover={{ y: -4 }} transition={appleSpring}>
+      <button type="button" onClick={onOpen} className="relative block aspect-[16/11] w-full shrink-0 overflow-hidden text-left">
         <ProjectMedia media={project.hero} className="project-card-media bg-[#ece9e2] transition-transform duration-500 group-hover:scale-[1.018]" />
         <span className="absolute left-3 top-3 rounded-full bg-black/60 px-3 py-1 text-[11px] text-white backdrop-blur-md">{projectFilter(project)}</span>
       </button>
-      <div className={cn("flex items-end justify-between gap-5 p-5", featured && "sm:p-6")}>
+      <div className="flex h-[10.5rem] shrink-0 items-end justify-between gap-5 p-5 sm:h-[8.875rem]">
         <div className="min-w-0">
           <p className="text-xs text-white/60">{project.category} · {project.year}</p>
-          <h3 className={cn("mt-2 text-wrap-balance font-medium leading-snug text-white", featured ? "text-2xl sm:text-3xl" : "text-lg")}>{project.name}</h3>
+          <h3 className="mt-2 text-wrap-balance text-lg font-medium leading-snug text-white">{project.name}</h3>
           <p className="mt-2 line-clamp-2 max-w-[62ch] text-sm leading-relaxed text-white/70">{project.role}</p>
         </div>
         <button type="button" onClick={onOpen} aria-label={`查看${project.name}`} className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white text-black transition group-hover:translate-x-0.5">
@@ -246,7 +246,7 @@ export function ProjectsSection() {
 
             <AnimatePresence mode="wait" initial={false}>
               <motion.div key={`${filter}-${page}`} initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: -8 }} transition={appleSpring} className="mx-auto mt-10 grid max-w-[92rem] gap-5 sm:grid-cols-2 xl:grid-cols-3">
-                {visible.map((project, index) => <FadeIn key={project.id} delay={index * 0.035} y={16} className={cn("h-full", index === 0 && "sm:col-span-2 xl:col-span-2")}><PreviewCard project={project} onOpen={() => openProject(project.id)} featured={index === 0} /></FadeIn>)}
+                {visible.map((project, index) => <FadeIn key={project.id} delay={index * 0.035} y={16} className="h-full"><PreviewCard project={project} onOpen={() => openProject(project.id)} /></FadeIn>)}
               </motion.div>
             </AnimatePresence>
 

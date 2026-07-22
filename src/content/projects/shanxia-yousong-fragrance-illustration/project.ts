@@ -3,7 +3,6 @@ import asset0 from "./assets/shanxia-songmont-hero.png";
 import asset1 from "./assets/shanxia-songmont-incense.png";
 import asset2 from "./assets/shanxia-product-mockup.jpg";
 import asset3 from "./assets/shanxia-product-concept.jpg";
-import asset4 from "./assets/shanxia-contact.png";
 
 const project = {
     id: "shanxia-yousong-fragrance-illustration",
@@ -53,16 +52,8 @@ const project = {
         caption: "产品理念",
         orientation: "landscape",
       },
-      {
-        src: asset4,
-        alt: "山下有松品牌插画发布与社媒数据",
-        fit: "contain",
-        caption: "社媒发布数据",
-        orientation: "panorama",
-      },
     ],
     galleryLayout: "poster-grid",
   } satisfies Project;
 
 export default project;
-

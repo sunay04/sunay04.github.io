@@ -1,7 +1,6 @@
 ﻿import type { Project } from "../types";
 import asset0 from "./assets/xuanzhi-story-script.pdf";
-import asset1 from "./assets/xuanzhi-keyframes.png";
-import asset2 from "./assets/xuanzhi-hero-support.png";
+import asset1 from "./assets/xuanzhi-hero-support.png";
 import asset3 from "./assets/xuanzhi-board-07-emotional-focus.jpg";
 import asset4 from "./assets/xuanzhi-board-02.jpg";
 import asset5 from "./assets/xuanzhi-board-03.jpg";
@@ -9,8 +8,6 @@ import asset6 from "./assets/xuanzhi-board-04.jpg";
 import asset7 from "./assets/xuanzhi-board-05.jpg";
 import asset8 from "./assets/xuanzhi-board-06.jpg";
 import asset9 from "./assets/xuanzhi-frame-oppressive.png";
-import asset10 from "./assets/xuanzhi-storyboard.png";
-import asset11 from "./assets/xuanzhi-process.png";
 import presentation from "./assets/xuanzhi-presentation.pdf";
 
 const project = {
@@ -48,17 +45,10 @@ const project = {
     ],
     hero: {
       src: asset1,
-      alt: "《悬置》AI 短片关键帧，包含压抑开场与温暖家庭段落",
-      fit: "contain",
-      caption: "成片关键帧",
-      span: "wide",
-      orientation: "panorama",
-    },
-    heroSupport: {
-      src: asset2,
       alt: "《悬置》酒吧角色关键帧，蓝色压抑情绪",
       fit: "cover",
-      caption: "情绪补充画面",
+      caption: "情绪关键帧",
+      span: "wide",
       orientation: "landscape",
     },
     gallery: [
@@ -105,23 +95,8 @@ const project = {
         fit: "cover",
         caption: "压抑中心构图",
       },
-      {
-        src: asset10,
-        alt: "《悬置》AI 短片分镜表与镜头规划",
-        fit: "contain",
-        caption: "分镜表",
-        span: "wide",
-      },
-      {
-        src: asset11,
-        alt: "《悬置》AI 短片课程展示与制作过程",
-        fit: "contain",
-        caption: "课堂展示过程",
-        span: "wide",
-      },
     ],
     galleryLayout: "landscape-sequence",
   } satisfies Project;
 
 export default project;
-
