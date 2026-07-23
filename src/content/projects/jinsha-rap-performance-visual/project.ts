@@ -3,6 +3,8 @@ import asset0 from "./assets/jinsha-rap-poster.png";
 import asset1 from "./assets/jinsha-rap-alt-poster.png";
 import asset2 from "./assets/jinsha-rap-ticket.jpg";
 import asset3 from "./assets/jinsha-rap-invitation.jpg";
+import asset4 from "./assets/jinsha-rap-display-board.png";
+import asset5 from "./assets/jinsha-rap-bottle-mockup.png";
 
 const project = {
     id: "jinsha-rap-performance-visual",
@@ -49,6 +51,20 @@ const project = {
         fit: "cover",
         caption: "邀请函",
         orientation: "panorama",
+      },
+      {
+        src: asset4,
+        alt: "聚金沙 4.0 说唱演出主视觉展板应用",
+        fit: "cover",
+        caption: "现场展板应用",
+        orientation: "landscape",
+      },
+      {
+        src: asset5,
+        alt: "聚金沙 4.0 说唱演出 BOOZE 酒瓶视觉样机",
+        fit: "cover",
+        caption: "酒瓶视觉样机",
+        orientation: "landscape",
       },
     ],
     galleryLayout: "feature-poster",

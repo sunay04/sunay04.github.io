@@ -32,7 +32,7 @@ function PreviewCard({ project, onOpen }: { project: Project; onOpen: () => void
   return (
     <motion.article layout className="project-card group flex h-full flex-col overflow-hidden rounded-lg bg-white/[0.055]" whileHover={{ y: -4 }} transition={appleSpring}>
       <button type="button" onClick={onOpen} className="relative block aspect-[16/11] w-full shrink-0 overflow-hidden text-left">
-        <ProjectMedia media={project.hero} className="project-card-media bg-[#ece9e2] transition-transform duration-500 group-hover:scale-[1.018]" />
+        <ProjectMedia media={project.hero} className="project-card-media bg-black transition-transform duration-500 group-hover:scale-[1.018]" />
         <span className="absolute left-3 top-3 rounded-full bg-black/60 px-3 py-1 text-[11px] text-white backdrop-blur-md">{projectFilter(project)}</span>
       </button>
       <div className="flex h-[10.5rem] shrink-0 items-end justify-between gap-5 p-5 sm:h-[8.875rem]">
@@ -320,8 +320,7 @@ export function ProjectsSection() {
           </motion.div>
         ) : (
           <motion.div key="project-index" initial={reduceMotion ? { opacity: 0 } : { opacity: 0, x: -24 }} animate={{ opacity: 1, x: 0 }} exit={reduceMotion ? { opacity: 0 } : { opacity: 0, x: -24 }} transition={appleSpring}>
-            <FadeIn as="h2" className="apple-title text-center text-[clamp(3.5rem,9vw,6rem)] font-semibold leading-[0.94]">Selected Work</FadeIn>
-            <FadeIn as="p" className="cosmic-copy mx-auto mt-4 max-w-2xl text-center text-sm leading-relaxed text-white/72 md:text-base">从代表项目快速了解我的职责、创作判断与实际成果。</FadeIn>
+            <FadeIn as="h2" className="cosmic-heading mx-auto pb-2 text-center text-[clamp(4rem,9vw,7.5rem)] leading-[0.9]">Selected Work</FadeIn>
 
             <FadeIn className="mx-auto mt-9 flex max-w-3xl flex-wrap items-center justify-center gap-2" y={16}>
               {filters.map((item) => <motion.button key={item} type="button" onClick={() => { setFilter(item); setPage(1); }} whileTap={{ scale: 0.96 }} aria-pressed={filter === item} className="relative min-h-10 rounded-full border border-white/15 px-4 text-sm text-white/65 transition-colors hover:text-white aria-pressed:border-white aria-pressed:bg-white aria-pressed:text-black">{item}<span className="ml-2 text-xs opacity-55">{item === "全部" ? projects.length : projects.filter((project) => projectFilter(project) === item).length}</span></motion.button>)}
