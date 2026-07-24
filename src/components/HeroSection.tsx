@@ -72,32 +72,10 @@ export function HeroSection() {
           </FadeIn>
 
           <FadeIn
-            as="p"
             immediate
             delay={0.68}
-            y={18}
-            className="mt-6 max-w-[46rem] text-base font-normal leading-relaxed text-white/92 sm:text-lg md:text-xl"
-          >
-            {profile.heroDescription}
-          </FadeIn>
-          <FadeIn
-            as="p"
-            immediate
-            delay={0.75}
-            y={18}
-            className="mt-7 max-w-[50rem] border-t border-white/15 pt-6 text-sm font-light leading-relaxed text-white/68 sm:text-base"
-          >
-            {profile.aboutIntro}
-            <span className="text-white/82">
-              {profile.aboutEmphasis}
-            </span>
-            {profile.aboutClosing}
-          </FadeIn>
-          <FadeIn
-            immediate
-            delay={0.9}
             y={14}
-            className="mt-7 flex items-center justify-center gap-3"
+            className="mt-8 flex items-center justify-center gap-3"
           >
             {contactLinks.map((link) => {
               const Icon = link.icon;

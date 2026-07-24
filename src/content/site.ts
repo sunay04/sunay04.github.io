@@ -5,17 +5,27 @@
   tag: string;
 };
 
+export type Experience = {
+  period: string;
+  role: string;
+  organization: string;
+  type: "工作" | "实习" | "项目实践";
+  description: string;
+  highlights: string[];
+};
+
+export type FriendLink = {
+  name: string;
+  description: string;
+  href: string;
+  icon: string;
+};
+
 export const profile = {
   name: "sunay",
   title: "AIGC Creative Portfolio",
   heroTitle: "Sunay",
   education: ["太原理工大学（211）", "数字媒体艺术", "27届"],
-  heroDescription:
-    "聚焦 AIGC 视觉叙事，具备从创意概念、提示词生成到剪辑发布的全流程落地与内容运营能力。",
-  aboutIntro: "相比单纯的好看，我更加注重",
-  aboutEmphasis: "内容的传播属性与落地价值",
-  aboutClosing:
-    "——从确立明确主题，到构建情绪化视觉，再到针对平台做定制化运营。希望加入成熟的团队（AIGC / 内容运营 / 视觉设计方向），在实际业务中继续锻炼自己的创意与全流程的执行力。",
 };
 
 export const highlights = [
@@ -33,8 +43,31 @@ export const highlights = [
 
 export const navLinks = [
   { label: "关于", href: "#about" },
-  { label: "能力", href: "#services" },
+  { label: "技能", href: "#services" },
+  { label: "履历", href: "#experience" },
   { label: "作品", href: "#projects" },
+  { label: "友链", href: "#friends" },
+];
+
+export const experiences: Experience[] = [
+  {
+    period: "2026.7 — Present",
+    role: "中国国家地理探索",
+    organization: "设计与运营",
+    type: "实习",
+    description:
+      "参与项目日常设计与运营支持，围绕自然探索、科普内容和活动传播场景完成视觉物料设计；协助内容选题、素材整理、社交媒体配图与发布支持，在保证品牌调性和信息准确性的基础上提升内容呈现效果。",
+    highlights: ["视觉物料", "内容运营", "社媒支持"],
+  },
+];
+
+export const friendLinks: FriendLink[] = [
+  {
+    name: "Cloud09_Space",
+    description: "这里是最爱Sunay的管理员sama的Blog",
+    href: "https://cloud09.space/",
+    icon: "https://raw.githubusercontent.com/cloud-oc/picx-images-hosting/refs/heads/master/Origin/Cloud_icon.pfpafpaii.png",
+  },
 ];
 
 export const services: Service[] = [

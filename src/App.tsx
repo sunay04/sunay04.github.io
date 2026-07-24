@@ -3,9 +3,11 @@ import { ProjectsSection } from "./components/ProjectsSection";
 import { ServicesSection } from "./components/ServicesSection";
 import { SiteNavigation } from "./components/SiteNavigation";
 import { IntroAnimation } from "./components/IntroAnimation";
+import { ExperienceSection } from "./components/ExperienceSection";
+import { FriendsSection } from "./components/FriendsSection";
 import { useCallback, useEffect, useRef, useState } from "react";
 
-const sectionIds = ["about", "services", "projects"];
+const sectionIds = ["about", "services", "experience", "projects", "friends"];
 
 export function App() {
   const viewportRef = useRef<HTMLDivElement>(null);
@@ -91,8 +93,14 @@ export function App() {
           <div id="services" className="horizontal-panel">
             <ServicesSection />
           </div>
+          <div id="experience" className="horizontal-panel">
+            <ExperienceSection />
+          </div>
           <div id="projects" className="horizontal-panel">
             <ProjectsSection />
+          </div>
+          <div id="friends" className="horizontal-panel">
+            <FriendsSection />
           </div>
         </div>
       </div>
