@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Volume2, VolumeX } from "lucide-react";
 
-const BGM_SRC = "/audio/bgm.mp3";
+const BGM_SRC = `${import.meta.env.BASE_URL}audio/bgm.mp3`;
 
 type AudioToggleProps = {
   enabled: boolean;
