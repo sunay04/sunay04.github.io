@@ -1,4 +1,6 @@
-﻿export type Service = {
+import cloud09Icon from "./cloud09-icon.png";
+
+export type Service = {
   number: string;
   name: string;
   description: string;
@@ -66,7 +68,7 @@ export const friendLinks: FriendLink[] = [
     name: "Cloud09_Space",
     description: "这里是最爱Sunay的管理员sama的Blog",
     href: "https://cloud09.space/",
-    icon: "https://raw.githubusercontent.com/cloud-oc/picx-images-hosting/refs/heads/master/Origin/Cloud_icon.pfpafpaii.png",
+    icon: cloud09Icon,
   },
 ];
 
