@@ -42,6 +42,10 @@ jobs:
           publish_dir: ./dist
           force_orphan: true
 
+      - name: Prewarm CDN
+        continue-on-error: true
+        run: npm run prewarm:cdn
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
