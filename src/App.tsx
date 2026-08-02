@@ -123,5 +123,9 @@ export function App() {
 
 export function RootApp() {
   const path = window.location.pathname.replace(/\/+$/, "") || "/";
+  if (path === "/edits" && window.location.hostname === "sunay04.github.io") {
+    window.location.replace(`https://sunay04-github-io.sunay04.workers.dev/edits${window.location.search}${window.location.hash}`);
+    return null;
+  }
   return path === "/edits" ? <EditorPage /> : <App />;
 }

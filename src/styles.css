@@ -647,7 +647,7 @@ select {
 .editor-tag-pool { display:flex;flex-wrap:wrap;gap:.35rem;margin:-.4rem 0 1rem; }
 .editor-tag-pool button { min-height:1.9rem;padding:0 .55rem;border:1px solid var(--editor-line);border-radius:999px;background:white;color:#6b7077;font:inherit;font-size:.65rem;cursor:pointer; }
 .editor-tag-pool button[aria-pressed="true"] { background:#17191c;color:white; }
-.editor-field-help { color:#7b8087;font-size:.68rem;line-height:1.65; }
+.editor-field-help { margin:-.6rem 0 1rem;color:#7b8087;font-size:.68rem;line-height:1.65; }
 .editor-real-preview { min-height:100%;color:white; }
 .editor-workspace[data-mode="preview"] .editor-document { width:min(100%,92rem); }
 .editor-workspace[data-area="site"] { grid-template-columns:1fr; }
