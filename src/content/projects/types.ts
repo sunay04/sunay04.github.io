@@ -15,6 +15,14 @@ export type ProjectResource = {
   note?: string;
 };
 
+export type ProjectBlock =
+  | { id: string; type: "text"; heading?: string; body: string; width?: "narrow" | "wide" }
+  | { id: string; type: "quote"; body: string; attribution?: string }
+  | { id: string; type: "media"; media: PortfolioImage }
+  | { id: string; type: "gallery"; items: PortfolioImage[]; columns?: 2 | 3 }
+  | { id: string; type: "metrics"; items: string[] }
+  | { id: string; type: "spacer"; size?: "small" | "medium" | "large" };
+
 export type Project = {
   id: string;
   number: string;
@@ -34,4 +42,5 @@ export type Project = {
   gallery: PortfolioImage[];
   galleryLayout?: "feature-poster" | "sequence-grid";
   detailLayout?: "default" | "poster-pair";
+  blocks?: ProjectBlock[];
 };

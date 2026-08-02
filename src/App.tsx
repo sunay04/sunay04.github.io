@@ -6,10 +6,14 @@ import { IntroAnimation } from "./components/IntroAnimation";
 import { ExperienceSection } from "./components/ExperienceSection";
 import { FriendsSection } from "./components/FriendsSection";
 import { useCallback, useEffect, useRef, useState } from "react";
+import type { Project } from "./content/projects";
+import { bundledProjects, loadPublishedProjects } from "./content/projects/runtime";
+import { EditorPage } from "./editor/EditorPage";
 
 const sectionIds = ["about", "services", "experience", "projects", "friends"];
 
 export function App() {
+  const [projects, setProjects] = useState<Project[]>(bundledProjects);
   const viewportRef = useRef<HTMLDivElement>(null);
   const navigationTargetRef = useRef<string | null>(null);
   const scrollEndTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -17,6 +21,12 @@ export function App() {
   const [introComplete, setIntroComplete] = useState(false);
 
   const completeIntro = useCallback(() => setIntroComplete(true), []);
+
+  useEffect(() => {
+    const controller = new AbortController();
+    loadPublishedProjects(controller.signal).then(setProjects);
+    return () => controller.abort();
+  }, []);
 
   const navigateTo = useCallback((sectionId: string, updateHistory = true) => {
     const target = document.getElementById(sectionId);
@@ -97,7 +107,7 @@ export function App() {
             <ExperienceSection />
           </div>
           <div id="projects" className="horizontal-panel">
-            <ProjectsSection />
+            <ProjectsSection projects={projects} />
           </div>
           <div id="friends" className="horizontal-panel">
             <FriendsSection />
@@ -107,4 +117,9 @@ export function App() {
       <IntroAnimation onComplete={completeIntro} />
     </main>
   );
+}
+
+export function RootApp() {
+  const path = window.location.pathname.replace(/\/+$/, "") || "/";
+  return path === "/edits" ? <EditorPage /> : <App />;
 }

@@ -1,0 +1,6 @@
+GITHUB_CLIENT_ID="your-oauth-app-client-id"
+GITHUB_CLIENT_SECRET="your-oauth-app-client-secret"
+SESSION_SECRET="generate-at-least-32-random-characters"
+REPO_OWNER="sunay04"
+REPO_NAME="sunay04.github.io"
+CONTENT_PATH="public/content/projects.json"

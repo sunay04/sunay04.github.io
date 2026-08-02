@@ -4,7 +4,8 @@ import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight, ExternalLink, X, Zoom
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { FadeIn } from "./FadeIn";
 import { LiveProjectButton } from "./LiveProjectButton";
-import { PortfolioImage, Project, projects } from "../content/projects";
+import { PortfolioImage, Project } from "../content/projects";
+import { ProjectBlocks } from "./ProjectBlocks";
 import { cn } from "../lib/utils";
 
 const PAGE_SIZE = 6;
@@ -265,9 +266,11 @@ function ProjectDetail({ project, onBack, onPrevious, onNext }: { project: Proje
 
           <article>
             <ProjectOverview project={project} />
-            <HeroShowcase project={project} onOpen={openMedia} />
-            <ProjectEvidence project={project} />
-            <Gallery project={project} onOpen={openMedia} />
+            {project.blocks?.length ? <ProjectBlocks blocks={project.blocks} /> : <>
+              <HeroShowcase project={project} onOpen={openMedia} />
+              <ProjectEvidence project={project} />
+              <Gallery project={project} onOpen={openMedia} />
+            </>}
             <ProjectResources project={project} />
           </article>
 
@@ -282,14 +285,14 @@ function ProjectDetail({ project, onBack, onPrevious, onNext }: { project: Proje
   );
 }
 
-export function ProjectsSection() {
+export function ProjectsSection({ projects }: { projects: Project[] }) {
   const [filter, setFilter] = useState<(typeof filters)[number]>("全部");
   const [page, setPage] = useState(1);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const sectionRef = useRef<HTMLElement>(null);
   const reduceMotion = useReducedMotion();
 
-  const filtered = useMemo(() => filter === "全部" ? projects : projects.filter((project) => projectFilter(project) === filter), [filter]);
+  const filtered = useMemo(() => filter === "全部" ? projects : projects.filter((project) => projectFilter(project) === filter), [filter, projects]);
   const pageCount = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
   const visible = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
   const selectedIndex = projects.findIndex((project) => project.id === selectedId);
@@ -303,7 +306,7 @@ export function ProjectsSection() {
     syncHash();
     window.addEventListener("hashchange", syncHash);
     return () => window.removeEventListener("hashchange", syncHash);
-  }, []);
+  }, [projects]);
 
   const scrollTop = () => sectionRef.current?.closest(".horizontal-panel")?.scrollTo({ top: 0, behavior: "smooth" });
   const openProject = (id: string) => { setSelectedId(id); window.history.pushState(null, "", `#project/${id}`); scrollTop(); };
