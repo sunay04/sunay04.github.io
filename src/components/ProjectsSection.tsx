@@ -36,7 +36,7 @@ function ProjectMedia({ media, className, eager = false }: { media: PortfolioIma
 
 function PreviewCard({ project, onOpen }: { project: Project; onOpen: () => void }) {
   return (
-    <motion.article layout className="project-card group flex h-full flex-col overflow-hidden rounded-lg bg-white/[0.055]" whileHover={{ y: -4 }} transition={appleSpring}>
+    <motion.article layout className="project-card liquid-glass group flex h-full flex-col overflow-hidden rounded-lg" whileHover={{ y: -4 }} transition={appleSpring}>
       <button type="button" onClick={onOpen} className="relative block aspect-[16/11] w-full shrink-0 overflow-hidden text-left">
         <ProjectMedia media={project.hero} className="project-card-media bg-black transition-transform duration-500 group-hover:scale-[1.018]" />
         <span className="absolute left-3 top-3 rounded-full bg-black/60 px-3 py-1 text-[11px] text-white backdrop-blur-md">{projectFilter(project)}</span>
@@ -69,7 +69,7 @@ function MediaFrame({ media, className, onOpen }: { media: PortfolioImage; class
   );
 
   return (
-    <figure className={cn("group relative overflow-hidden rounded-lg bg-white/[0.045]", orientation === "portrait" && "mx-auto w-full max-w-2xl", className)}>
+    <figure className={cn("glass-media-frame group relative overflow-hidden rounded-lg", orientation === "portrait" && "mx-auto w-full max-w-2xl", className)}>
       {onOpen && media.type !== "video" ? (
         <button type="button" onClick={onOpen} aria-label={`放大查看${media.caption ?? media.alt}`} className="relative block w-full cursor-zoom-in overflow-hidden text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-white">
           {content}
@@ -126,8 +126,8 @@ function ProjectOverview({ project }: { project: Project }) {
       </div>
       <div className="flex flex-col justify-end gap-7">
         <div className="flex flex-wrap gap-2">
-          <span className="liquid-glass rounded-full px-3 py-1.5 text-xs text-white/72">{project.category}</span>
-          {project.tags.map((tag) => <span key={tag} className="liquid-glass rounded-full px-3 py-1.5 text-xs text-white/72">{tag}</span>)}
+          <span className="liquid-glass project-taxonomy-chip rounded-full px-3 py-1.5 text-xs text-white" style={{ "--taxonomy-color": project.categoryColor ?? "#dce2e8" } as React.CSSProperties}>{project.category}</span>
+          {project.tags.map((tag) => <span key={tag} className="liquid-glass project-taxonomy-chip rounded-full px-3 py-1.5 text-xs text-white" style={{ "--taxonomy-color": project.tagColors?.[tag] ?? "#dce2e8" } as React.CSSProperties}>{tag}</span>)}
         </div>
         {project.liveUrl && <LiveProjectButton href={project.liveUrl} label={project.linkLabel} />}
       </div>
@@ -167,7 +167,7 @@ function ProjectResources({ project }: { project: Project }) {
       <h3 className="text-xl font-medium text-white sm:text-2xl">项目资料</h3>
       <div className="mt-5 flex flex-wrap gap-3">
         {project.resources?.map((resource) => (
-          <a key={resource.href} href={resource.href} target="_blank" rel="noreferrer" className="flex min-h-12 items-center gap-3 rounded-lg border border-white/20 px-4 py-3 text-sm text-white transition hover:bg-white/10">
+          <a key={resource.href} href={resource.href} target="_blank" rel="noreferrer" className="liquid-glass apple-control flex min-h-12 items-center gap-3 rounded-lg px-4 py-3 text-sm text-white">
             <span><span className="font-medium">{resource.label}</span>{resource.note && <span className="mt-0.5 block text-xs text-white/55">{resource.note}</span>}</span>
             <ExternalLink className="h-4 w-4 text-white/55" />
           </a>
@@ -251,10 +251,10 @@ export function ProjectDetail({ project, onBack, onPrevious, onNext }: { project
       <FadeIn key={project.id} y={24}>
         <div className="mx-auto max-w-[92rem]">
           <nav className="mb-10 flex items-center justify-between gap-3 md:mb-14" aria-label="作品导航">
-            <motion.button type="button" onClick={onBack} whileTap={{ scale: 0.96 }} className="apple-control flex min-h-11 items-center gap-2 rounded-full border border-white/20 px-4 text-sm text-white"><ArrowLeft className="h-4 w-4" /> 返回作品列表</motion.button>
+            <motion.button type="button" onClick={onBack} whileTap={{ scale: 0.96 }} className="liquid-glass apple-control flex min-h-11 items-center gap-2 rounded-full px-4 text-sm text-white"><ArrowLeft className="h-4 w-4" /> 返回作品列表</motion.button>
             <div className="flex gap-2">
-              <motion.button type="button" onClick={onPrevious} whileTap={{ scale: 0.92 }} title="上一个作品" aria-label="上一个作品" className="apple-control flex h-11 w-11 items-center justify-center rounded-full border border-white/20"><ChevronLeft className="h-5 w-5" /></motion.button>
-              <motion.button type="button" onClick={onNext} whileTap={{ scale: 0.92 }} title="下一个作品" aria-label="下一个作品" className="apple-control flex h-11 w-11 items-center justify-center rounded-full border border-white/20"><ChevronRight className="h-5 w-5" /></motion.button>
+              <motion.button type="button" onClick={onPrevious} whileTap={{ scale: 0.92 }} title="上一个作品" aria-label="上一个作品" className="liquid-glass apple-control flex h-11 w-11 items-center justify-center rounded-full"><ChevronLeft className="h-5 w-5" /></motion.button>
+              <motion.button type="button" onClick={onNext} whileTap={{ scale: 0.92 }} title="下一个作品" aria-label="下一个作品" className="liquid-glass apple-control flex h-11 w-11 items-center justify-center rounded-full"><ChevronRight className="h-5 w-5" /></motion.button>
             </div>
           </nav>
 
@@ -268,9 +268,9 @@ export function ProjectDetail({ project, onBack, onPrevious, onNext }: { project
             <ProjectResources project={project} />
           </article>
 
-          <nav className="mt-20 grid grid-cols-2 border-t border-white/15 pt-5" aria-label="浏览其他作品">
-            <button type="button" onClick={onPrevious} className="flex min-h-14 items-center justify-start gap-2 text-sm text-white/75 hover:text-white"><ChevronLeft className="h-5 w-5" /> 上一个作品</button>
-            <button type="button" onClick={onNext} className="flex min-h-14 items-center justify-end gap-2 text-sm text-white/75 hover:text-white">下一个作品 <ChevronRight className="h-5 w-5" /></button>
+          <nav className="mt-20 grid grid-cols-2 gap-2 border-t border-white/15 pt-5" aria-label="浏览其他作品">
+            <button type="button" onClick={onPrevious} className="liquid-glass apple-control flex min-h-14 items-center justify-start gap-2 rounded-lg px-4 text-sm text-white/75 hover:text-white"><ChevronLeft className="h-5 w-5" /> 上一个作品</button>
+            <button type="button" onClick={onNext} className="liquid-glass apple-control flex min-h-14 items-center justify-end gap-2 rounded-lg px-4 text-sm text-white/75 hover:text-white">下一个作品 <ChevronRight className="h-5 w-5" /></button>
           </nav>
         </div>
       </FadeIn>
@@ -320,7 +320,7 @@ export function ProjectsSection({ projects }: { projects: Project[] }) {
             <FadeIn as="h2" className="cosmic-heading mx-auto pb-2 text-center text-[clamp(4rem,9vw,7.5rem)] leading-[0.9]">Selected Work</FadeIn>
 
             <FadeIn className="mx-auto mt-9 flex max-w-3xl flex-wrap items-center justify-center gap-2" y={16}>
-              {filters.map((item) => <motion.button key={item} type="button" onClick={() => { setFilter(item); setPage(1); }} whileTap={{ scale: 0.96 }} aria-pressed={filter === item} className="relative min-h-10 rounded-full border border-white/15 px-4 text-sm text-white/65 transition-colors hover:text-white aria-pressed:border-white aria-pressed:bg-white aria-pressed:text-black">{item}<span className="ml-2 text-xs opacity-55">{item === "全部" ? projects.length : projects.filter((project) => projectFilter(project) === item).length}</span></motion.button>)}
+              {filters.map((item) => <motion.button key={item} type="button" onClick={() => { setFilter(item); setPage(1); }} whileTap={{ scale: 0.96 }} aria-pressed={filter === item} className="liquid-glass apple-control relative min-h-10 rounded-full px-4 text-sm text-white/65 hover:text-white aria-pressed:bg-white aria-pressed:text-black">{item}<span className="ml-2 text-xs opacity-55">{item === "全部" ? projects.length : projects.filter((project) => projectFilter(project) === item).length}</span></motion.button>)}
             </FadeIn>
 
             <AnimatePresence mode="wait" initial={false}>
@@ -330,9 +330,9 @@ export function ProjectsSection({ projects }: { projects: Project[] }) {
             </AnimatePresence>
 
             <div className="mx-auto mt-10 flex max-w-[92rem] items-center justify-center gap-3">
-              <button type="button" disabled={page === 1} onClick={() => { setPage((value) => value - 1); scrollTop(); }} aria-label="上一页" className="flex h-11 w-11 items-center justify-center rounded-full border border-white/20 disabled:cursor-not-allowed disabled:opacity-30"><ChevronLeft className="h-5 w-5" /></button>
+              <button type="button" disabled={page === 1} onClick={() => { setPage((value) => value - 1); scrollTop(); }} aria-label="上一页" className="liquid-glass apple-control flex h-11 w-11 items-center justify-center rounded-full disabled:cursor-not-allowed disabled:opacity-30"><ChevronLeft className="h-5 w-5" /></button>
               <span className="min-w-20 text-center text-sm text-white/60">{page} / {pageCount}</span>
-              <button type="button" disabled={page === pageCount} onClick={() => { setPage((value) => value + 1); scrollTop(); }} aria-label="下一页" className="flex h-11 w-11 items-center justify-center rounded-full border border-white/20 disabled:cursor-not-allowed disabled:opacity-30"><ChevronRight className="h-5 w-5" /></button>
+              <button type="button" disabled={page === pageCount} onClick={() => { setPage((value) => value + 1); scrollTop(); }} aria-label="下一页" className="liquid-glass apple-control flex h-11 w-11 items-center justify-center rounded-full disabled:cursor-not-allowed disabled:opacity-30"><ChevronRight className="h-5 w-5" /></button>
             </div>
           </motion.div>
         )}

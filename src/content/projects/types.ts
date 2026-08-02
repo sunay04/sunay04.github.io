@@ -28,12 +28,14 @@ export type Project = {
   number?: string;
   name: string;
   category: string;
+  categoryColor?: string;
   role?: string;
   year?: string;
   startDate?: string;
   endDate?: string;
   summary: string;
   tags: string[];
+  tagColors?: Record<string, string>;
   metrics?: string[];
   takeaways?: string[];
   liveUrl?: string;
