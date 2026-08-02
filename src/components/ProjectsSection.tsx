@@ -12,6 +12,11 @@ const PAGE_SIZE = 6;
 const appleSpring = { type: "spring", bounce: 0, duration: 0.42 } as const;
 const filters = ["全部", "AIGC", "品牌视觉", "视觉设计", "内容运营", "插画"] as const;
 
+function projectPeriod(project: Project) {
+  if (!project.startDate) return project.year ?? "";
+  return `${project.startDate.replace("-", ".")} — ${project.endDate ? project.endDate.replace("-", ".") : "至今"}`;
+}
+
 function projectFilter(project: Project) {
   const text = `${project.category} ${project.tags.join(" ")}`;
   if (/AIGC|AI |AI短片|Midjourney|可灵/.test(text)) return "AIGC";
@@ -38,9 +43,9 @@ function PreviewCard({ project, onOpen }: { project: Project; onOpen: () => void
       </button>
       <div className="flex h-[10.5rem] shrink-0 items-end justify-between gap-5 p-5 sm:h-[8.875rem]">
         <div className="min-w-0">
-          <p className="text-xs text-white/60">{project.category} · {project.year}</p>
+          <p className="text-xs text-white/60">{project.category} · {projectPeriod(project)}</p>
           <h3 className="mt-2 text-wrap-balance text-lg font-medium leading-snug text-white">{project.name}</h3>
-          <p className="mt-2 line-clamp-2 max-w-[62ch] text-sm leading-relaxed text-white/70">{project.role}</p>
+          <p className="mt-2 line-clamp-2 max-w-[62ch] text-sm leading-relaxed text-white/70">{project.summary}</p>
         </div>
         <button type="button" onClick={onOpen} aria-label={`查看${project.name}`} className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white text-black transition group-hover:translate-x-0.5">
           <ArrowRight className="h-4 w-4" />
@@ -115,25 +120,14 @@ function ProjectOverview({ project }: { project: Project }) {
   return (
     <header className="grid gap-8 border-b border-white/15 pb-10 md:grid-cols-[minmax(0,1.2fr)_minmax(280px,0.8fr)] md:gap-12 md:pb-14">
       <div>
-        <p className="text-sm text-white/60">{project.category} · {project.year}</p>
+        <p className="text-sm text-white/60">{project.category} · {projectPeriod(project)}</p>
         <h2 className="apple-title mt-4 max-w-[14ch] text-wrap-balance text-[clamp(2.4rem,6vw,5.5rem)] font-semibold leading-[1.02]">{project.name}</h2>
         <p className="cosmic-copy mt-6 max-w-[65ch] text-base leading-relaxed text-white/78 md:text-lg">{project.summary}</p>
       </div>
       <div className="flex flex-col justify-end gap-7">
-        <div>
-          <h3 className="text-sm font-medium text-white">我的职责</h3>
-          <p className="mt-2 text-sm leading-relaxed text-white/72">{project.role}</p>
-        </div>
-        <div>
-          <h3 className="text-sm font-medium text-white">项目成果</h3>
-          <ol className="mt-3 space-y-2.5">
-            {project.metrics.map((metric, index) => (
-              <li key={metric} className="grid grid-cols-[1.5rem_minmax(0,1fr)] items-baseline gap-2 text-sm leading-relaxed text-white/75">
-                <span className="text-xs tabular-nums text-white/35">{String(index + 1).padStart(2, "0")}</span>
-                <span>{metric}</span>
-              </li>
-            ))}
-          </ol>
+        <div className="flex flex-wrap gap-2">
+          <span className="liquid-glass rounded-full px-3 py-1.5 text-xs text-white/72">{project.category}</span>
+          {project.tags.map((tag) => <span key={tag} className="liquid-glass rounded-full px-3 py-1.5 text-xs text-white/72">{tag}</span>)}
         </div>
         {project.liveUrl && <LiveProjectButton href={project.liveUrl} label={project.linkLabel} />}
       </div>
@@ -244,7 +238,7 @@ function ImageLightbox({ images, index, onChange, onClose }: { images: Portfolio
   );
 }
 
-function ProjectDetail({ project, onBack, onPrevious, onNext }: { project: Project; onBack: () => void; onPrevious: () => void; onNext: () => void }) {
+export function ProjectDetail({ project, onBack, onPrevious, onNext }: { project: Project; onBack: () => void; onPrevious: () => void; onNext: () => void }) {
   const images = [project.hero, ...(project.heroSupport ? [project.heroSupport] : []), ...project.gallery].filter((media) => media.type !== "video");
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const openMedia = (media: PortfolioImage) => {

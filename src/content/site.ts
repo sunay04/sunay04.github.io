@@ -23,6 +23,14 @@ export type FriendLink = {
   icon: string;
 };
 
+export type SiteContent = {
+  profile: typeof profile;
+  highlights: typeof highlights;
+  services: Service[];
+  experiences: Experience[];
+  friendLinks: FriendLink[];
+};
+
 export const profile = {
   name: "sunay",
   title: "AIGC Creative Portfolio",
@@ -109,3 +117,5 @@ export const services: Service[] = [
       "能在 Figma、PS、Midjourney、即梦、可灵、豆包等工具之间建立流程，用 AI 提升效率，同时保留自己的判断和审美。",
   },
 ];
+
+export const bundledSite: SiteContent = { profile, highlights, services, experiences, friendLinks };

@@ -7,13 +7,15 @@ import { ExperienceSection } from "./components/ExperienceSection";
 import { FriendsSection } from "./components/FriendsSection";
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { Project } from "./content/projects";
-import { bundledProjects, loadPublishedProjects } from "./content/projects/runtime";
+import { bundledProjects, loadPublishedContent } from "./content/projects/runtime";
+import { bundledSite } from "./content/site";
 import { EditorPage } from "./editor/EditorPage";
 
 const sectionIds = ["about", "services", "experience", "projects", "friends"];
 
 export function App() {
   const [projects, setProjects] = useState<Project[]>(bundledProjects);
+  const [site, setSite] = useState(bundledSite);
   const viewportRef = useRef<HTMLDivElement>(null);
   const navigationTargetRef = useRef<string | null>(null);
   const scrollEndTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -24,7 +26,7 @@ export function App() {
 
   useEffect(() => {
     const controller = new AbortController();
-    loadPublishedProjects(controller.signal).then(setProjects);
+    loadPublishedContent(controller.signal).then((content) => { setProjects(content.projects); setSite(content.site); });
     return () => controller.abort();
   }, []);
 
@@ -98,19 +100,19 @@ export function App() {
         <SiteNavigation activeSection={activeSection} audioEnabled={introComplete} onNavigate={navigateTo} />
         <div ref={viewportRef} className="horizontal-viewport relative z-10">
           <div id="about" className="horizontal-panel">
-            <HeroSection />
+            <HeroSection content={site.profile} />
           </div>
           <div id="services" className="horizontal-panel">
-            <ServicesSection />
+            <ServicesSection content={{ highlights: site.highlights, services: site.services }} />
           </div>
           <div id="experience" className="horizontal-panel">
-            <ExperienceSection />
+            <ExperienceSection content={site.experiences} />
           </div>
           <div id="projects" className="horizontal-panel">
             <ProjectsSection projects={projects} />
           </div>
           <div id="friends" className="horizontal-panel">
-            <FriendsSection />
+            <FriendsSection content={site.friendLinks} />
           </div>
         </div>
       </div>

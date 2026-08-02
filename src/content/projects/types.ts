@@ -25,14 +25,16 @@ export type ProjectBlock =
 
 export type Project = {
   id: string;
-  number: string;
+  number?: string;
   name: string;
   category: string;
-  role: string;
-  year: string;
+  role?: string;
+  year?: string;
+  startDate?: string;
+  endDate?: string;
   summary: string;
   tags: string[];
-  metrics: string[];
+  metrics?: string[];
   takeaways?: string[];
   liveUrl?: string;
   linkLabel?: string;

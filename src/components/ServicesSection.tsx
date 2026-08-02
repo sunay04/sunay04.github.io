@@ -54,7 +54,7 @@ function ToolMarquee() {
   );
 }
 
-export function ServicesSection() {
+export function ServicesSection({ content = { highlights, services } }: { content?: { highlights: typeof highlights; services: Service[] } }) {
   return (
     <section
       className="relative overflow-hidden px-5 py-24 sm:px-8 md:px-10"
@@ -67,7 +67,7 @@ export function ServicesSection() {
         Skill Set
       </FadeIn>
       <div className="mx-auto mb-5 grid max-w-7xl grid-cols-1 gap-4 md:grid-cols-2">
-        {highlights.map((item, index) => (
+        {content.highlights.map((item, index) => (
           <FadeIn
             key={item.label}
             immediate
@@ -88,7 +88,7 @@ export function ServicesSection() {
       </div>
       <ToolMarquee />
       <div className="mx-auto mt-5 grid max-w-7xl grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
-        {services.map((service, index) => (
+        {content.services.map((service, index) => (
           <FadeIn
             key={service.name}
             immediate

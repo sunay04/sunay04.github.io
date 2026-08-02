@@ -133,15 +133,15 @@ async function handleApi(request: Request, env: Env) {
     const { data, response } = await github<{ content?: string; sha?: string }>(`/repos/${owner}/${repo}/contents/${path}`, session.accessToken);
     if (response.status === 404) return json({ projects: [], sha: null });
     if (!response.ok || !data.content) return json({ error: "无法读取仓库内容" }, response.status);
-    try { return json({ projects: JSON.parse(decoder.decode(Uint8Array.from(atob(data.content.replace(/\n/g, "")), (char) => char.charCodeAt(0)))), sha: data.sha ?? null }); }
+    try { const parsed = JSON.parse(decoder.decode(Uint8Array.from(atob(data.content.replace(/\n/g, "")), (char) => char.charCodeAt(0)))); return json(Array.isArray(parsed) ? { projects: parsed, sha: data.sha ?? null } : { ...parsed, sha: data.sha ?? null }); }
     catch { return json({ error: "仓库内容格式无效" }, 422); }
   }
 
   if (url.pathname === "/api/content" && request.method === "PUT") {
     if (!sameOrigin(request)) return json({ error: "拒绝跨站写入" }, 403);
-    const body = await request.json().catch(() => null) as { projects?: unknown[]; sha?: string | null } | null;
+    const body = await request.json().catch(() => null) as { projects?: unknown[]; site?: unknown; sha?: string | null } | null;
     if (!body || !Array.isArray(body.projects) || body.projects.length > 100) return json({ error: "作品数据无效" }, 400);
-    const serialized = JSON.stringify(body.projects, null, 2) + "\n";
+    const serialized = JSON.stringify({ projects: body.projects, site: body.site }, null, 2) + "\n";
     if (serialized.length > 5_000_000) return json({ error: "内容文件不能超过 5MB" }, 413);
     const { owner, repo, path } = config(env);
     const content = standardBase64(encoder.encode(serialized));
@@ -151,6 +151,25 @@ async function handleApi(request: Request, env: Env) {
     if (response.status === 409 || response.status === 422) return json({ error: "仓库内容已被更新，请刷新后重新编辑" }, 409);
     if (!response.ok) return json({ error: "GitHub 提交失败" }, response.status);
     return json({ sha: data.content?.sha, commitUrl: data.commit?.html_url });
+  }
+
+  if (url.pathname === "/api/media" && request.method === "POST") {
+    const origin = request.headers.get("origin");
+    if (origin && origin !== url.origin) return json({ error: "请求来源无效" }, 403);
+    const body = await request.json<{ name?: string; type?: string; size?: number; base64?: string }>();
+    if (!body.name || !body.base64 || !body.size) return json({ error: "文件数据不完整" }, 400);
+    if (body.size > 8 * 1024 * 1024) return json({ error: "单个文件不能超过 8 MB" }, 413);
+    if (!/^(image|video)\//.test(body.type ?? "")) return json({ error: "仅支持图片和视频" }, 415);
+    const safeName = body.name.normalize("NFKD").replace(/[^a-zA-Z0-9._-]+/g, "-").replace(/^-+|-+$/g, "").slice(-100) || "media";
+    const path = `public/uploads/${Date.now()}-${safeName}`;
+    const { owner, repo } = config(env);
+    const { response } = await github(`/repos/${owner}/${repo}/contents/${path}`, session.accessToken, {
+      method: "PUT",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ message: `media: upload ${safeName} from portfolio editor`, content: body.base64, branch: "main" }),
+    });
+    if (!response.ok) return json({ error: "媒体上传失败" }, response.status);
+    return json({ url: `/${path.replace(/^public\//, "")}` });
   }
 
   return json({ error: "Not found" }, 404);

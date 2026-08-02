@@ -2,7 +2,7 @@ import { BriefcaseBusiness } from "lucide-react";
 import { experiences } from "../content/site";
 import { FadeIn } from "./FadeIn";
 
-export function ExperienceSection() {
+export function ExperienceSection({ content = experiences }: { content?: typeof experiences }) {
   return (
     <section className="relative min-h-full px-5 py-24 sm:px-8 md:px-10 md:py-28">
       <div className="pointer-events-none absolute inset-x-8 top-0 h-px bg-white/20 md:inset-x-16" />
@@ -12,7 +12,7 @@ export function ExperienceSection() {
         </FadeIn>
 
         <div className="mx-auto mt-10 max-w-5xl border-t border-white/18">
-          {experiences.map((experience, index) => (
+          {content.map((experience, index) => (
             <FadeIn key={`${experience.period}-${experience.role}`} immediate delay={index * 0.08} className="grid gap-5 border-b border-white/18 py-7 md:grid-cols-[11rem_1fr] md:gap-10 md:py-9">
               <div>
                 <p className="text-sm font-medium text-white/85">{experience.period}</p>

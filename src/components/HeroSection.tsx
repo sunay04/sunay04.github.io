@@ -21,7 +21,7 @@ const contactLinks = [
   },
 ];
 
-export function HeroSection() {
+export function HeroSection({ content = profile }: { content?: typeof profile }) {
   return (
     <section className="relative min-h-[100dvh] overflow-hidden px-5 pb-10 pt-24 sm:px-8 md:px-10 lg:pt-28">
       <div className="pointer-events-none absolute inset-0 opacity-70" aria-hidden="true">
@@ -41,7 +41,7 @@ export function HeroSection() {
           </FadeIn>
 
           <BlurText
-            text={profile.heroTitle}
+            text={content.heroTitle}
             className="cosmic-heading max-w-full justify-center pb-2 text-[clamp(5rem,14vw,8rem)] leading-[0.82]"
           />
 
@@ -51,7 +51,7 @@ export function HeroSection() {
             y={16}
             className="mt-5 flex flex-wrap justify-center gap-2"
           >
-            {profile.education.map((item) => (
+            {content.education.map((item) => (
               <span
                 key={item}
                 className="liquid-glass rounded-full px-3.5 py-1.5 text-xs font-medium text-white/90 sm:text-sm"
