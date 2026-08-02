@@ -27,7 +27,7 @@ export function ProjectBlocks({ blocks }: { blocks: ProjectBlock[] }) {
       {blocks.map((block) => {
         if (block.type === "text") {
           return (
-            <section key={block.id} className={cn("project-copy-block", block.width === "wide" && "is-wide")}>
+            <section key={block.id} className="project-copy-block">
               {block.heading && <h3>{block.heading}</h3>}
               <p>{block.body}</p>
             </section>

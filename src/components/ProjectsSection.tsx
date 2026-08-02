@@ -69,7 +69,7 @@ function MediaFrame({ media, className, onOpen }: { media: PortfolioImage; class
   );
 
   return (
-    <figure className={cn("glass-media-frame group relative overflow-hidden rounded-lg", orientation === "portrait" && "mx-auto w-full max-w-2xl", className)}>
+    <figure className={cn("glass-media-frame group relative w-full overflow-hidden rounded-lg", className)}>
       {onOpen && media.type !== "video" ? (
         <button type="button" onClick={onOpen} aria-label={`放大查看${media.caption ?? media.alt}`} className="relative block w-full cursor-zoom-in overflow-hidden text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-white">
           {content}
@@ -138,8 +138,8 @@ function ProjectOverview({ project }: { project: Project }) {
 function HeroShowcase({ project, onOpen }: { project: Project; onOpen: (media: PortfolioImage) => void }) {
   const paired = project.detailLayout === "poster-pair" && project.heroSupport;
   return (
-    <section className={cn("mt-10 md:mt-14", paired && "mx-auto grid max-w-5xl gap-4 sm:grid-cols-2 md:gap-6")} aria-label="项目主视觉">
-      <MediaFrame media={project.hero} onOpen={project.hero.type === "video" ? undefined : () => onOpen(project.hero)} className={cn(!paired && project.hero.height === "tall" && "max-w-3xl", !paired && project.hero.orientation !== "portrait" && "max-w-none")} />
+    <section className={cn("mt-10 md:mt-14", paired && "grid gap-4 sm:grid-cols-2 md:gap-6")} aria-label="项目主视觉">
+      <MediaFrame media={project.hero} onOpen={project.hero.type === "video" ? undefined : () => onOpen(project.hero)} />
       {paired && <MediaFrame media={project.heroSupport!} onOpen={() => onOpen(project.heroSupport!)} />}
       {!paired && project.heroSupport && <MediaFrame media={project.heroSupport} onOpen={() => onOpen(project.heroSupport!)} className="mt-4 md:mt-6" />}
     </section>
@@ -249,7 +249,7 @@ export function ProjectDetail({ project, onBack, onPrevious, onNext }: { project
   return (
     <>
       <FadeIn key={project.id} y={24}>
-        <div className="mx-auto max-w-[92rem]">
+        <div className="project-page-width mx-auto">
           <nav className="mb-10 flex items-center justify-between gap-3 md:mb-14" aria-label="作品导航">
             <motion.button type="button" onClick={onBack} whileTap={{ scale: 0.96 }} className="liquid-glass apple-control flex min-h-11 items-center gap-2 rounded-full px-4 text-sm text-white"><ArrowLeft className="h-4 w-4" /> 返回作品列表</motion.button>
             <div className="flex gap-2">
