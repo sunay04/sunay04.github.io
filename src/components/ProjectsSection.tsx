@@ -39,15 +39,18 @@ function PreviewCard({ project, onOpen }: { project: Project; onOpen: () => void
     <motion.article layout className="project-card liquid-glass group flex h-full flex-col overflow-hidden rounded-lg" whileHover={{ y: -4 }} transition={appleSpring}>
       <button type="button" onClick={onOpen} className="relative block aspect-[16/11] w-full shrink-0 overflow-hidden text-left">
         <ProjectMedia media={project.hero} className="project-card-media bg-black transition-transform duration-500 group-hover:scale-[1.018]" />
-        <span className="absolute left-3 top-3 rounded-full bg-black/60 px-3 py-1 text-[11px] text-white backdrop-blur-md">{projectFilter(project)}</span>
       </button>
-      <div className="flex h-[10.5rem] shrink-0 items-end justify-between gap-5 p-5 sm:h-[8.875rem]">
-        <div className="min-w-0">
-          <time className="text-xs text-white/60">{projectPeriod(project)}</time>
-          <h3 className="mt-2 text-wrap-balance text-lg font-medium leading-snug text-white">{project.name}</h3>
-          <p className="mt-2 line-clamp-2 max-w-[62ch] text-sm leading-relaxed text-white/70">{project.summary}</p>
+      <div className="flex h-[15rem] shrink-0 items-end justify-between gap-4 p-5 sm:h-[14rem]">
+        <div className="min-w-0 flex-1 self-stretch">
+          <h3 className="text-wrap-balance text-lg font-medium leading-snug text-white">{project.name}</h3>
+          <div className="mt-3 grid gap-2 text-[11px] text-white/62" aria-label={`${project.name}作品属性`}>
+            <div className="flex items-center gap-2"><CalendarDays aria-hidden className="h-3.5 w-3.5 shrink-0 text-white/38" /><time>{projectPeriod(project)}</time></div>
+            <div className="flex items-center gap-2"><Folder aria-hidden className="h-3.5 w-3.5 shrink-0 text-white/38" /><strong className="truncate font-medium text-white/75">{project.category}</strong></div>
+            <div className="flex min-w-0 items-center gap-2"><Tags aria-hidden className="h-3.5 w-3.5 shrink-0 text-white/38" /><div className="flex min-w-0 gap-1 overflow-hidden">{project.tags.map((tag) => <span key={tag} className="shrink-0 rounded-[4px] px-2 py-1 text-[10px] text-white/74" style={{ background: `color-mix(in srgb, ${project.tagColors?.[tag] ?? "#dce2e8"} 24%, rgba(255,255,255,.06))` }}>{tag}</span>)}</div></div>
+          </div>
+          <p className="mt-3 line-clamp-2 max-w-[62ch] text-sm leading-relaxed text-white/70">{project.summary}</p>
         </div>
-        <button type="button" onClick={onOpen} aria-label={`查看${project.name}`} className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white text-black transition group-hover:translate-x-0.5">
+        <button type="button" onClick={onOpen} aria-label={`查看${project.name}`} className="flex h-11 w-11 shrink-0 items-center justify-center self-end rounded-full bg-white text-black transition group-hover:translate-x-0.5">
           <ArrowRight className="h-4 w-4" />
         </button>
       </div>
