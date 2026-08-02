@@ -124,10 +124,10 @@ function ProjectOverview({ project }: { project: Project }) {
         <h2 className="apple-title mt-4 max-w-[14ch] text-wrap-balance text-[clamp(2.4rem,6vw,5.5rem)] font-semibold leading-[1.02]">{project.name}</h2>
         <p className="cosmic-copy mt-6 max-w-[65ch] text-base leading-relaxed text-white/78 md:text-lg">{project.summary}</p>
       </div>
-      <div className="flex flex-col justify-end gap-7">
-        <div className="flex flex-wrap gap-2">
-          <span className="liquid-glass project-taxonomy-chip rounded-full px-3 py-1.5 text-xs text-white" style={{ "--taxonomy-color": project.categoryColor ?? "#dce2e8" } as React.CSSProperties}>{project.category}</span>
-          {project.tags.map((tag) => <span key={tag} className="liquid-glass project-taxonomy-chip rounded-full px-3 py-1.5 text-xs text-white" style={{ "--taxonomy-color": project.tagColors?.[tag] ?? "#dce2e8" } as React.CSSProperties}>{tag}</span>)}
+      <div className="flex flex-col justify-end gap-5">
+        <div className="liquid-glass project-taxonomy-panel rounded-lg p-4">
+          <div className="project-taxonomy-row"><span>类别</span><strong style={{ "--taxonomy-color": project.categoryColor ?? "#dce2e8" } as React.CSSProperties}><i />{project.category}</strong></div>
+          <div className="project-taxonomy-row is-tags"><span>标签</span><div>{project.tags.map((tag) => <em key={tag} style={{ "--taxonomy-color": project.tagColors?.[tag] ?? "#dce2e8" } as React.CSSProperties}>{tag}</em>)}</div></div>
         </div>
         {project.liveUrl && <LiveProjectButton href={project.liveUrl} label={project.linkLabel} />}
       </div>

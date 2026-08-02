@@ -9,6 +9,8 @@ export type Service = {
 
 export type Experience = {
   period: string;
+  startDate?: string;
+  endDate?: string;
   role: string;
   organization: string;
   type: "工作" | "实习" | "项目实践";
