@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { ArrowLeft, ArrowRight, ChevronLeft, ChevronRight, ExternalLink, X, ZoomIn } from "lucide-react";
+import { ArrowLeft, ArrowRight, CalendarDays, ChevronLeft, ChevronRight, ExternalLink, Folder, Tags, X, ZoomIn } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { FadeIn } from "./FadeIn";
 import { LiveProjectButton } from "./LiveProjectButton";
@@ -120,15 +120,17 @@ function ProjectOverview({ project }: { project: Project }) {
   return (
     <header className="border-b border-white/15 pb-12 text-center md:pb-16">
       <h2 className="apple-title mx-auto max-w-[18ch] text-wrap-balance text-[clamp(2.25rem,5vw,4.25rem)] font-semibold leading-[1.06]">{project.name}</h2>
-      <time className="mt-4 block text-sm font-medium text-white/58">{projectPeriod(project)}</time>
-      <p className="cosmic-copy mx-auto mt-7 max-w-[48rem] text-base leading-relaxed text-white/78 md:text-lg">{project.summary}</p>
-      <div className="mx-auto mt-8 flex max-w-xl flex-col items-stretch gap-4">
-        <div className="liquid-glass project-taxonomy-panel rounded-lg p-4 text-left">
-          <div className="project-taxonomy-row"><span>类别</span><strong style={{ "--taxonomy-color": project.categoryColor ?? "#dce2e8" } as React.CSSProperties}><i />{project.category}</strong></div>
-          <div className="project-taxonomy-row is-tags"><span>标签</span><div>{project.tags.map((tag) => <em key={tag} style={{ "--taxonomy-color": project.tagColors?.[tag] ?? "#dce2e8" } as React.CSSProperties}>{tag}</em>)}</div></div>
-        </div>
-        {project.liveUrl && <div className="flex justify-center"><LiveProjectButton href={project.liveUrl} label={project.linkLabel} /></div>}
+      <div className="mx-auto mt-7 flex max-w-[48rem] flex-wrap items-center justify-center gap-x-7 gap-y-3 text-sm text-white/68" aria-label="作品属性">
+        <div className="flex items-center gap-2"><CalendarDays aria-hidden className="h-4 w-4 text-white/42" /><span className="sr-only">时间：</span><time>{projectPeriod(project)}</time></div>
+        <div className="flex items-center gap-2"><Folder aria-hidden className="h-4 w-4 text-white/42" /><span className="sr-only">类别：</span><strong className="font-medium text-white/82">{project.category}</strong></div>
+        <div className="flex flex-wrap items-center justify-center gap-2"><Tags aria-hidden className="h-4 w-4 text-white/42" /><span className="sr-only">标签：</span>{project.tags.map((tag) => <span key={tag} className="rounded-[5px] px-2.5 py-1 text-xs text-white/78" style={{ background: `color-mix(in srgb, ${project.tagColors?.[tag] ?? "#dce2e8"} 24%, rgba(255,255,255,.06))` }}>{tag}</span>)}</div>
       </div>
+      <p className="cosmic-copy mx-auto mt-7 max-w-[48rem] text-base leading-relaxed text-white/78 md:text-lg">{project.summary}</p>
+      {project.liveUrl && (
+        <div className="mt-7 flex justify-center">
+          <LiveProjectButton href={project.liveUrl} label={project.linkLabel} />
+        </div>
+      )}
     </header>
   );
 }
