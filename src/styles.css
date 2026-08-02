@@ -714,6 +714,8 @@ select {
 .editor-project-list button { position:relative;z-index:0;cursor:grab;touch-action:none;user-select:none; }
 .editor-project-list button:active { z-index:2;cursor:grabbing; }
 .editor-shell input,.editor-shell textarea { cursor:text;user-select:text;-webkit-user-select:text;touch-action:auto; }
+.editor-shell ::selection { background:rgba(86,119,181,.32);color:inherit; }
+.editor-shell ::-moz-selection { background:rgba(86,119,181,.32);color:inherit; }
 .editor-field input[type="month"] { cursor:default;color-scheme:light; }
 .editor-workspace[data-mode="preview"] .editor-canvas { padding:0; }
 .editor-real-preview { padding:0;font-family:"Barlow","PingFang SC","Microsoft YaHei",sans-serif; }
@@ -737,8 +739,10 @@ select {
 /* Notion-style properties */
 .editor-property-option { display:grid;grid-template-columns:minmax(0,1fr) 2.1rem;align-items:center; }
 .editor-property-control { contain:none; }
-.editor-property-dismiss { position:fixed;z-index:29;inset:0;border:0;background:transparent;cursor:default; }
-.editor-properties .editor-property-trigger { position:relative;z-index:31; }
+.editor-property[data-open="true"] { position:relative;z-index:80; }
+.editor-property-dismiss { position:fixed;z-index:81;inset:0;border:0;background:transparent;cursor:default; }
+.editor-property[data-open="true"] .editor-property-trigger { position:relative;z-index:83; }
+.editor-property[data-open="true"] .editor-property-popover { z-index:83; }
 .editor-property-option>button:first-child { width:100%; }
 .editor-property-color-button { display:grid!important;width:1.8rem!important;min-height:1.8rem!important;place-items:center;padding:0!important; }
 .editor-property-color-button span { width:.8rem;height:.8rem;border-radius:50%;box-shadow:0 0 0 1px rgba(0,0,0,.12); }
