@@ -43,7 +43,7 @@ function PreviewCard({ project, onOpen }: { project: Project; onOpen: () => void
       </button>
       <div className="flex h-[10.5rem] shrink-0 items-end justify-between gap-5 p-5 sm:h-[8.875rem]">
         <div className="min-w-0">
-          <p className="text-xs text-white/60">{project.category} · {projectPeriod(project)}</p>
+          <time className="text-xs text-white/60">{projectPeriod(project)}</time>
           <h3 className="mt-2 text-wrap-balance text-lg font-medium leading-snug text-white">{project.name}</h3>
           <p className="mt-2 line-clamp-2 max-w-[62ch] text-sm leading-relaxed text-white/70">{project.summary}</p>
         </div>
@@ -118,18 +118,16 @@ function Gallery({ project, onOpen }: { project: Project; onOpen: (media: Portfo
 
 function ProjectOverview({ project }: { project: Project }) {
   return (
-    <header className="grid gap-8 border-b border-white/15 pb-10 md:grid-cols-[minmax(0,1.2fr)_minmax(280px,0.8fr)] md:gap-12 md:pb-14">
-      <div>
-        <p className="text-sm text-white/60">{project.category} · {projectPeriod(project)}</p>
-        <h2 className="apple-title mt-4 max-w-[14ch] text-wrap-balance text-[clamp(2.4rem,6vw,5.5rem)] font-semibold leading-[1.02]">{project.name}</h2>
-        <p className="cosmic-copy mt-6 max-w-[65ch] text-base leading-relaxed text-white/78 md:text-lg">{project.summary}</p>
-      </div>
-      <div className="flex flex-col justify-end gap-5">
-        <div className="liquid-glass project-taxonomy-panel rounded-lg p-4">
+    <header className="border-b border-white/15 pb-12 text-center md:pb-16">
+      <h2 className="apple-title mx-auto max-w-[18ch] text-wrap-balance text-[clamp(2.25rem,5vw,4.25rem)] font-semibold leading-[1.06]">{project.name}</h2>
+      <time className="mt-4 block text-sm font-medium text-white/58">{projectPeriod(project)}</time>
+      <p className="cosmic-copy mx-auto mt-7 max-w-[48rem] text-base leading-relaxed text-white/78 md:text-lg">{project.summary}</p>
+      <div className="mx-auto mt-8 flex max-w-xl flex-col items-stretch gap-4">
+        <div className="liquid-glass project-taxonomy-panel rounded-lg p-4 text-left">
           <div className="project-taxonomy-row"><span>类别</span><strong style={{ "--taxonomy-color": project.categoryColor ?? "#dce2e8" } as React.CSSProperties}><i />{project.category}</strong></div>
           <div className="project-taxonomy-row is-tags"><span>标签</span><div>{project.tags.map((tag) => <em key={tag} style={{ "--taxonomy-color": project.tagColors?.[tag] ?? "#dce2e8" } as React.CSSProperties}>{tag}</em>)}</div></div>
         </div>
-        {project.liveUrl && <LiveProjectButton href={project.liveUrl} label={project.linkLabel} />}
+        {project.liveUrl && <div className="flex justify-center"><LiveProjectButton href={project.liveUrl} label={project.linkLabel} /></div>}
       </div>
     </header>
   );
