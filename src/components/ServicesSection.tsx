@@ -42,8 +42,8 @@ function ToolMarquee() {
   return (
     <FadeIn immediate className="tool-marquee mx-auto max-w-7xl" aria-label="常用软件工具">
       <div className="tool-marquee-track">
-        {[0, 1].map((copy) => (
-          <div key={copy} className="tool-marquee-group" aria-hidden={copy === 1}>
+        {[0, 1, 2, 3].map((copy) => (
+          <div key={copy} className="tool-marquee-group" aria-hidden={copy > 0}>
             {tools.map((tool) => (
               <ToolItem key={`${copy}-${tool.name}`} tool={tool} />
             ))}
