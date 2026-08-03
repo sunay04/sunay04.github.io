@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "sunay04-github-io",
+  "name": "sunay-portfolio-editor",
   "main": "worker/index.ts",
   "compatibility_date": "2026-08-01",
   "assets": {

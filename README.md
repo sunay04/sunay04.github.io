@@ -38,6 +38,10 @@ npm run build
 编辑接口运行在 Cloudflare Worker。创建 GitHub OAuth App，将回调地址设置为
 `https://<你的域名>/api/auth/callback`，再为 Worker 配置：
 
+当前默认编辑器域名为 `https://sunay-portfolio-editor.sunay04.workers.dev`，
+因此 GitHub OAuth App 的回调地址应填写
+`https://sunay-portfolio-editor.sunay04.workers.dev/api/auth/callback`。
+
 ```text
 GITHUB_CLIENT_ID
 GITHUB_CLIENT_SECRET
