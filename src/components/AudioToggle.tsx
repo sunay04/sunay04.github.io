@@ -1,111 +1,97 @@
-import { useEffect, useRef, useState } from "react";
-import { Volume2, VolumeX } from "lucide-react";
-
-const BGM_SRC = `${import.meta.env.BASE_URL}audio/bgm.mp3`;
+import { useCallback, useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { Pause, Play, SkipBack, SkipForward } from "lucide-react";
+import type { MusicTrack } from "../content/site";
 
 type AudioToggleProps = {
   enabled: boolean;
+  tracks: MusicTrack[];
+  mobile?: boolean;
+  mobileNavigation?: React.ReactNode;
 };
 
-export function AudioToggle({ enabled }: AudioToggleProps) {
+export function AudioToggle({ enabled, tracks, mobile = false, mobileNavigation }: AudioToggleProps) {
   const audioRef = useRef<HTMLAudioElement>(null);
-  const toggleButtonRef = useRef<HTMLButtonElement>(null);
-  const [isMuted, setIsMuted] = useState(false);
+  const playerRef = useRef<HTMLDivElement>(null);
+  const [trackIndex, setTrackIndex] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const track = tracks[trackIndex] ?? tracks[0];
 
-  useEffect(() => {
+  const play = useCallback(() => {
     const audio = audioRef.current;
-
-    if (!audio) {
-      return;
-    }
-
-    audio.volume = 0.34;
-
-    if (!enabled) {
-      audio.pause();
-      return;
-    }
-
-    const playWhenAllowed = (event?: Event) => {
-      if (
-        event?.target instanceof Node &&
-        toggleButtonRef.current?.contains(event.target)
-      ) {
-        return;
-      }
-
-      if (audio.muted) {
-        return;
-      }
-
-      void audio.play().catch(() => undefined);
-    };
-
-    playWhenAllowed();
-
-    window.addEventListener("pointerdown", playWhenAllowed, { once: true });
-    window.addEventListener("keydown", playWhenAllowed, { once: true });
-
-    return () => {
-      window.removeEventListener("pointerdown", playWhenAllowed);
-      window.removeEventListener("keydown", playWhenAllowed);
-    };
+    if (!audio || !enabled) return;
+    void audio.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
   }, [enabled]);
 
   useEffect(() => {
     const audio = audioRef.current;
-
-    if (!audio) {
+    if (!audio) return;
+    audio.volume = 0.34;
+    if (!enabled) {
+      audio.pause();
+      setIsPlaying(false);
       return;
     }
+    const playWhenAllowed = (event?: Event) => {
+      if (event?.target instanceof Node && playerRef.current?.contains(event.target)) return;
+      play();
+    };
+    playWhenAllowed();
+    window.addEventListener("pointerdown", playWhenAllowed, { once: true });
+    window.addEventListener("keydown", playWhenAllowed, { once: true });
+    return () => {
+      window.removeEventListener("pointerdown", playWhenAllowed);
+      window.removeEventListener("keydown", playWhenAllowed);
+    };
+  }, [enabled, play]);
 
-    audio.muted = isMuted;
+  useEffect(() => {
+    if (!isOpen) return;
+    const close = (event: PointerEvent) => {
+      if (event.target instanceof Node && !playerRef.current?.contains(event.target)) setIsOpen(false);
+    };
+    const escape = (event: KeyboardEvent) => { if (event.key === "Escape") setIsOpen(false); };
+    document.addEventListener("pointerdown", close);
+    document.addEventListener("keydown", escape);
+    return () => {
+      document.removeEventListener("pointerdown", close);
+      document.removeEventListener("keydown", escape);
+    };
+  }, [isOpen]);
 
-    if (enabled && !isMuted) {
-      void audio.play().catch(() => undefined);
-    }
-  }, [enabled, isMuted]);
+  useEffect(() => {
+    setTrackIndex((index) => Math.min(index, Math.max(0, tracks.length - 1)));
+  }, [tracks.length]);
 
-  const handleToggle = () => {
-    const audio = audioRef.current;
-    const nextMuted = !isMuted;
-
-    if (audio) {
-      audio.muted = nextMuted;
-
-      if (enabled && !nextMuted) {
-        void audio.play().catch(() => undefined);
-      }
-    }
-
-    setIsMuted(nextMuted);
+  const moveTrack = (offset: number) => {
+    if (!tracks.length) return;
+    setTrackIndex((trackIndex + offset + tracks.length) % tracks.length);
+    requestAnimationFrame(play);
   };
 
-  return (
-    <>
-      <audio
-        ref={audioRef}
-        src={BGM_SRC}
-        loop
-        playsInline
-        preload="auto"
-        muted={isMuted}
-      />
-      <button
-        ref={toggleButtonRef}
-        type="button"
-        className="liquid-glass flex h-12 w-12 items-center justify-center rounded-full text-white transition duration-200 hover:bg-white/10 active:scale-[0.98]"
-        onClick={handleToggle}
-        aria-label={isMuted ? "开启背景音乐" : "关闭背景音乐"}
-        aria-pressed={!isMuted}
-        title={isMuted ? "开启背景音乐" : "关闭背景音乐"}
-      >
-        {isMuted ? (
-          <VolumeX aria-hidden="true" className="h-5 w-5" />
-        ) : (
-          <Volume2 aria-hidden="true" className="h-5 w-5" />
-        )}
-      </button>
-    </>
-  );
+  const togglePlayback = () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    if (audio.paused) play();
+    else { audio.pause(); setIsPlaying(false); }
+  };
+
+  return <div ref={playerRef} className={`capsule-player-anchor${mobile ? " is-mobile" : ""}`}>
+    {track && <audio ref={audioRef} src={track.src} playsInline preload="metadata" onPlay={() => setIsPlaying(true)} onPause={() => setIsPlaying(false)} onEnded={() => moveTrack(1)} />}
+    <AnimatePresence initial={false}>
+      {isOpen && track && <motion.div key="player-capsule" className="liquid-glass capsule-player" initial={{ opacity: 0, width: 48, height: 48, y: -8 }} animate={{ opacity: 1, width: mobile ? 246 : 48, height: mobile ? 48 : 276, y: 0 }} exit={{ opacity: 0, width: 48, height: 48, y: -8 }} transition={{ duration: .3, ease: [0.23, 1, 0.32, 1] }}>
+        <span className="capsule-player-title" title={track.title}>{track.title}</span>
+        <div className="capsule-player-controls">
+          <button type="button" onClick={() => moveTrack(-1)} aria-label="上一首" disabled={tracks.length < 2}><SkipBack /></button>
+          <button type="button" onClick={togglePlayback} aria-label={isPlaying ? "暂停" : "播放"}>{isPlaying ? <Pause /> : <Play />}</button>
+          <button type="button" onClick={() => moveTrack(1)} aria-label="下一首" disabled={tracks.length < 2}><SkipForward /></button>
+        </div>
+      </motion.div>}
+      {isOpen && mobile && mobileNavigation && <motion.div key="mobile-navigation" className="liquid-glass-strong capsule-mobile-navigation" initial={{ opacity: 0, y: -6, scale: .98 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: -4, scale: .98 }} transition={{ duration: .2, ease: [0.23, 1, 0.32, 1] }}>{mobileNavigation}</motion.div>}
+    </AnimatePresence>
+    <button type="button" className="liquid-glass capsule-player-trigger" onClick={() => setIsOpen((open) => !open)} aria-label={isOpen ? "收起音乐播放器" : "打开音乐播放器"} aria-expanded={isOpen} disabled={!track}>
+      <span className={`capsule-player-lines${mobile ? " is-horizontal" : " is-vertical"}${isPlaying ? " is-playing" : ""}`} aria-hidden="true"><i /><i /><i /></span>
+    </button>
+  </div>;
 }

@@ -25,12 +25,20 @@ export type FriendLink = {
   icon: string;
 };
 
+export type MusicTrack = {
+  id: string;
+  title: string;
+  artist?: string;
+  src: string;
+};
+
 export type SiteContent = {
   profile: typeof profile;
   highlights: typeof highlights;
   services: Service[];
   experiences: Experience[];
   friendLinks: FriendLink[];
+  music: MusicTrack[];
 };
 
 export const profile = {
@@ -82,6 +90,15 @@ export const friendLinks: FriendLink[] = [
   },
 ];
 
+export const music: MusicTrack[] = [
+  {
+    id: "default-bgm",
+    title: "Portfolio Atmosphere",
+    artist: "Sunay",
+    src: `${import.meta.env.BASE_URL}audio/bgm.mp3`,
+  },
+];
+
 export const services: Service[] = [
   {
     number: "01",
@@ -120,4 +137,4 @@ export const services: Service[] = [
   },
 ];
 
-export const bundledSite: SiteContent = { profile, highlights, services, experiences, friendLinks };
+export const bundledSite: SiteContent = { profile, highlights, services, experiences, friendLinks, music };

@@ -158,8 +158,10 @@ async function handleApi(request: Request, env: Env) {
     if (origin && origin !== url.origin) return json({ error: "请求来源无效" }, 403);
     const body = await request.json<{ name?: string; type?: string; size?: number; base64?: string }>();
     if (!body.name || !body.base64 || !body.size) return json({ error: "文件数据不完整" }, 400);
-    if (body.size > 8 * 1024 * 1024) return json({ error: "单个文件不能超过 8 MB" }, 413);
-    if (!/^(image|video)\//.test(body.type ?? "")) return json({ error: "仅支持图片和视频" }, 415);
+    const isAudio = /^audio\//.test(body.type ?? "");
+    const maxSize = isAudio ? 20 * 1024 * 1024 : 8 * 1024 * 1024;
+    if (body.size > maxSize) return json({ error: `单个${isAudio ? "音频" : "媒体"}文件不能超过 ${isAudio ? 20 : 8} MB` }, 413);
+    if (!/^(image|video|audio)\//.test(body.type ?? "")) return json({ error: "仅支持图片、视频和音频" }, 415);
     const safeName = body.name.normalize("NFKD").replace(/[^a-zA-Z0-9._-]+/g, "-").replace(/^-+|-+$/g, "").slice(-100) || "media";
     const path = `public/uploads/${Date.now()}-${safeName}`;
     const { owner, repo } = config(env);
