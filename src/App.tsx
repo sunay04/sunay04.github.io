@@ -10,6 +10,7 @@ import type { Project } from "./content/projects";
 import { bundledProjects, loadPublishedContent } from "./content/projects/runtime";
 import { bundledSite } from "./content/site";
 import { EditorPage } from "./editor/EditorPage";
+import { AstralCursor } from "./components/AstralCursor";
 
 const sectionIds = ["about", "services", "experience", "projects", "friends"];
 
@@ -95,6 +96,7 @@ export function App() {
 
   return (
     <main className="relative h-[100dvh] overflow-hidden bg-ink font-body text-white">
+      <AstralCursor />
       <div className="site-backdrop" aria-hidden="true" />
       <div className={introComplete ? "site-content is-ready" : "site-content"}>
         <SiteNavigation activeSection={activeSection} audioEnabled={introComplete} tracks={site.music ?? bundledSite.music} onNavigate={navigateTo} />
