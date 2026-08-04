@@ -23,8 +23,7 @@ export function SiteNavigation({ activeSection, audioEnabled, tracks, onNavigate
       <ul className="liquid-glass nav-switcher absolute left-1/2 hidden min-w-0 -translate-x-1/2 items-center gap-1 overflow-x-auto rounded-full px-1.5 py-1.5 md:flex">
         {navLinks.map((link) => { const sectionId = link.href.slice(1); const isActive = activeSection === sectionId; return <li key={link.href}><a className="block min-h-9 whitespace-nowrap rounded-full px-3 py-2 text-xs font-medium text-white/75 transition duration-200 hover:bg-white/10 hover:text-white sm:text-sm" data-active={isActive} aria-current={isActive ? "page" : undefined} href={link.href} onClick={(event) => { event.preventDefault(); handleNavigate(sectionId); }}>{link.label}</a></li>; })}
       </ul>
-      <div className="ml-auto hidden items-center md:flex"><AudioToggle enabled={audioEnabled} tracks={tracks} /></div>
-      <div className="ml-auto md:hidden"><AudioToggle enabled={audioEnabled} tracks={tracks} mobile mobileNavigation={mobileNavigation} /></div>
+      <div className="ml-auto flex items-center"><AudioToggle enabled={audioEnabled} tracks={tracks} mobileNavigation={mobileNavigation} /></div>
     </div>
   </FadeIn>;
 }

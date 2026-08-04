@@ -6,18 +6,26 @@ import type { MusicTrack } from "../content/site";
 type AudioToggleProps = {
   enabled: boolean;
   tracks: MusicTrack[];
-  mobile?: boolean;
   mobileNavigation?: React.ReactNode;
 };
 
-export function AudioToggle({ enabled, tracks, mobile = false, mobileNavigation }: AudioToggleProps) {
+export function AudioToggle({ enabled, tracks, mobileNavigation }: AudioToggleProps) {
   const audioRef = useRef<HTMLAudioElement>(null);
   const playerRef = useRef<HTMLDivElement>(null);
   const [trackIndex, setTrackIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [mobile, setMobile] = useState(() => window.matchMedia("(max-width: 767px)").matches);
   const resumeAfterTrackChange = useRef(false);
   const track = tracks[trackIndex] ?? tracks[0];
+
+  useEffect(() => {
+    const query = window.matchMedia("(max-width: 767px)");
+    const sync = () => setMobile(query.matches);
+    sync();
+    query.addEventListener("change", sync);
+    return () => query.removeEventListener("change", sync);
+  }, []);
 
   const play = useCallback(() => {
     const audio = audioRef.current;
