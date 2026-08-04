@@ -99,7 +99,7 @@ export function App() {
       <AstralCursor />
       <div className="site-backdrop" aria-hidden="true" />
       <div className={introComplete ? "site-content is-ready" : "site-content"}>
-        <SiteNavigation activeSection={activeSection} audioEnabled={introComplete} tracks={site.music ?? bundledSite.music} onNavigate={navigateTo} />
+        <SiteNavigation activeSection={activeSection} audioEnabled={introComplete} tracks={site.music?.length ? site.music : bundledSite.music} onNavigate={navigateTo} />
         <div ref={viewportRef} className="horizontal-viewport relative z-10">
           <div id="about" className="horizontal-panel">
             <HeroSection content={site.profile} />
