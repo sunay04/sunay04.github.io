@@ -9,15 +9,49 @@ type AudioToggleProps = {
   mobileNavigation?: React.ReactNode;
 };
 
+const PLAYBACK_STATE_KEY = "portfolio-music-playback-v1";
+
+type StoredPlaybackState = {
+  trackId?: string;
+  trackSrc?: string;
+  currentTime: number;
+};
+
+function readPlaybackState(): StoredPlaybackState | null {
+  try {
+    const value = JSON.parse(localStorage.getItem(PLAYBACK_STATE_KEY) ?? "null") as Partial<StoredPlaybackState> | null;
+    if (!value || !Number.isFinite(value.currentTime)) return null;
+    return { trackId: value.trackId, trackSrc: value.trackSrc, currentTime: Math.max(0, value.currentTime ?? 0) };
+  } catch {
+    return null;
+  }
+}
+
 export function AudioToggle({ enabled, tracks, mobileNavigation }: AudioToggleProps) {
   const audioRef = useRef<HTMLAudioElement>(null);
   const playerRef = useRef<HTMLDivElement>(null);
-  const [trackIndex, setTrackIndex] = useState(0);
+  const storedPlayback = useRef(readPlaybackState());
+  const [trackIndex, setTrackIndex] = useState(() => {
+    const stored = storedPlayback.current;
+    const index = tracks.findIndex((item) => item.id === stored?.trackId || item.src === stored?.trackSrc);
+    return index >= 0 ? index : 0;
+  });
   const [isPlaying, setIsPlaying] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [mobile, setMobile] = useState(() => window.matchMedia("(max-width: 767px)").matches);
   const resumeAfterTrackChange = useRef(false);
+  const restoredTrack = useRef<string | null>(null);
+  const lastSavedSecond = useRef(-1);
   const track = tracks[trackIndex] ?? tracks[0];
+
+  const savePlaybackState = useCallback((audio = audioRef.current) => {
+    if (!track || !audio) return;
+    localStorage.setItem(PLAYBACK_STATE_KEY, JSON.stringify({
+      trackId: track.id,
+      trackSrc: track.src,
+      currentTime: Number.isFinite(audio.currentTime) ? audio.currentTime : 0,
+    } satisfies StoredPlaybackState));
+  }, [track]);
 
   useEffect(() => {
     const query = window.matchMedia("(max-width: 767px)");
@@ -74,6 +108,16 @@ export function AudioToggle({ enabled, tracks, mobileNavigation }: AudioTogglePr
   }, [tracks.length]);
 
   useEffect(() => {
+    const save = () => savePlaybackState();
+    window.addEventListener("pagehide", save);
+    document.addEventListener("visibilitychange", save);
+    return () => {
+      window.removeEventListener("pagehide", save);
+      document.removeEventListener("visibilitychange", save);
+    };
+  }, [savePlaybackState]);
+
+  useEffect(() => {
     if (!resumeAfterTrackChange.current) return;
     resumeAfterTrackChange.current = false;
     play();
@@ -81,19 +125,39 @@ export function AudioToggle({ enabled, tracks, mobileNavigation }: AudioTogglePr
 
   const moveTrack = (offset: number) => {
     if (!tracks.length) return;
+    savePlaybackState();
     resumeAfterTrackChange.current = Boolean(audioRef.current && !audioRef.current.paused);
-    setTrackIndex((trackIndex + offset + tracks.length) % tracks.length);
+    const nextIndex = (trackIndex + offset + tracks.length) % tracks.length;
+    const nextTrack = tracks[nextIndex];
+    if (nextTrack) localStorage.setItem(PLAYBACK_STATE_KEY, JSON.stringify({ trackId: nextTrack.id, trackSrc: nextTrack.src, currentTime: 0 } satisfies StoredPlaybackState));
+    storedPlayback.current = null;
+    restoredTrack.current = null;
+    lastSavedSecond.current = -1;
+    setTrackIndex(nextIndex);
   };
 
   const togglePlayback = () => {
     const audio = audioRef.current;
     if (!audio) return;
     if (audio.paused) play();
-    else { audio.pause(); setIsPlaying(false); }
+    else { audio.pause(); savePlaybackState(audio); setIsPlaying(false); }
   };
 
   return <div ref={playerRef} className={`capsule-player-anchor${mobile ? " is-mobile" : ""}`}>
-    {track && <audio ref={audioRef} src={track.src} playsInline preload="metadata" onPlay={() => setIsPlaying(true)} onPause={() => setIsPlaying(false)} onEnded={() => moveTrack(1)} />}
+    {track && <audio ref={audioRef} src={track.src} playsInline preload="metadata" onLoadedMetadata={(event) => {
+      const audio = event.currentTarget;
+      const trackKey = track.id || track.src;
+      if (restoredTrack.current === trackKey) return;
+      restoredTrack.current = trackKey;
+      const stored = storedPlayback.current;
+      if ((stored?.trackId === track.id || stored?.trackSrc === track.src) && stored.currentTime < audio.duration) audio.currentTime = stored.currentTime;
+    }} onTimeUpdate={(event) => {
+      const second = Math.floor(event.currentTarget.currentTime);
+      if (second !== lastSavedSecond.current && second % 2 === 0) {
+        lastSavedSecond.current = second;
+        savePlaybackState(event.currentTarget);
+      }
+    }} onPlay={() => setIsPlaying(true)} onPause={(event) => { savePlaybackState(event.currentTarget); setIsPlaying(false); }} onEnded={() => moveTrack(1)} />}
     <AnimatePresence initial={false}>
       {isOpen && track && <motion.div key="player-capsule" className="liquid-glass capsule-player" initial={{ opacity: 0, width: 48, height: 48, y: -8 }} animate={{ opacity: 1, width: mobile ? 246 : 48, height: mobile ? 48 : 276, y: 0 }} exit={{ opacity: 0, width: 48, height: 48, y: -8 }} transition={{ duration: .3, ease: [0.23, 1, 0.32, 1] }}>
         <span className="capsule-player-title" title={track.title}>{track.title}</span>
