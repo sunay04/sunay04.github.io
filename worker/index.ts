@@ -260,6 +260,13 @@ export default {
   async fetch(request: Request, env: Env) {
     const url = new URL(request.url);
     if (url.pathname.startsWith("/api/")) return handleApi(request, env);
+    if (url.pathname === "/edits" || url.pathname === "/edits/") {
+      url.pathname = "/edits/index.html";
+      const response = await env.ASSETS.fetch(new Request(url, request));
+      const headers = new Headers(response.headers);
+      headers.set("cache-control", "no-store");
+      return new Response(response.body, { status: response.status, statusText: response.statusText, headers });
+    }
     return env.ASSETS.fetch(request);
   },
 };
