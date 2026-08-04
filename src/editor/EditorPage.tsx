@@ -9,7 +9,7 @@ import { ServicesSection } from "../components/ServicesSection";
 import { ExperienceSection } from "../components/ExperienceSection";
 import { FriendsSection } from "../components/FriendsSection";
 import { bundledSite, type MusicTrack, type SiteContent } from "../content/site";
-import { getDeploymentStatus, getEditorSession, getRepositoryContent, publishRepositoryContent, uploadRepositoryMedia, type DeploymentStatus, type EditorUser } from "./api";
+import { getDeploymentStatus, getEditorSession, getRepositoryContent, publishRepositoryContent, saveMusicPlaylist, uploadRepositoryAudio, uploadRepositoryMedia, type DeploymentStatus, type EditorUser } from "./api";
 
 const DRAFT_KEY = "sunay-editor-draft-v1";
 const SITE_DRAFT_KEY = "sunay-editor-site-draft-v1";
@@ -198,16 +198,16 @@ function PortfolioPreviewShell({ children }: { children: React.ReactNode }) {
   return <div className="editor-preview-shell relative min-h-[100dvh] overflow-hidden bg-ink font-body text-white"><div className="site-backdrop" aria-hidden="true" /><div className="editor-preview-content">{children}</div></div>;
 }
 
-function MusicEditor({ tracks, onChange, onUpload }: { tracks: MusicTrack[]; onChange: (tracks: MusicTrack[]) => void; onUpload: (file: File) => Promise<{ url: string; displayName: string }> }) {
+function MusicEditor({ tracks, onChange, onUpload, onPersist }: { tracks: MusicTrack[]; onChange: (tracks: MusicTrack[]) => void; onUpload: (file: File, tracks: MusicTrack[], trackId: string) => Promise<void>; onPersist: (tracks: MusicTrack[]) => Promise<void> }) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const selected = tracks[selectedIndex];
   const update = (next: MusicTrack) => onChange(tracks.map((track, index) => index === selectedIndex ? next : track));
   return <div className="editor-site-manager editor-music-manager">
     <aside className="editor-sidebar editor-collection-sidebar">
-      <CollectionList title="播放列表（拖拽排序）" addLabel="添加曲目" items={tracks} selectedIndex={selectedIndex} getLabel={(track) => track.title || "未命名曲目"} onSelect={setSelectedIndex} onAdd={() => { onChange([...tracks, { id: uid(), title: "未命名曲目", artist: "", src: "" }]); setSelectedIndex(tracks.length); }} onReorder={(next) => { const current = selected; onChange(next); if (current) setSelectedIndex(Math.max(0, next.indexOf(current))); }} />
+      <CollectionList title="播放列表（拖拽排序）" addLabel="添加曲目" items={tracks} selectedIndex={selectedIndex} getLabel={(track) => track.title || "未命名曲目"} onSelect={setSelectedIndex} onAdd={() => { onChange([...tracks, { id: uid(), title: "未命名曲目", artist: "", src: "" }]); setSelectedIndex(tracks.length); }} onReorder={(next) => { const current = selected; onChange(next); void onPersist(next); if (current) setSelectedIndex(Math.max(0, next.indexOf(current))); }} />
     </aside>
     <div className="editor-collection-detail editor-site-fields">
-      {selected ? <><SectionHeading title="编辑曲目" /><ItemActions onCopy={() => { const copy = { ...selected, id: uid(), title: `${selected.title} 副本` }; onChange([...tracks.slice(0, selectedIndex + 1), copy, ...tracks.slice(selectedIndex + 1)]); setSelectedIndex(selectedIndex + 1); }} onDelete={() => { const next = tracks.filter((_, index) => index !== selectedIndex); onChange(next); setSelectedIndex(Math.max(0, selectedIndex - 1)); }} /><div className="editor-audio-preview"><div><Music2 /><span><strong>{selected.title || "未命名曲目"}</strong><small>{selected.artist || "未填写艺术家"}</small></span></div>{selected.src ? <audio controls preload="metadata" src={selected.src} /> : <p>上传音频后可在这里试听</p>}</div><Field label="曲目名称" value={selected.title} onChange={(title) => update({ ...selected, title })} /><Field label="艺术家 / 来源" value={selected.artist ?? ""} onChange={(artist) => update({ ...selected, artist })} /><Field label="音频 URL" value={selected.src} placeholder="/audio/music.mp3" onChange={(src) => update({ ...selected, src })} /><label className="editor-upload-button editor-audio-upload"><FileAudio size={16} />上传音频文件<input type="file" accept="audio/mpeg,audio/mp4,audio/ogg,audio/wav,audio/webm,.mp3,.m4a,.ogg,.wav,.webm" onChange={async (event) => { const file = event.target.files?.[0]; if (!file) return; const uploaded = await onUpload(file); update({ ...selected, src: uploaded.url, title: selected.title === "未命名曲目" ? uploaded.displayName : selected.title }); event.target.value = ""; }} /></label><p className="editor-field-help">支持 MP3、M4A、OGG、WAV 和 WebM，单个文件不超过 20 MB。列表第一首会作为默认背景音乐。</p></> : <div className="editor-music-empty"><Music2 /><strong>播放列表为空</strong><p>添加一首音乐，访客就能在站点导航中播放。</p><button type="button" className="editor-secondary-button" onClick={() => { onChange([{ id: uid(), title: "未命名曲目", artist: "", src: "" }]); setSelectedIndex(0); }}><Plus size={15} />添加曲目</button></div>}
+      {selected ? <><SectionHeading title="编辑曲目" /><ItemActions onCopy={() => { const copy = { ...selected, id: uid(), title: `${selected.title} 副本` }; onChange([...tracks.slice(0, selectedIndex + 1), copy, ...tracks.slice(selectedIndex + 1)]); setSelectedIndex(selectedIndex + 1); }} onDelete={() => { const next = tracks.filter((_, index) => index !== selectedIndex); onChange(next); void onPersist(next); setSelectedIndex(Math.max(0, selectedIndex - 1)); }} /><div className="editor-audio-preview"><div><Music2 /><span><strong>{selected.title || "未命名曲目"}</strong><small>{selected.artist || "未填写艺术家"}</small></span></div>{selected.src ? <audio controls preload="metadata" src={selected.src} /> : <p>上传音频后可在这里试听</p>}</div><Field label="曲目名称" value={selected.title} onChange={(title) => update({ ...selected, title })} /><Field label="艺术家 / 来源" value={selected.artist ?? ""} onChange={(artist) => update({ ...selected, artist })} /><Field label="音频 URL" value={selected.src} placeholder="/audio/music.mp3" onChange={(src) => update({ ...selected, src })} /><label className="editor-upload-button editor-audio-upload"><FileAudio size={16} />上传音频文件<input type="file" accept="audio/mpeg,audio/mp4,audio/ogg,audio/wav,audio/webm,.mp3,.m4a,.ogg,.wav,.webm" onChange={async (event) => { const file = event.target.files?.[0]; if (!file) return; await onUpload(file, tracks, selected.id); event.target.value = ""; }} /></label><p className="editor-field-help">上传成功后会立即加入线上播放列表；拖拽排序和删除也会自动保存。</p></> : <div className="editor-music-empty"><Music2 /><strong>播放列表为空</strong><p>添加一首音乐，访客就能在站点导航中播放。</p><button type="button" className="editor-secondary-button" onClick={() => { onChange([{ id: uid(), title: "未命名曲目", artist: "", src: "" }]); setSelectedIndex(0); }}><Plus size={15} />添加曲目</button></div>}
     </div>
   </div>;
 }
@@ -226,6 +226,7 @@ export function EditorPage() {
   const [message, setMessage] = useState("");
   const [hydrated, setHydrated] = useState(false);
   const [deployment, setDeployment] = useState<DeploymentStatus | null>(null);
+  const musicSaveTimerRef = useRef<number | null>(null);
 
   useEffect(() => { document.title = "编辑模式 · Sunay's Portfolio"; }, []);
 
@@ -286,16 +287,28 @@ export function EditorPage() {
     try { const result = await uploadRepositoryMedia(file); setStatus("idle"); setMessage(""); return result.url; }
     catch (error) { setStatus("error"); setMessage(error instanceof Error ? error.message : "上传失败"); throw error; }
   };
-  const uploadAudio = async (file: File) => {
+  const uploadAudio = async (file: File, tracks: MusicTrack[], trackId: string) => {
     if (file.size > 20 * 1024 * 1024) throw new Error("单个音频文件不能超过 20 MB");
     setStatus("saving"); setMessage("正在上传背景音乐");
     try {
-      const result = await uploadRepositoryMedia(file);
+      if (musicSaveTimerRef.current !== null) window.clearTimeout(musicSaveTimerRef.current);
+      const result = await uploadRepositoryAudio(file, tracks, trackId);
+      setSite((current) => ({ ...current, music: result.music }));
+      setSha(result.sha);
       setStatus("idle"); setMessage("");
-      return { url: result.url, displayName: result.displayName };
     } catch (error) {
       setStatus("error"); setMessage(error instanceof Error ? error.message : "上传失败"); throw error;
     }
+  };
+  const persistMusic = async (music: MusicTrack[]) => {
+    if (demoMode) return;
+    if (musicSaveTimerRef.current !== null) window.clearTimeout(musicSaveTimerRef.current);
+    musicSaveTimerRef.current = window.setTimeout(async () => {
+      setStatus("saving"); setMessage("正在保存播放列表");
+      try { const result = await saveMusicPlaylist(music); setSha(result.sha); setStatus("saved"); setMessage("播放列表已保存"); window.setTimeout(() => { setStatus("idle"); setMessage(""); }, 1600); }
+      catch (error) { setStatus("error"); setMessage(error instanceof Error ? error.message : "播放列表保存失败"); }
+      finally { musicSaveTimerRef.current = null; }
+    }, 700);
   };
   const navigateContent = (page: EditorPageKey) => { setActivePage(page); setSelectedBlockId(null); setMode("edit"); };
 
@@ -352,7 +365,7 @@ export function EditorPage() {
       {activePage === "projects" && mode === "edit" && <aside className="editor-sidebar"><div className="editor-panel-title"><span>作品（拖拽排序）</span><button title="新建作品" aria-label="新建作品" onClick={() => { const next = blankProject(projects.length); setProjects([...projects, next]); setSelectedId(next.id); }}><Plus size={17} /></button></div><Reorder.Group as="div" axis="y" values={projects} onReorder={setProjects} className="editor-project-list">{projects.map((item) => <Reorder.Item as="button" value={item} key={item.id} aria-current={item.id === project.id} whileDrag={{ scale: 1.025, boxShadow: "0 12px 30px rgba(24,28,34,.16)" }} transition={{ type: "spring", bounce: 0.08, duration: 0.36 }} onClick={() => { setSelectedId(item.id); setSelectedBlockId(null); }}><GripVertical size={14} /><strong>{item.name}</strong></Reorder.Item>)}</Reorder.Group><div className="editor-sidebar-actions"><button onClick={() => { const copy = { ...project, id: `${project.id}-copy-${Date.now()}`, name: `${project.name} 副本`, blocks: project.blocks?.map((block) => ({ ...block, id: uid() })) }; setProjects([...projects, copy]); setSelectedId(copy.id); }}><Copy size={15} />创建副本</button><button className="danger" disabled={projects.length === 1} onClick={() => { const next = projects.filter((item) => item.id !== project.id); setProjects(next); setSelectedId(next[0].id); }}><Trash2 size={15} />删除作品</button></div></aside>}
       <section className="editor-canvas"><div className="editor-document">
         {activePage !== "projects" && activePage !== "music" && (mode === "preview" ? <SitePreview page={activePage} site={site} /> : <SiteEditor page={activePage} site={site} onChange={setSite} onUpload={uploadMedia} />)}
-        {activePage === "music" && <MusicEditor tracks={site.music ?? bundledSite.music} onChange={(music) => setSite({ ...site, music })} onUpload={uploadAudio} />}
+        {activePage === "music" && <MusicEditor tracks={site.music ?? bundledSite.music} onChange={(music) => setSite({ ...site, music })} onUpload={uploadAudio} onPersist={persistMusic} />}
         {activePage === "projects" && mode === "edit" && <div className="editor-project-meta"><Field label="作品名称" value={project.name} onChange={(name) => updateProject({ ...project, name })} /><div className="editor-month-range" data-invalid={Boolean(projectDateError)}><MonthWheel label="开始时间（必填）" value={project.startDate} onChange={(startDate) => updateProject({ ...project, startDate })} /><MonthWheel label="结束时间" value={project.endDate} allowPresent onChange={(endDate) => updateProject({ ...project, endDate })} /></div>{projectDateError && <p className="editor-validation-message">{projectDateError}</p>}<div className="editor-properties"><PropertyPicker label="类别" options={categories} values={[project.category].filter(Boolean)} colors={categoryColors} onColorChange={(value, color) => updateTaxonomyColor("category", value, color)} onChange={(values) => updateProject({ ...project, category: values[0] ?? "", categoryColor: categoryColors[values[0]] ?? "#dce2e8" })} /><PropertyPicker label="标签" options={tagPool} values={project.tags} colors={tagColors} multiple onColorChange={(value, color) => updateTaxonomyColor("tag", value, color)} onChange={(tags) => updateProject({ ...project, tags, tagColors: { ...project.tagColors, ...Object.fromEntries(tags.map((tag) => [tag, tagColors[tag] ?? "#dce2e8"])) } })} /></div><Field label="作品描述" multiline value={project.summary} onChange={(summary) => updateProject({ ...project, summary })} /><Field label="在线作品链接" value={project.liveUrl ?? ""} placeholder="https://..." onChange={(liveUrl) => updateProject({ ...project, liveUrl: liveUrl || undefined })} /><Field label="链接按钮文字" value={project.linkLabel ?? ""} placeholder="查看在线作品" onChange={(linkLabel) => updateProject({ ...project, linkLabel: linkLabel || undefined })} /><MediaFields label="封面URL" media={project.hero} onUpload={uploadMedia} onChange={(hero) => updateProject({ ...project, hero })} /><ResourceFields project={project} onChange={updateProject} /></div>}
         {activePage === "projects" && (mode === "preview" ? <div className="editor-real-preview"><PortfolioPreviewShell><ProjectDetail project={project} onBack={() => setMode("edit")} onPrevious={() => setSelectedId(projects[(selectedIndex - 1 + projects.length) % projects.length].id)} onNext={() => setSelectedId(projects[(selectedIndex + 1) % projects.length].id)} /></PortfolioPreviewShell></div> : <div className="editor-block-list">{blocks.map((block, index) => <section key={block.id} className="editor-inline-block"><div className="editor-block-controls"><GripVertical size={15} /><span>{blockCatalog.find((item) => item.type === block.type)?.label}</span><button disabled={index === 0} onClick={() => moveBlock(index, -1)} title="上移" aria-label="上移"><ArrowUp size={14} /></button><button disabled={index === blocks.length - 1} onClick={() => moveBlock(index, 1)} title="下移" aria-label="下移"><ArrowDown size={14} /></button><button onClick={() => updateProject({ ...project, blocks: blocks.filter((item) => item.id !== block.id) })} title="删除块" aria-label="删除块"><X size={14} /></button></div><div className="editor-inline-block-body"><BlockInspector block={block} onUpload={uploadMedia} onChange={updateBlock} /></div></section>)}<div className="editor-add-block"><span>添加内容块</span>{blockCatalog.map(({ type, label, icon: Icon }) => <button key={type} onClick={() => { const block = newBlock(type); updateProject({ ...project, blocks: [...blocks, block] }); }}><Icon size={16} />{label}</button>)}</div></div>)}
       </div></section>

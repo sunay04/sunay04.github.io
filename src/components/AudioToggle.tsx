@@ -16,6 +16,7 @@ export function AudioToggle({ enabled, tracks, mobile = false, mobileNavigation 
   const [trackIndex, setTrackIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const resumeAfterTrackChange = useRef(false);
   const track = tracks[trackIndex] ?? tracks[0];
 
   const play = useCallback(() => {
@@ -64,10 +65,16 @@ export function AudioToggle({ enabled, tracks, mobile = false, mobileNavigation 
     setTrackIndex((index) => Math.min(index, Math.max(0, tracks.length - 1)));
   }, [tracks.length]);
 
+  useEffect(() => {
+    if (!resumeAfterTrackChange.current) return;
+    resumeAfterTrackChange.current = false;
+    play();
+  }, [track?.src, play]);
+
   const moveTrack = (offset: number) => {
     if (!tracks.length) return;
+    resumeAfterTrackChange.current = Boolean(audioRef.current && !audioRef.current.paused);
     setTrackIndex((trackIndex + offset + tracks.length) % tracks.length);
-    requestAnimationFrame(play);
   };
 
   const togglePlayback = () => {

@@ -40,6 +40,28 @@ export async function uploadRepositoryMedia(file: File) {
   });
 }
 
+export async function uploadRepositoryAudio(file: File, music: SiteContent["music"], trackId: string) {
+  const base64 = await new Promise<string>((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(String(reader.result).split(",")[1] ?? "");
+    reader.onerror = () => reject(new Error("读取音频文件失败"));
+    reader.readAsDataURL(file);
+  });
+  return api<{ url: string; displayName: string; music: SiteContent["music"]; sha: string }>("/api/music/upload", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ name: file.name, type: file.type, size: file.size, base64, music, trackId }),
+  });
+}
+
+export async function saveMusicPlaylist(music: SiteContent["music"]) {
+  return api<{ music: SiteContent["music"]; sha: string }>("/api/music", {
+    method: "PUT",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ music }),
+  });
+}
+
 export type DeploymentStatus = {
   state: "queued" | "building" | "deploying" | "success" | "failure";
   progress: number;

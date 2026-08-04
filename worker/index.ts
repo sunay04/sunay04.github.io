@@ -74,6 +74,30 @@ async function github<T>(path: string, token: string, init?: RequestInit): Promi
   return { data, response };
 }
 
+type StoredTrack = { id: string; title: string; artist?: string; src: string };
+
+function validMusic(value: unknown): value is StoredTrack[] {
+  return Array.isArray(value) && value.length <= 100 && value.every((track) => track && typeof track === "object" && typeof (track as StoredTrack).id === "string" && typeof (track as StoredTrack).title === "string" && typeof (track as StoredTrack).src === "string");
+}
+
+async function persistMusic(music: StoredTrack[], session: Session, env: Env) {
+  const { owner, repo, path } = config(env);
+  const current = await github<{ content?: string; sha?: string }>(`/repos/${owner}/${repo}/contents/${path}`, session.accessToken);
+  if (!current.response.ok || !current.data.content || !current.data.sha) return { response: json({ error: "无法读取播放列表内容" }, current.response.status), sha: null };
+  let document: Record<string, unknown>;
+  try { document = JSON.parse(decoder.decode(Uint8Array.from(atob(current.data.content.replace(/\n/g, "")), (char) => char.charCodeAt(0)))) as Record<string, unknown>; }
+  catch { return { response: json({ error: "播放列表内容格式无效" }, 422), sha: null }; }
+  const site = document.site && typeof document.site === "object" ? document.site as Record<string, unknown> : {};
+  const serialized = JSON.stringify({ ...document, site: { ...site, music } }, null, 2) + "\n";
+  const result = await github<{ content?: { sha?: string } }>(`/repos/${owner}/${repo}/contents/${path}`, session.accessToken, {
+    method: "PUT",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ message: "content: update music playlist from portfolio editor", content: standardBase64(encoder.encode(serialized)), sha: current.data.sha, branch: "main" }),
+  });
+  if (!result.response.ok) return { response: json({ error: "播放列表保存失败" }, result.response.status), sha: null };
+  return { response: null, sha: result.data.content?.sha ?? current.data.sha };
+}
+
 async function canEdit(session: Session, env: Env) {
   const { owner, repo } = config(env);
   if (session.login.toLowerCase() === owner.toLowerCase()) return true;
@@ -170,6 +194,39 @@ async function handleApi(request: Request, env: Env) {
     if (build?.status === "completed") return json({ state: "deploying", progress: 70, label: "等待部署站点", url: run.html_url });
     if (build?.status === "in_progress") return json({ state: "building", progress: 40, label: "正在构建站点", url: run.html_url });
     return json({ state: "queued", progress: 20, label: "构建任务已排队", url: run.html_url });
+  }
+
+  if (url.pathname === "/api/music" && request.method === "PUT") {
+    if (!sameOrigin(request)) return json({ error: "拒绝跨站写入" }, 403);
+    const body = await request.json<{ music?: unknown }>().catch(() => ({}));
+    if (!validMusic(body.music)) return json({ error: "播放列表数据无效" }, 400);
+    const saved = await persistMusic(body.music, session, env);
+    return saved.response ?? json({ music: body.music, sha: saved.sha });
+  }
+
+  if (url.pathname === "/api/music/upload" && request.method === "POST") {
+    if (!sameOrigin(request)) return json({ error: "拒绝跨站写入" }, 403);
+    const body = await request.json<{ name?: string; type?: string; size?: number; base64?: string; music?: unknown; trackId?: string }>();
+    if (!body.name || !body.base64 || !body.size || !body.trackId || !validMusic(body.music)) return json({ error: "音频或播放列表数据不完整" }, 400);
+    const extension = body.name.match(/\.([^.]+)$/)?.[1]?.toLowerCase() ?? "";
+    if (!/^audio\//.test(body.type ?? "") && !["mp3", "m4a", "ogg", "wav", "webm", "aac", "flac"].includes(extension)) return json({ error: "仅支持音频文件" }, 415);
+    if (body.size > 20 * 1024 * 1024) return json({ error: "单个音频文件不能超过 20 MB" }, 413);
+    const normalizedName = Array.from(body.name.normalize("NFKC"), (char) => char.charCodeAt(0) < 32 || /[\\/:*?"<>|]/.test(char) ? "-" : char).join("").replace(/\s+/g, " ").trim();
+    const safeName = (normalizedName || `music.${extension || "mp3"}`).slice(-120);
+    const path = `public/audio/${Date.now()}-${safeName}`;
+    const publicUrl = `/${path.replace(/^public\//, "")}`;
+    const { owner, repo } = config(env);
+    const uploaded = await github(`/repos/${owner}/${repo}/contents/${path}`, session.accessToken, {
+      method: "PUT",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ message: `music: upload ${safeName} from portfolio editor`, content: body.base64, branch: "main" }),
+    });
+    if (!uploaded.response.ok) return json({ error: "音频上传失败" }, uploaded.response.status);
+    const displayName = body.name.replace(/\.[^.]+$/, "");
+    const music = body.music.map((track) => track.id === body.trackId ? { ...track, src: publicUrl, title: !track.title || track.title === "未命名曲目" ? displayName : track.title } : track);
+    const saved = await persistMusic(music, session, env);
+    if (saved.response) return saved.response;
+    return json({ url: publicUrl, displayName, music, sha: saved.sha });
   }
 
   if (url.pathname === "/api/media" && request.method === "POST") {
