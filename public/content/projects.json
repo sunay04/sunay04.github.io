@@ -1862,6 +1862,13 @@
         "icon": "/assets/cloud09-icon-B41ca2cl.png"
       }
     ],
-    "music": []
+    "music": [
+      {
+        "id": "fbad1e52-a8c3-4d19-9679-549c5520bd31",
+        "title": "青花瓷",
+        "artist": "",
+        "src": "/audio/1785824304189-青花瓷.m4a"
+      }
+    ]
   }
 }
