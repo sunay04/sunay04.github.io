@@ -19,7 +19,7 @@ export async function getRepositoryContent() {
 }
 
 export async function publishRepositoryContent(projects: Project[], site: SiteContent, sha: string | null) {
-  return api<{ sha: string; commitUrl: string }>("/api/content", {
+  return api<{ sha: string; commitSha: string; commitUrl: string }>("/api/content", {
     method: "PUT",
     headers: { "content-type": "application/json" },
     body: JSON.stringify({ projects, site, sha }),
@@ -33,9 +33,20 @@ export async function uploadRepositoryMedia(file: File) {
     reader.onerror = () => reject(new Error("读取文件失败"));
     reader.readAsDataURL(file);
   });
-  return api<{ url: string }>("/api/media", {
+  return api<{ url: string; originalName: string; displayName: string }>("/api/media", {
     method: "POST",
     headers: { "content-type": "application/json" },
     body: JSON.stringify({ name: file.name, type: file.type, size: file.size, base64 }),
   });
+}
+
+export type DeploymentStatus = {
+  state: "queued" | "building" | "deploying" | "success" | "failure";
+  progress: number;
+  label: string;
+  url?: string;
+};
+
+export async function getDeploymentStatus(commitSha: string) {
+  return api<DeploymentStatus>(`/api/deployment?sha=${encodeURIComponent(commitSha)}`);
 }

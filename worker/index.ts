@@ -147,10 +147,29 @@ async function handleApi(request: Request, env: Env) {
     const content = standardBase64(encoder.encode(serialized));
     const payload: Record<string, unknown> = { message: `content: update portfolio from ${session.login}`, content, branch: "main" };
     if (body.sha) payload.sha = body.sha;
-    const { data, response } = await github<{ content?: { sha?: string }; commit?: { html_url?: string } }>(`/repos/${owner}/${repo}/contents/${path}`, session.accessToken, { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify(payload) });
+    const { data, response } = await github<{ content?: { sha?: string }; commit?: { sha?: string; html_url?: string } }>(`/repos/${owner}/${repo}/contents/${path}`, session.accessToken, { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify(payload) });
     if (response.status === 409 || response.status === 422) return json({ error: "仓库内容已被更新，请刷新后重新编辑" }, 409);
     if (!response.ok) return json({ error: "GitHub 提交失败" }, response.status);
-    return json({ sha: data.content?.sha, commitUrl: data.commit?.html_url });
+    return json({ sha: data.content?.sha, commitSha: data.commit?.sha, commitUrl: data.commit?.html_url });
+  }
+
+  if (url.pathname === "/api/deployment" && request.method === "GET") {
+    const commitSha = url.searchParams.get("sha");
+    if (!commitSha || !/^[a-f0-9]{40}$/i.test(commitSha)) return json({ error: "提交版本无效" }, 400);
+    const { owner, repo } = config(env);
+    const runs = await github<{ workflow_runs?: Array<{ id: number; status: string; conclusion: string | null; html_url?: string }> }>(`/repos/${owner}/${repo}/actions/runs?head_sha=${commitSha}&event=push&per_page=5`, session.accessToken);
+    if (!runs.response.ok) return json({ error: "无法读取部署进度" }, runs.response.status);
+    const run = runs.data.workflow_runs?.[0];
+    if (!run) return json({ state: "queued", progress: 10, label: "等待构建任务" });
+    if (run.status === "completed" && run.conclusion !== "success") return json({ state: "failure", progress: 100, label: "部署失败", url: run.html_url });
+    if (run.status === "completed") return json({ state: "success", progress: 100, label: "部署完成", url: run.html_url });
+    const jobs = await github<{ jobs?: Array<{ name: string; status: string; conclusion: string | null }> }>(`/repos/${owner}/${repo}/actions/runs/${run.id}/jobs?per_page=20`, session.accessToken);
+    const build = jobs.data.jobs?.find((job) => job.name.toLowerCase() === "build");
+    const deploy = jobs.data.jobs?.find((job) => job.name.toLowerCase() === "deploy");
+    if (deploy?.status === "in_progress") return json({ state: "deploying", progress: 85, label: "正在部署站点", url: run.html_url });
+    if (build?.status === "completed") return json({ state: "deploying", progress: 70, label: "等待部署站点", url: run.html_url });
+    if (build?.status === "in_progress") return json({ state: "building", progress: 40, label: "正在构建站点", url: run.html_url });
+    return json({ state: "queued", progress: 20, label: "构建任务已排队", url: run.html_url });
   }
 
   if (url.pathname === "/api/media" && request.method === "POST") {
@@ -158,12 +177,15 @@ async function handleApi(request: Request, env: Env) {
     if (origin && origin !== url.origin) return json({ error: "请求来源无效" }, 403);
     const body = await request.json<{ name?: string; type?: string; size?: number; base64?: string }>();
     if (!body.name || !body.base64 || !body.size) return json({ error: "文件数据不完整" }, 400);
-    const isAudio = /^audio\//.test(body.type ?? "");
+    const extension = body.name.match(/\.([^.]+)$/)?.[1]?.toLowerCase() ?? "";
+    const isAudio = /^audio\//.test(body.type ?? "") || ["mp3", "m4a", "ogg", "wav", "webm", "aac", "flac"].includes(extension);
     const maxSize = isAudio ? 20 * 1024 * 1024 : 8 * 1024 * 1024;
     if (body.size > maxSize) return json({ error: `单个${isAudio ? "音频" : "媒体"}文件不能超过 ${isAudio ? 20 : 8} MB` }, 413);
-    if (!/^(image|video|audio)\//.test(body.type ?? "")) return json({ error: "仅支持图片、视频和音频" }, 415);
-    const safeName = body.name.normalize("NFKD").replace(/[^a-zA-Z0-9._-]+/g, "-").replace(/^-+|-+$/g, "").slice(-100) || "media";
-    const path = `public/uploads/${Date.now()}-${safeName}`;
+    if (!isAudio && !/^(image|video)\//.test(body.type ?? "")) return json({ error: "仅支持图片、视频和音频" }, 415);
+    const normalizedName = Array.from(body.name.normalize("NFKC"), (char) => char.charCodeAt(0) < 32 || /[\\/:*?"<>|]/.test(char) ? "-" : char).join("").replace(/\s+/g, " ").trim();
+    const safeName = (normalizedName || `media${extension ? `.${extension}` : ""}`).slice(-120);
+    const directory = isAudio ? "audio" : "uploads";
+    const path = `public/${directory}/${Date.now()}-${safeName}`;
     const { owner, repo } = config(env);
     const { response } = await github(`/repos/${owner}/${repo}/contents/${path}`, session.accessToken, {
       method: "PUT",
@@ -171,7 +193,7 @@ async function handleApi(request: Request, env: Env) {
       body: JSON.stringify({ message: `media: upload ${safeName} from portfolio editor`, content: body.base64, branch: "main" }),
     });
     if (!response.ok) return json({ error: "媒体上传失败" }, response.status);
-    return json({ url: `/${path.replace(/^public\//, "")}` });
+    return json({ url: `/${path.replace(/^public\//, "")}`, originalName: body.name, displayName: body.name.replace(/\.[^.]+$/, "") });
   }
 
   return json({ error: "Not found" }, 404);
