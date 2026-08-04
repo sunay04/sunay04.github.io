@@ -92,21 +92,21 @@
       "startDate": "2026-01",
       "blocks": [
         {
-          "id": "fc814261-d777-4cb3-8c33-93c0f6d84062",
+          "id": "61bc79b5-0e66-4b06-8d0c-08c582458c8d",
           "type": "text",
           "heading": "担任角色",
           "body": "个人全流程：主题、剧本、49 镜头分镜、提示词、画面生成、视频生成、剪辑、配音、字幕、调色",
           "width": "narrow"
         },
         {
-          "id": "6c474710-bb05-46c9-bd07-fcd185d364c4",
+          "id": "fa1e2f5e-552e-4be3-ac78-c09b4639c5f0",
           "type": "text",
           "heading": "成果",
           "body": "3 分钟完整成片\n49 镜头分镜系统\n个人独立完成全流程",
           "width": "narrow"
         },
         {
-          "id": "b5f48598-6c83-4719-9745-4ab3ee8dc738",
+          "id": "0b7876c1-9606-4ba3-9007-30d8ea3c011c",
           "type": "media",
           "media": {
             "src": "/assets/xuanzhi-hero-support-CS0_GPer.png",
@@ -118,14 +118,14 @@
           }
         },
         {
-          "id": "0b4c2bc3-a3d0-40b1-ada6-a8cfb96b572a",
+          "id": "b7331d93-2e2e-4a8e-8c98-11364f001da2",
           "type": "text",
           "heading": "关键决策与贡献",
           "body": "把抽象主题拆成镜头表、关键帧与剪辑节奏，使生成过程具备明确的执行标准。\n建立从提示词、图像生成、视频生成到配音、字幕和调色的完整工作流。\n以压抑、疏离、希望三段情绪控制色彩与构图，让视觉变化服务叙事推进。",
           "width": "wide"
         },
         {
-          "id": "1ad46730-6fb2-4df0-992d-1ef81b77d3cf",
+          "id": "5391695d-71e0-410c-954d-95040d18bc9b",
           "type": "gallery",
           "items": [
             {
@@ -176,56 +176,56 @@
           "columns": 2
         },
         {
-          "id": "68b0e283-870b-4bdf-87cb-10c9896be92e",
+          "id": "61e67cc2-d88e-4ced-95ae-85299c794f73",
           "type": "text",
           "heading": "封面媒体说明",
           "body": "替代文本：《悬置》酒吧角色关键帧，蓝色压抑情绪\n说明：情绪关键帧",
           "width": "narrow"
         },
         {
-          "id": "43a6f3e0-02a8-4232-8537-88f659ee6a2c",
+          "id": "161fa3e1-3b6f-43bd-b2fa-c74421279b46",
           "type": "text",
           "heading": "媒体 1 说明",
           "body": "替代文本：AI 短片分镜图：主角情绪凝滞的室内镜头\n说明：分镜图 01",
           "width": "narrow"
         },
         {
-          "id": "df6cd3ff-0192-40a3-963b-6c44ef6483c1",
+          "id": "b5b3bd57-d448-4177-8b15-48df3c39e19d",
           "type": "text",
           "heading": "媒体 2 说明",
           "body": "替代文本：AI 短片分镜图：酒吧环境镜头\n说明：分镜图 02",
           "width": "narrow"
         },
         {
-          "id": "f863257f-0f15-4033-a8be-9adf00cca28d",
+          "id": "de688eac-aab1-47fe-9545-ebfb827f2a0c",
           "type": "text",
           "heading": "媒体 3 说明",
           "body": "替代文本：AI 短片分镜图：手部特写镜头\n说明：分镜图 03",
           "width": "narrow"
         },
         {
-          "id": "bb6427c8-2a9a-4900-9423-84d8a8e3fc2c",
+          "id": "ff6c83b6-988f-4416-a9a6-4597dd73e631",
           "type": "text",
           "heading": "媒体 4 说明",
           "body": "替代文本：AI 短片分镜图：人物冲突镜头\n说明：分镜图 04",
           "width": "narrow"
         },
         {
-          "id": "8fe911a7-eb32-4e41-a1f3-b430720f30c6",
+          "id": "ce3b5b6e-19e7-4b44-b27a-f23fe54d2c1d",
           "type": "text",
           "heading": "媒体 5 说明",
           "body": "替代文本：AI 短片分镜图：人物表情特写\n说明：分镜图 05",
           "width": "narrow"
         },
         {
-          "id": "a437cc1a-ff30-46b0-aa86-2a70a683503f",
+          "id": "6dea5594-c8d2-4bfb-8930-9557c4c439f0",
           "type": "text",
           "heading": "媒体 6 说明",
           "body": "替代文本：AI 短片分镜图：黑白人物镜头\n说明：分镜图 06",
           "width": "narrow"
         },
         {
-          "id": "bb82abb2-227d-45e8-b34b-b7eeb8e912bd",
+          "id": "4e69b409-8d35-4e03-ab97-413805e0127c",
           "type": "text",
           "heading": "媒体 7 说明",
           "body": "替代文本：《悬置》压抑开场关键帧\n说明：压抑中心构图",
@@ -304,14 +304,14 @@
       "startDate": "2026-01",
       "blocks": [
         {
-          "id": "64b265ce-8f20-4780-b268-78242559792b",
+          "id": "7692e567-7257-4944-b6e1-bfd7140a0ad2",
           "type": "text",
           "heading": "担任角色",
           "body": "团队 5 人项目；负责草图、线稿、色稿、上色、字体与品牌延展等全流程视觉执行",
           "width": "narrow"
         },
         {
-          "id": "3e8a69bf-3a31-4259-843f-38b0586450d2",
+          "id": "f5ed1c5f-2fc1-47ed-95cd-842701f0debf",
           "type": "media",
           "media": {
             "src": "/assets/gentle-fold-main-visual-02-D7TQ7PDj.jpg",
@@ -322,14 +322,14 @@
           }
         },
         {
-          "id": "6fd803b9-35c2-46a8-b436-dcd89c4ded7c",
+          "id": "a0145db6-733d-4380-bf0c-0428c6ef03f8",
           "type": "text",
           "heading": "成果",
           "body": "5 人团队协作\n6 类品牌应用场景\n静态与动态双线交付",
           "width": "narrow"
         },
         {
-          "id": "937a5a60-17d8-40e1-8329-957f05ee7c6d",
+          "id": "e58530d2-bd38-4892-906c-90be589c7cc5",
           "type": "media",
           "media": {
             "src": "/assets/gentle-fold-main-visual-01-s0THzA5v.png",
@@ -341,14 +341,14 @@
           }
         },
         {
-          "id": "43da50ab-b018-44c5-846b-c46974307273",
+          "id": "4448a19a-a1c3-4990-8cf2-8e07d407e6d9",
           "type": "text",
           "heading": "关键决策与贡献",
           "body": "从主视觉建立统一的造型与色彩规则，再延展至海报、橱窗、产品和周边物料。\n用昆虫、骨骼与镜片的形态关系回应品牌的异质感，而非依赖装饰性符号。\n在多人协作中承担主要视觉执行，确保不同媒介保持一致的识别度。",
           "width": "wide"
         },
         {
-          "id": "6f39fae1-46e5-4604-9eb3-d47d909dc7dc",
+          "id": "9b871d93-a48f-474a-9bde-00d9c3a57aff",
           "type": "gallery",
           "items": [
             {
@@ -382,35 +382,35 @@
           "columns": 2
         },
         {
-          "id": "98ce09a4-18e8-4632-a75d-54f4bc63e6df",
+          "id": "f89360ff-d2c5-4693-9d1d-b3b79710e13e",
           "type": "text",
           "heading": "封面媒体说明",
           "body": "替代文本：GENTLE MONSTER 折叠的维度主视觉，以虫观我\n说明：主图 01",
           "width": "narrow"
         },
         {
-          "id": "ac671c04-3995-4a6d-b14b-997c6f5bf007",
+          "id": "07a4d3e3-75f2-4d5b-8f31-0da1c1945893",
           "type": "text",
           "heading": "媒体 1 说明",
           "body": "替代文本：GENTLE MONSTER 折叠的维度项目封面\n说明：项目封面",
           "width": "narrow"
         },
         {
-          "id": "e5fe8806-ba40-46c6-a4f5-73934a62a1fd",
+          "id": "887fdc58-fe8d-4dc9-9cf4-6d85bc44aa7d",
           "type": "text",
           "heading": "媒体 2 说明",
           "body": "替代文本：GENTLE MONSTER 折叠的维度橱窗样机，以镜观骨\n说明：橱窗样机 01",
           "width": "narrow"
         },
         {
-          "id": "e80960f6-423c-4224-82f9-368ca9155a59",
+          "id": "81e75981-818b-4d04-8c23-ba270ba63061",
           "type": "text",
           "heading": "媒体 3 说明",
           "body": "替代文本：GENTLE MONSTER 折叠的维度橱窗样机，以虫观我\n说明：橱窗样机 02",
           "width": "narrow"
         },
         {
-          "id": "eed49443-b395-4fa2-884f-46f2a81ce529",
+          "id": "6d864107-2616-4450-8e64-d62157a28ed6",
           "type": "text",
           "heading": "媒体 4 说明",
           "body": "替代文本：GENTLE MONSTER 折叠的维度延展动态视觉\n说明：延展动态视觉",
@@ -461,21 +461,21 @@
       "startDate": "2026-01",
       "blocks": [
         {
-          "id": "c610e299-160b-445a-88e7-25fffd03b257",
+          "id": "8adcb315-c4ad-4a5b-9301-2ff3ed5c6821",
           "type": "text",
           "heading": "担任角色",
           "body": "负责主题视觉、主海报、动态海报、空间延展与品牌介绍视频",
           "width": "narrow"
         },
         {
-          "id": "e1ec77e9-87a7-4be3-94c4-8f0159b6e487",
+          "id": "bd1d1def-5f1a-48e0-be3d-3935882425fe",
           "type": "text",
           "heading": "成果",
           "body": "2 张静态延展\n1 支动态海报\n覆盖平面、动态与空间",
           "width": "narrow"
         },
         {
-          "id": "93f9da27-40ce-486a-863e-14597ec79d0c",
+          "id": "1a20fe18-7de9-4786-b004-2ea29642624f",
           "type": "media",
           "media": {
             "src": "/assets/future-echoes-motion-poster-C698cHDU.mp4",
@@ -487,14 +487,14 @@
           }
         },
         {
-          "id": "f097e116-d2f8-435b-891d-37c86a520cec",
+          "id": "5855a1fd-2ccd-4032-9536-449bed917fe3",
           "type": "text",
           "heading": "关键决策与贡献",
           "body": "先定义稳定的字体、色彩与图形关系，再进入不同媒介，避免延展成为风格拼贴。\n动态海报以节奏和层级变化强化“回声”概念，而不是简单移动静态元素。\n空间场景保留主海报的识别核心，同时根据观看距离调整信息密度。",
           "width": "wide"
         },
         {
-          "id": "3b789fd8-e988-4a6c-8278-92891ebb2a00",
+          "id": "07e57e02-0b7c-4434-ad3b-710da8b7c417",
           "type": "gallery",
           "items": [
             {
@@ -515,21 +515,21 @@
           "columns": 2
         },
         {
-          "id": "d18f8e78-af90-48d3-9a78-e6c8e4fe7581",
+          "id": "185f57b4-7efc-4bf0-9558-7010a5a7b1bb",
           "type": "text",
           "heading": "封面媒体说明",
           "body": "替代文本：Future Echoes 动态海报视频\n说明：动态海报",
           "width": "narrow"
         },
         {
-          "id": "2aaef032-2db1-4614-8f3f-55f457943be2",
+          "id": "ce92390b-58d3-4ea1-ad54-007a71be9b21",
           "type": "text",
           "heading": "媒体 1 说明",
           "body": "替代文本：Future Echoes 主海报\n说明：主海报",
           "width": "narrow"
         },
         {
-          "id": "9d14a530-11b1-41fe-923d-b70e2706506e",
+          "id": "2784ef90-47a2-44cd-af90-e182c5bf8246",
           "type": "text",
           "heading": "媒体 2 说明",
           "body": "替代文本：Future Echoes 空间延展场景\n说明：空间延展",
@@ -602,21 +602,21 @@
       "startDate": "2025-01",
       "blocks": [
         {
-          "id": "48370fc5-dbf3-4772-b7ac-1db46ab514fb",
+          "id": "a2c9a5c9-e1ca-49f4-9845-abf0bced98ab",
           "type": "text",
           "heading": "担任角色",
           "body": "负责演出主海报、入场券与邀请函视觉设计，完成从主视觉到活动物料的统一延展",
           "width": "narrow"
         },
         {
-          "id": "6eb39ef4-4712-4756-b33f-e63343c89579",
+          "id": "fbed5eaa-c3b6-4a94-9dc3-7103bec4b631",
           "type": "text",
           "heading": "成果",
           "body": "1 套演出主视觉\n3 类活动物料\n覆盖宣发、入场与邀约",
           "width": "narrow"
         },
         {
-          "id": "dffc95c9-b34f-4cc4-8980-dd79e04a3eef",
+          "id": "d3cebbf6-34ca-4cbf-92af-eb8c18be29be",
           "type": "media",
           "media": {
             "src": "/assets/jinsha-rap-poster-CpS9hnYG.png",
@@ -628,14 +628,14 @@
           }
         },
         {
-          "id": "176cbab1-e129-473c-9d47-7b02962c6185",
+          "id": "2d404d0e-9020-49aa-800a-35d7c0a29fc8",
           "type": "text",
           "heading": "关键决策与贡献",
           "body": "以本土建筑作为核心识别符号，在文化语境与说唱演出气质之间建立关联。\n通过字号、对比与留白梳理演出阵容、时间地点和票务信息的阅读顺序。\n在海报、票券与邀请函之间保持统一的字体、纹理和色彩规则。",
           "width": "wide"
         },
         {
-          "id": "5266a97a-fa12-4878-8bcd-953ff2d24198",
+          "id": "e87962c6-2671-4cd6-8748-c88a18db02d9",
           "type": "gallery",
           "items": [
             {
@@ -677,42 +677,42 @@
           "columns": 2
         },
         {
-          "id": "07183059-1522-43b0-9ef8-04ae5278f515",
+          "id": "cd2c9988-f7f9-49a5-8202-b0a5501ea3b9",
           "type": "text",
           "heading": "封面媒体说明",
           "body": "替代文本：聚金沙 4.0 说唱演出主海报\n说明：演出主海报",
           "width": "narrow"
         },
         {
-          "id": "a72f9185-2cdb-4d4a-98ed-514215057796",
+          "id": "333512a5-824d-4ace-b89e-2037f1f65ed0",
           "type": "text",
           "heading": "媒体 1 说明",
           "body": "替代文本：聚金沙 4.0 说唱演出海报变体\n说明：海报变体",
           "width": "narrow"
         },
         {
-          "id": "5eb725d2-a0f3-4554-9d6e-62698753e0c8",
+          "id": "601b35d8-fc0e-4557-b6db-d5a40d5aaedb",
           "type": "text",
           "heading": "媒体 2 说明",
           "body": "替代文本：聚金沙 4.0 说唱演出入场券设计\n说明：入场券",
           "width": "narrow"
         },
         {
-          "id": "c3c06d64-c5f5-499c-b970-b28f2b949ca0",
+          "id": "b0c2fda1-0039-4275-866a-fff88976dc3b",
           "type": "text",
           "heading": "媒体 3 说明",
           "body": "替代文本：聚金沙 4.0 说唱演出邀请函设计\n说明：邀请函",
           "width": "narrow"
         },
         {
-          "id": "248abd9d-b3ac-4713-92e1-20ad9239c6e6",
+          "id": "9f5c69a1-630e-469a-9163-cc0294a13484",
           "type": "text",
           "heading": "媒体 4 说明",
           "body": "替代文本：聚金沙 4.0 说唱演出主视觉展板应用\n说明：现场展板应用",
           "width": "narrow"
         },
         {
-          "id": "3db9933c-0974-4fcd-b739-0b25ea6bcdeb",
+          "id": "61564441-b2a3-4e1a-a924-2951fa9edb33",
           "type": "text",
           "heading": "媒体 5 说明",
           "body": "替代文本：聚金沙 4.0 说唱演出 BOOZE 酒瓶视觉样机\n说明：酒瓶视觉样机",
@@ -757,14 +757,14 @@
       "startDate": "2026-01",
       "blocks": [
         {
-          "id": "f0fa6b32-49a3-4592-aa95-add9db73ec92",
+          "id": "ed14b9be-2a5d-4368-8d65-e49765dccbd9",
           "type": "text",
           "heading": "担任角色",
           "body": "负责命题概念、AI 画面生成、视觉方向整合与海报信息排版优化",
           "width": "narrow"
         },
         {
-          "id": "1da47f46-5643-401d-958e-f429092aa36e",
+          "id": "3447ae19-30bd-470d-8951-04d6c406b025",
           "type": "media",
           "media": {
             "src": "/assets/shanhaipang-bar-opening-poster-vDVIy9cb.png",
@@ -775,14 +775,14 @@
           }
         },
         {
-          "id": "3008e6ef-7bb7-46cd-a645-d4ce407fa751",
+          "id": "6cba6d2d-5e7c-4ac1-a8d6-3197aa4550cb",
           "type": "text",
           "heading": "成果",
           "body": "2 个商业传播命题\nAI 生成与人工排版整合\n1 个真实开业项目",
           "width": "narrow"
         },
         {
-          "id": "58f51cde-5688-4ffc-8e54-0d7a4c594aa0",
+          "id": "203daab5-b645-4f0a-9c01-e1d89ececcf2",
           "type": "media",
           "media": {
             "src": "/assets/popmart-angry-molly-ai-poster-D1vV7iY3.png",
@@ -794,14 +794,14 @@
           }
         },
         {
-          "id": "b6d4d0eb-9c36-4895-ab36-48823356798d",
+          "id": "fd5c708b-de36-43fe-bc91-ce7e1945f9ba",
           "type": "text",
           "heading": "关键决策与贡献",
           "body": "根据不同品牌命题提炼情绪关键词，并转化为清晰的画面生成方向。\n对 AI 生成结果继续进行构图筛选、文字编排与品牌信息校正，保证可用性。\n针对赛事命题与真实开业活动采用不同的信息密度和视觉策略。",
           "width": "wide"
         },
         {
-          "id": "b2bbcec7-46b8-4bd5-98d5-05d8908919fc",
+          "id": "dfbe1bb0-ef56-4506-879e-1b9e06da2500",
           "type": "text",
           "heading": "封面媒体说明",
           "body": "替代文本：泡泡马特大广赛 AI 生成概念海报，Angry Molly\n说明：泡泡马特大广赛命题 / AI 生成概念海报",
@@ -859,21 +859,21 @@
       "startDate": "2025-01",
       "blocks": [
         {
-          "id": "b77480c2-90b3-4479-8fa3-b722c5b5623b",
+          "id": "f200577a-acd6-4cdb-9508-3d809b0f2024",
           "type": "text",
           "heading": "担任角色",
           "body": "负责团购套餐主图、优惠信息层级、活动卖点提炼与平台投放视觉设计",
           "width": "narrow"
         },
         {
-          "id": "8e40406d-35e2-49d5-904f-d22f10b403c8",
+          "id": "327525f5-2570-45cd-b016-792067091345",
           "type": "text",
           "heading": "成果",
           "body": "4 张平台上线物料\n覆盖 4 类团购权益\n服务真实门店投放",
           "width": "narrow"
         },
         {
-          "id": "1f2225f4-9368-4af3-9eec-a7fe56185b88",
+          "id": "952fc044-6350-4392-ab5b-4bcde5dc1960",
           "type": "media",
           "media": {
             "src": "/assets/meituan-billiard-66-300-CkmnMegp.png",
@@ -885,14 +885,14 @@
           }
         },
         {
-          "id": "260c16a6-9d0e-4d8e-96b1-9c4744984efe",
+          "id": "eedda7b5-7140-45be-ac8b-52ac556d39aa",
           "type": "text",
           "heading": "关键决策与贡献",
           "body": "把复杂套餐压缩为价格、时长与服务内容三个优先层级，降低用户理解成本。\n针对美团缩略图浏览场景强化字号与色彩对比，确保核心权益在小尺寸下可读。\n用统一模板承载不同套餐，兼顾门店识别与后续物料扩展效率。",
           "width": "wide"
         },
         {
-          "id": "cd2ecc0e-8568-4683-a7e3-e5a0cc03614b",
+          "id": "f0220db9-60a9-4481-9991-8e465c67e745",
           "type": "gallery",
           "items": [
             {
@@ -920,28 +920,28 @@
           "columns": 2
         },
         {
-          "id": "a99d05ce-abad-4e0f-bf33-abd7683097ce",
+          "id": "ba004a06-2c87-4ac4-bb40-8ec01c1149be",
           "type": "text",
           "heading": "封面媒体说明",
           "body": "替代文本：美团团购真实落地案例，66 代 300 元优惠物料\n说明：团购优惠主图",
           "width": "narrow"
         },
         {
-          "id": "dd2b6ac9-8853-41ef-ac5a-f33ff16c5fb8",
+          "id": "8b8f69b1-bb8f-4ef8-be41-09e3fa37372b",
           "type": "text",
           "heading": "媒体 1 说明",
           "body": "替代文本：美团团购轻奢小包 4 小时物料\n说明：轻奢小包 4 小时",
           "width": "narrow"
         },
         {
-          "id": "86558e77-929f-4b0c-84fc-a92cd257862e",
+          "id": "f3a46fd1-aed0-49db-8df7-d8676b281c7f",
           "type": "text",
           "heading": "媒体 2 说明",
           "body": "替代文本：美团团购中式黑八 1 小时物料\n说明：中式黑八 1 小时",
           "width": "narrow"
         },
         {
-          "id": "b22654ef-47d6-4e0a-a68f-4352c565ca77",
+          "id": "ae7c7cca-cebc-4aa0-bf77-d04f464c8af2",
           "type": "text",
           "heading": "媒体 3 说明",
           "body": "替代文本：美团团购中式黑八初级教练 1 小时物料\n说明：初级教练 1 小时",
@@ -977,21 +977,21 @@
       "startDate": "2025-01",
       "blocks": [
         {
-          "id": "030a1cdb-38c1-4658-8aaf-2ce10590d8e5",
+          "id": "f067e136-b89a-4f3f-9771-5bfa78db50eb",
           "type": "text",
           "heading": "担任角色",
           "body": "负责角色设定、场景氛围、动物意象与整体画面绘制",
           "width": "narrow"
         },
         {
-          "id": "ea443b3e-13a2-483e-97e4-ba123b1d029c",
+          "id": "2bb84d26-7ef1-4855-afa8-c67f5e530aa2",
           "type": "text",
           "heading": "成果",
           "body": "1 幅完整叙事插画\n角色与场景独立绘制\n横版多层次构图",
           "width": "narrow"
         },
         {
-          "id": "8aaa47b4-5c76-4be3-b4a4-3415c9432fdc",
+          "id": "0c234c8f-18da-43f1-81be-fe45fdc6bab8",
           "type": "media",
           "media": {
             "src": "/assets/narrative-illustration-city-rooftop-1kLBaLND.jpg",
@@ -1003,14 +1003,14 @@
           }
         },
         {
-          "id": "491b3e88-db64-4afe-85c3-e7eafc7113b2",
+          "id": "96d4223e-6c3f-4a99-ae4c-ab7695fadbc2",
           "type": "text",
           "heading": "关键决策与贡献",
           "body": "用角色动作与视线关系建立叙事中心，让观看顺序从人物自然延伸到环境。\n通过动物意象连接现实与幻想，使画面在单一场景中保留想象空间。\n以暖色城市光和清晰的前后景层次统一复杂元素，避免视觉焦点分散。",
           "width": "wide"
         },
         {
-          "id": "9321da18-31cc-471d-a177-0f1361f8d10c",
+          "id": "89a73d3f-c570-4955-9635-6382dcb91f6c",
           "type": "text",
           "heading": "封面媒体说明",
           "body": "替代文本：城市天台叙事插画，人物拥抱与动物意象\n说明：叙事插画",
@@ -1075,21 +1075,21 @@
       "startDate": "2026-01",
       "blocks": [
         {
-          "id": "a19cadf3-5201-4e5a-b94e-5409ead6fb63",
+          "id": "912b3f95-3529-4cc8-a96f-e93d88d62c7e",
           "type": "text",
           "heading": "担任角色",
           "body": "2 人团队创业项目；负责品牌调研、招牌设计、运营宣发、活动策划、采购与服务交付",
           "width": "narrow"
         },
         {
-          "id": "b630c9a8-2fea-42f0-afb5-4efcccf68e75",
+          "id": "596f2cf1-6b51-45f8-9ac2-e3af7a64e4fd",
           "type": "text",
           "heading": "成果",
           "body": "连续运营 2 个月\n调研 10+ 同类店铺\n发布 36 篇小红书笔记",
           "width": "narrow"
         },
         {
-          "id": "18360504-848d-443e-9e92-5c6bf979a30a",
+          "id": "6b9e053d-b661-4a78-b0fd-a5560f68bf0d",
           "type": "media",
           "media": {
             "src": "/assets/haina-market-reference-B8LrDMhm.png",
@@ -1101,14 +1101,14 @@
           }
         },
         {
-          "id": "82e2f6eb-c171-49be-be90-2598a32d5bdb",
+          "id": "a9501ec1-eaf7-4e18-b2b3-a7c29834ca4a",
           "type": "text",
           "heading": "关键决策与贡献",
           "body": "根据同类店铺和游客需求调研，参与套餐设计、定价、采购及服务流程搭建。\n把海娜文化体验拆解为明确的图案、时长与价格选项，降低现场决策门槛。\n同步负责摊位视觉与 36 篇社媒内容，让线上种草与线下体验形成完整链路。",
           "width": "wide"
         },
         {
-          "id": "33b5ecc4-72d5-457a-a47c-08cc4b547c79",
+          "id": "93837bc7-6fb6-4f84-af88-f46f67bae3d5",
           "type": "gallery",
           "items": [
             {
@@ -1143,35 +1143,35 @@
           "columns": 2
         },
         {
-          "id": "db75d13f-5339-460f-bfe6-4537f838538b",
+          "id": "a0ecfa7c-0e2d-4ae2-92cd-3c57824b1355",
           "type": "text",
           "heading": "封面媒体说明",
           "body": "替代文本：海娜文化快闪集市同类市集与摊位参考\n说明：市集氛围参考",
           "width": "narrow"
         },
         {
-          "id": "109e9154-d4e5-471a-93d9-c1973e1ed52c",
+          "id": "4bef8523-cfc5-4506-a383-de66586fda85",
           "type": "text",
           "heading": "媒体 1 说明",
           "body": "替代文本：海娜文化快闪集市招牌与摊位展示\n说明：摊位招牌",
           "width": "narrow"
         },
         {
-          "id": "50d85a78-0957-429e-9e6a-a22df90802e2",
+          "id": "4b23232e-d476-48ad-ad01-ee0229a14456",
           "type": "text",
           "heading": "媒体 2 说明",
           "body": "替代文本：海娜手绘服务交付细节\n说明：服务交付细节",
           "width": "narrow"
         },
         {
-          "id": "27340331-9ac3-4624-91ac-9b0c54c8090f",
+          "id": "af0ba5f8-1250-4257-a617-bb8ebcd476b8",
           "type": "text",
           "heading": "媒体 3 说明",
           "body": "替代文本：海娜手绘图案落地效果\n说明：图案落地效果",
           "width": "narrow"
         },
         {
-          "id": "07409a27-98ab-481a-8d2c-466e89d2576d",
+          "id": "90cbedab-e483-4a70-ab38-5fb9412bed71",
           "type": "text",
           "heading": "媒体 4 说明",
           "body": "替代文本：海娜文化快闪集市现场服务与招牌\n说明：线下快闪服务现场",
@@ -1231,21 +1231,21 @@
       "startDate": "2026-01",
       "blocks": [
         {
-          "id": "af338fe6-94a9-486d-9047-4054ab6905ba",
+          "id": "1e49474b-0f50-4b0f-a964-b46d916b81c8",
           "type": "text",
           "heading": "担任角色",
           "body": "负责香氛主题插画创作与小红书发布视觉表达",
           "width": "narrow"
         },
         {
-          "id": "d47ea2fe-c1aa-402e-8b12-ae598d3c173c",
+          "id": "03f0e6a4-cfd8-4370-a19d-897e9ec55bb2",
           "type": "text",
           "heading": "成果",
           "body": "270 次点赞\n91 次收藏\n46 条评论",
           "width": "narrow"
         },
         {
-          "id": "d1e9c94e-fc44-4a5a-a86c-811b6a3fb07c",
+          "id": "7033bb74-912d-4b26-bb79-de20c97e575c",
           "type": "media",
           "media": {
             "src": "/assets/shanxia-songmont-hero-C9BliqmB.png",
@@ -1256,14 +1256,14 @@
           }
         },
         {
-          "id": "df14b006-3ddc-4e7e-9089-7056fead94c5",
+          "id": "8784cb4f-e683-495f-b50d-df9e1c88e1ca",
           "type": "text",
           "heading": "关键决策与贡献",
           "body": "从品牌的地域与香氛属性中提炼自然、质朴和手作感，建立统一插画语言。\n将主视觉延展至烟雾意象、产品概念与包装场景，保持跨物料的一致性。\n发布内容获得 270 次点赞与 91 次收藏，收藏占比体现了视觉内容的参考价值。",
           "width": "wide"
         },
         {
-          "id": "db07e180-2e90-489e-97f2-03efc5446458",
+          "id": "d0a0acee-4d57-483a-bcad-eafbfd825f02",
           "type": "gallery",
           "items": [
             {
@@ -1291,28 +1291,28 @@
           "columns": 2
         },
         {
-          "id": "6de4466b-12a0-4d3b-9c0f-5c69350b8bb0",
+          "id": "e0475806-fd66-432f-99a5-51a168a0faf8",
           "type": "text",
           "heading": "封面媒体说明",
           "body": "替代文本：山下有松 Songmont 香氛主视觉插画\n说明：香氛主视觉",
           "width": "narrow"
         },
         {
-          "id": "1077129b-5de1-48b0-ad67-c8bc58dc1180",
+          "id": "7d7acfe8-c189-4654-ab30-371c8f14523d",
           "type": "text",
           "heading": "媒体 1 说明",
           "body": "替代文本：山下有松 Songmont 香氛烟雾插画\n说明：香气流动视觉",
           "width": "narrow"
         },
         {
-          "id": "17f0fbf8-393a-44c0-bcfc-7e1572f21ebb",
+          "id": "513515a5-fc51-4055-94f6-a0f13bff599a",
           "type": "text",
           "heading": "媒体 2 说明",
           "body": "替代文本：山下有松香氛产品与包装样机\n说明：包装样机",
           "width": "narrow"
         },
         {
-          "id": "90841df9-89b9-4241-9bfc-06579992c066",
+          "id": "8ee6360d-abb6-4ecd-8290-436f5041ec7b",
           "type": "text",
           "heading": "媒体 3 说明",
           "body": "替代文本：山下有松香氛产品理念页\n说明：产品理念",
@@ -1419,14 +1419,14 @@
       "startDate": "2026-01",
       "blocks": [
         {
-          "id": "1e214779-611a-4d6c-ad73-8340b636dc2d",
+          "id": "d15eeeb9-e21f-4550-8f9b-f8f59480e8dd",
           "type": "text",
           "heading": "担任角色",
           "body": "负责中高模制作、低模拓扑、UV 整理、贴图烘焙、材质绘制与最终渲染",
           "width": "narrow"
         },
         {
-          "id": "b4d4b3aa-cbcd-4eca-a655-53443b440bbd",
+          "id": "69492d86-c718-40a0-b2ea-d27d1082566a",
           "type": "media",
           "media": {
             "src": "/assets/piano-final-render-rear-BeuKDdhp.png",
@@ -1437,14 +1437,14 @@
           }
         },
         {
-          "id": "e6870b5c-f592-45ef-9ffc-a134f84ba266",
+          "id": "41c04463-b3f4-4c33-88da-cefb2654b2a8",
           "type": "text",
           "heading": "成果",
           "body": "1 套完整场景资产流程\n3 类三维资产展示\n覆盖建模、贴图与渲染全流程",
           "width": "narrow"
         },
         {
-          "id": "3d020e5c-45df-4a5c-8760-2e86884f0755",
+          "id": "a8216987-fdc0-4948-b87c-89a3ec1f0581",
           "type": "media",
           "media": {
             "src": "/assets/piano-final-render-front-CBNeeosO.png",
@@ -1456,14 +1456,14 @@
           }
         },
         {
-          "id": "859e3494-f299-4838-81d4-b1fab4b04625",
+          "id": "df50bbbd-2689-4c5d-84b5-d6b7467c7046",
           "type": "text",
           "heading": "关键决策与贡献",
           "body": "先以中模确定整体比例、道具层级与观看节奏，再进入高模细化，减少后续结构返工。\n通过低模拓扑、UV 分区和烘焙检查建立可落地的资产规范，兼顾造型可读性与制作效率。\n用木纹、磨损、金属反光和纸张道具的材质差异统一旧化风格，并通过灯光强化舞台式氛围。",
           "width": "wide"
         },
         {
-          "id": "e7b741a0-ec55-47c7-8e2e-cc4b87114f04",
+          "id": "78799ac2-d3a1-4fac-8fc7-eddcab0fada8",
           "type": "gallery",
           "items": [
             {
@@ -1533,70 +1533,70 @@
           "columns": 2
         },
         {
-          "id": "4d478c1f-bd7a-4edc-b6f7-27612aed3e73",
+          "id": "6664fc81-c276-4328-ad73-b88073f86a48",
           "type": "text",
           "heading": "封面媒体说明",
           "body": "替代文本：旧钢琴三维场景正面最终渲染\n说明：旧钢琴场景 / 最终渲染",
           "width": "narrow"
         },
         {
-          "id": "ae0efefd-d279-4712-abce-0b591a1cc7f3",
+          "id": "290eddef-e484-4ad1-aa5a-d395b0e61eca",
           "type": "text",
           "heading": "媒体 1 说明",
           "body": "替代文本：旧钢琴三维场景原画参考\n说明：原画参考",
           "width": "narrow"
         },
         {
-          "id": "bf46e651-b22d-4fca-bf11-911596e89265",
+          "id": "6f2838de-c3aa-492a-a234-ff1c4abbe793",
           "type": "text",
           "heading": "媒体 2 说明",
           "body": "替代文本：旧钢琴场景高模制作展示\n说明：高模制作",
           "width": "narrow"
         },
         {
-          "id": "e212e908-0dd0-42aa-ba2f-ec922d6d0d04",
+          "id": "c2905d0b-21c3-478b-8ce5-37a00d63890c",
           "type": "text",
           "heading": "媒体 3 说明",
           "body": "替代文本：旧钢琴场景低模拓扑展示\n说明：低模拓扑",
           "width": "narrow"
         },
         {
-          "id": "255f5a88-42a7-4de0-b7c5-c927780c9180",
+          "id": "b67d3a08-6be3-49a5-afe0-4681e6a6447d",
           "type": "text",
           "heading": "媒体 4 说明",
           "body": "替代文本：旧钢琴场景 UV 编辑与整理界面\n说明：UV 编辑整理",
           "width": "narrow"
         },
         {
-          "id": "cbc54e1c-bef2-4d84-90d3-09d0c6b25693",
+          "id": "a80171e3-68c8-4bf8-b720-2364cd25dd69",
           "type": "text",
           "heading": "媒体 5 说明",
           "body": "替代文本：旧钢琴场景烘焙贴图检查\n说明：烘焙贴图检查",
           "width": "narrow"
         },
         {
-          "id": "94643a68-0dbe-40af-a467-7ee1164584ec",
+          "id": "a515a2f5-8342-4d32-93fc-03accc11c01e",
           "type": "text",
           "heading": "媒体 6 说明",
           "body": "替代文本：旧钢琴场景贴图绘制与材质图层\n说明：贴图与材质层",
           "width": "narrow"
         },
         {
-          "id": "58dc3768-2578-4c67-8133-f0efcd2a95a0",
+          "id": "8eb51a25-8235-4871-93ca-4bbea94bc551",
           "type": "text",
           "heading": "媒体 7 说明",
           "body": "替代文本：鸟形乌尊金属器物三维渲染\n说明：乌尊 / 金属器物资产",
           "width": "narrow"
         },
         {
-          "id": "e6e3ef25-a020-4c8d-aeef-0c4226262939",
+          "id": "eb80c580-2334-45b2-b820-9047b347c669",
           "type": "text",
           "heading": "媒体 8 说明",
           "body": "替代文本：模块化钟楼三维资产正面渲染\n说明：钟楼 / 正面渲染",
           "width": "narrow"
         },
         {
-          "id": "5fb4d80e-76e0-4906-86a3-dcd1061522ba",
+          "id": "97ca83e3-e454-49e6-b3f0-d24545fc427e",
           "type": "text",
           "heading": "媒体 9 说明",
           "body": "替代文本：模块化钟楼三维资产侧面渲染\n说明：钟楼 / 侧面渲染",
@@ -1669,14 +1669,14 @@
       "startDate": "2026-01",
       "blocks": [
         {
-          "id": "e515bde0-17bc-467c-aed3-aa64af4ab7a1",
+          "id": "fed422d8-2044-484a-b732-a3ca43e314a3",
           "type": "text",
           "heading": "担任角色",
           "body": "负责 Unity UI 与页面逻辑实现、素材整合、三维场景布置、材质调节、镜头与氛围呈现",
           "width": "narrow"
         },
         {
-          "id": "dcd77e74-912c-4513-9f3d-dde5221e1ad2",
+          "id": "f90c9f35-c739-4a70-b4c7-c3c7048d4f06",
           "type": "media",
           "media": {
             "src": "/assets/y3k-interface-unity-editor-Cyd0QrzV.png",
@@ -1687,14 +1687,14 @@
           }
         },
         {
-          "id": "3536f17c-a976-4434-9507-4e7ca86045c1",
+          "id": "4de9beed-7f38-41a0-9055-0443892011d7",
           "type": "text",
           "heading": "成果",
           "body": "2 组 Unity 实践\n完成多页面导航与视频背景\n完成 1 套低多边形村落场景",
           "width": "narrow"
         },
         {
-          "id": "11f8e66d-cd19-4361-b7a6-32c17fcf4428",
+          "id": "41c8a357-3091-4170-a778-b0801c68537a",
           "type": "media",
           "media": {
             "src": "/assets/y3k-interface-page-31BtMnSe.png",
@@ -1706,14 +1706,14 @@
           }
         },
         {
-          "id": "66832aab-2dd1-4b83-9042-b8dfa4a8430b",
+          "id": "0ca2bee6-bc82-4e35-adbf-b3d0f47e94ea",
           "type": "text",
           "heading": "关键决策与贡献",
           "body": "使用 Unity UI、VideoPlayer 与 C# 管理脚本组织首页、分页面和返回逻辑，形成基础网页式导航体验。\n按建筑、自然环境、路径和生活道具分层整合素材，使复杂场景保持清晰的空间层级。\n通过材质、镜头视角与环境氛围的连续调整，将编辑器中的素材组合推进为完整的实时画面。",
           "width": "wide"
         },
         {
-          "id": "a995c523-4a25-4a99-9762-4aa4d9f7226c",
+          "id": "4e7bd4e3-e961-42b2-83a1-2ac71e2bafa4",
           "type": "gallery",
           "items": [
             {
@@ -1748,35 +1748,35 @@
           "columns": 2
         },
         {
-          "id": "f8eea2fc-f2c5-4a2a-9fc9-7c9acab5d8af",
+          "id": "2f828e33-736a-4e83-8a96-27de8b7998f7",
           "type": "text",
           "heading": "封面媒体说明",
           "body": "替代文本：Y3K 液态金属主题 Unity 交互页面\n说明：Y3K 交互界面 / 页面呈现",
           "width": "narrow"
         },
         {
-          "id": "71942968-6d34-4bee-99f0-532d89223a4e",
+          "id": "decb5d74-b7f3-4714-91f0-c21f55e7924d",
           "type": "text",
           "heading": "媒体 1 说明",
           "body": "替代文本：低多边形自然村落 Unity 场景编辑器\n说明：自然村落 / 场景搭建",
           "width": "narrow"
         },
         {
-          "id": "320ac471-4ead-49f9-9c1f-4287eac55773",
+          "id": "64154f06-6664-4d0e-a403-a305b162749e",
           "type": "text",
           "heading": "媒体 2 说明",
           "body": "替代文本：低多边形自然村落河畔建筑实时渲染\n说明：自然村落 / 河畔视角",
           "width": "narrow"
         },
         {
-          "id": "2ad7bd80-6d6d-4f3c-8020-050d62e3d342",
+          "id": "ca133bf7-b0ed-47b8-b59e-f9d49c4a8be9",
           "type": "text",
           "heading": "媒体 3 说明",
           "body": "替代文本：低多边形自然村落林地与花田实时渲染\n说明：自然村落 / 林地视角",
           "width": "narrow"
         },
         {
-          "id": "aa54aa95-db58-4df8-afcb-19eb48feea99",
+          "id": "9f6af347-2c78-4f74-9f0f-447c6b3071b7",
           "type": "text",
           "heading": "媒体 4 说明",
           "body": "替代文本：低多边形自然村落滨水建筑实时渲染\n说明：自然村落 / 滨水视角",
