@@ -5,8 +5,11 @@ import { fileURLToPath } from "node:url";
 
 const projectRoot = fileURLToPath(new URL(".", import.meta.url));
 
-export default defineConfig(() => ({
-  base: process.env.VITE_BASE_PATH ?? "/",
+const cdnBase =
+  "https://cdn.jsdmirror.com/gh/sunay04/sunay04.github.io@cdn/";
+
+export default defineConfig(({ command }) => ({
+  base: process.env.VITE_BASE_PATH ?? (command === "build" ? cdnBase : "/"),
   root: "src",
   publicDir: "../public",
   build: {

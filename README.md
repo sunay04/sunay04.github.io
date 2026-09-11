@@ -17,7 +17,9 @@ npm run build
 
 项目部署到 Vercel。导入 GitHub 仓库后，Vercel 使用 `npm run build` 构建并发布 `dist`，每次推送到 `main` 都会自动部署。
 
-Vercel 的全球 CDN 自动分发静态文件。`/assets/*` 中带内容哈希的构建资源和 `/audio/*` 中使用时间戳命名的音频采用一年不可变缓存；`public/content/projects.json` 在边缘节点短时缓存并后台重新验证。
+Vercel 承载 HTML、编辑器和 API。`.github/workflows/publish-cdn.yml` 会在每次推送到 `main` 后把构建产物发布到 `cdn` 分支，并预热 `cdn.jsdmirror.com`。生产构建中的图片、视频、PDF、CSS 和 JavaScript 使用该镜像地址，以改善中国大陆的静态资源访问；Vercel 上的同名静态文件仍作为回源与备用副本。
+
+Vercel 自身也会通过全球 CDN 分发静态文件。`/assets/*` 中带内容哈希的构建资源和 `/audio/*` 中使用时间戳命名的音频采用一年不可变缓存；`public/content/projects.json` 在边缘节点短时缓存并后台重新验证。
 
 ## 作品管理
 
