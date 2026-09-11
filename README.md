@@ -17,6 +17,8 @@ npm run build
 
 项目部署到 Vercel。导入 GitHub 仓库后，Vercel 使用 `npm run build` 构建并发布 `dist`，每次推送到 `main` 都会自动部署。
 
+Vercel 的全球 CDN 自动分发静态文件。`/assets/*` 中带内容哈希的构建资源和 `/audio/*` 中使用时间戳命名的音频采用一年不可变缓存；`public/content/projects.json` 在边缘节点短时缓存并后台重新验证。
+
 ## 作品管理
 
 每个作品都是 `src/content/projects/<project-id>/` 下的独立单元：
