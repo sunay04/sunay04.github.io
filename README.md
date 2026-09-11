@@ -15,7 +15,7 @@ npm run dev
 npm run build
 ```
 
-仓库通过 `.github/workflows/deploy.yml` 自动部署到 GitHub Pages。
+项目部署到 Vercel。导入 GitHub 仓库后，Vercel 使用 `npm run build` 构建并发布 `dist`，每次推送到 `main` 都会自动部署。
 
 ## 作品管理
 
@@ -35,12 +35,8 @@ npm run build
 
 ## 编辑器部署配置
 
-编辑接口运行在 Cloudflare Worker。创建 GitHub OAuth App，将回调地址设置为
-`https://<你的域名>/api/auth/callback`，再为 Worker 配置：
-
-当前默认编辑器域名为 `https://sunay-portfolio-editor.sunay04.workers.dev`，
-因此 GitHub OAuth App 的回调地址应填写
-`https://sunay-portfolio-editor.sunay04.workers.dev/api/auth/callback`。
+编辑接口运行在 Vercel Functions。创建 GitHub OAuth App，将回调地址设置为
+`https://<你的域名>/api/auth/callback`，再为 Vercel 项目配置：
 
 ```text
 GITHUB_CLIENT_ID
@@ -51,8 +47,10 @@ REPO_NAME（默认 sunay04.github.io）
 CONTENT_PATH（默认 public/content/projects.json）
 ```
 
-`GITHUB_CLIENT_SECRET` 与 `SESSION_SECRET` 应使用 `wrangler secret put` 设置。
-登录后，Worker 会通过 GitHub API 再次检查当前用户对仓库是否拥有
+在 Vercel 项目的 Settings > Environment Variables 中配置这些变量，并将 GitHub OAuth App 的回调地址更新为正式 Vercel 域名。至少为 Production 环境配置；若需要在预览部署中使用编辑器，也要为 Preview 配置并添加对应的 OAuth 回调地址。
+
+Vercel Functions 的请求体上限为 4.5 MB。编辑器使用 Base64 提交媒体，因此单个新上传文件限制为 3 MB；仓库中已有的静态媒体不受此限制。
+登录后，Vercel Function 会通过 GitHub API 再次检查当前用户对仓库是否拥有
 `write`、`maintain` 或 `admin` 权限。
 
 个人资料、导航和服务内容位于 `src/content/site.ts`；作品共享类型位于

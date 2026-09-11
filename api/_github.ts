@@ -1,6 +1,6 @@
 interface AssetsBinding { fetch(request: Request): Promise<Response> }
 
-interface Env {
+export interface Env {
   ASSETS: AssetsBinding;
   GITHUB_CLIENT_ID: string;
   GITHUB_CLIENT_SECRET: string;
@@ -110,7 +110,7 @@ function sameOrigin(request: Request) {
   return !origin || origin === new URL(request.url).origin;
 }
 
-async function handleApi(request: Request, env: Env) {
+export async function handleApi(request: Request, env: Env) {
   const url = new URL(request.url);
   const configured = Boolean(env.GITHUB_CLIENT_ID && env.GITHUB_CLIENT_SECRET && env.SESSION_SECRET);
   const session = await unseal(cookie(request, "sunay_session"), env.SESSION_SECRET);
@@ -166,7 +166,7 @@ async function handleApi(request: Request, env: Env) {
     const body = await request.json().catch(() => null) as { projects?: unknown[]; site?: unknown; sha?: string | null } | null;
     if (!body || !Array.isArray(body.projects) || body.projects.length > 100) return json({ error: "作品数据无效" }, 400);
     const serialized = JSON.stringify({ projects: body.projects, site: body.site }, null, 2) + "\n";
-    if (serialized.length > 5_000_000) return json({ error: "内容文件不能超过 5MB" }, 413);
+    if (serialized.length > 3_000_000) return json({ error: "内容文件不能超过 3 MB" }, 413);
     const { owner, repo, path } = config(env);
     const content = standardBase64(encoder.encode(serialized));
     const payload: Record<string, unknown> = { message: `content: update portfolio from ${session.login}`, content, branch: "main" };
@@ -181,24 +181,24 @@ async function handleApi(request: Request, env: Env) {
     const commitSha = url.searchParams.get("sha");
     if (!commitSha || !/^[a-f0-9]{40}$/i.test(commitSha)) return json({ error: "提交版本无效" }, 400);
     const { owner, repo } = config(env);
-    const runs = await github<{ workflow_runs?: Array<{ id: number; status: string; conclusion: string | null; html_url?: string }> }>(`/repos/${owner}/${repo}/actions/runs?head_sha=${commitSha}&event=push&per_page=5`, session.accessToken);
-    if (!runs.response.ok) return json({ error: "无法读取部署进度" }, runs.response.status);
-    const run = runs.data.workflow_runs?.[0];
-    if (!run) return json({ state: "queued", progress: 10, label: "等待构建任务" });
-    if (run.status === "completed" && run.conclusion !== "success") return json({ state: "failure", progress: 100, label: "部署失败", url: run.html_url });
-    if (run.status === "completed") return json({ state: "success", progress: 100, label: "部署完成", url: run.html_url });
-    const jobs = await github<{ jobs?: Array<{ name: string; status: string; conclusion: string | null }> }>(`/repos/${owner}/${repo}/actions/runs/${run.id}/jobs?per_page=20`, session.accessToken);
-    const build = jobs.data.jobs?.find((job) => job.name.toLowerCase() === "build");
-    const deploy = jobs.data.jobs?.find((job) => job.name.toLowerCase() === "deploy");
-    if (deploy?.status === "in_progress") return json({ state: "deploying", progress: 85, label: "正在部署站点", url: run.html_url });
-    if (build?.status === "completed") return json({ state: "deploying", progress: 70, label: "等待部署站点", url: run.html_url });
-    if (build?.status === "in_progress") return json({ state: "building", progress: 40, label: "正在构建站点", url: run.html_url });
-    return json({ state: "queued", progress: 20, label: "构建任务已排队", url: run.html_url });
+    const deployments = await github<Array<{ id: number; environment?: string }>>(`/repos/${owner}/${repo}/deployments?ref=${commitSha}&per_page=10`, session.accessToken);
+    if (!deployments.response.ok) return json({ error: "无法读取部署进度" }, deployments.response.status);
+    const deployment = deployments.data.find((item) => item.environment?.toLowerCase() === "production") ?? deployments.data[0];
+    if (!deployment) return json({ state: "queued", progress: 10, label: "等待 Vercel 构建任务" });
+    const statuses = await github<Array<{ state: string; target_url?: string; environment_url?: string; log_url?: string }>>(`/repos/${owner}/${repo}/deployments/${deployment.id}/statuses?per_page=10`, session.accessToken);
+    if (!statuses.response.ok) return json({ error: "无法读取部署状态" }, statuses.response.status);
+    const status = statuses.data[0];
+    if (!status) return json({ state: "queued", progress: 20, label: "Vercel 构建任务已排队" });
+    const deploymentUrl = status.environment_url ?? status.target_url ?? status.log_url;
+    if (status.state === "success") return json({ state: "success", progress: 100, label: "部署完成", url: deploymentUrl });
+    if (["failure", "error", "inactive"].includes(status.state)) return json({ state: "failure", progress: 100, label: "部署失败", url: deploymentUrl });
+    if (status.state === "in_progress") return json({ state: "building", progress: 50, label: "Vercel 正在构建站点", url: deploymentUrl });
+    return json({ state: "queued", progress: 20, label: "Vercel 构建任务已排队", url: deploymentUrl });
   }
 
   if (url.pathname === "/api/music" && request.method === "PUT") {
     if (!sameOrigin(request)) return json({ error: "拒绝跨站写入" }, 403);
-    const body = await request.json<{ music?: unknown }>().catch(() => ({}));
+    const body = await request.json().catch(() => ({})) as { music?: unknown };
     if (!validMusic(body.music)) return json({ error: "播放列表数据无效" }, 400);
     const saved = await persistMusic(body.music, session, env);
     return saved.response ?? json({ music: body.music, sha: saved.sha });
@@ -206,11 +206,11 @@ async function handleApi(request: Request, env: Env) {
 
   if (url.pathname === "/api/music/upload" && request.method === "POST") {
     if (!sameOrigin(request)) return json({ error: "拒绝跨站写入" }, 403);
-    const body = await request.json<{ name?: string; type?: string; size?: number; base64?: string; music?: unknown; trackId?: string }>();
+    const body = await request.json() as { name?: string; type?: string; size?: number; base64?: string; music?: unknown; trackId?: string };
     if (!body.name || !body.base64 || !body.size || !body.trackId || !validMusic(body.music)) return json({ error: "音频或播放列表数据不完整" }, 400);
     const extension = body.name.match(/\.([^.]+)$/)?.[1]?.toLowerCase() ?? "";
     if (!/^audio\//.test(body.type ?? "") && !["mp3", "m4a", "ogg", "wav", "webm", "aac", "flac"].includes(extension)) return json({ error: "仅支持音频文件" }, 415);
-    if (body.size > 20 * 1024 * 1024) return json({ error: "单个音频文件不能超过 20 MB" }, 413);
+    if (body.size > 3 * 1024 * 1024) return json({ error: "Vercel 部署下单个音频文件不能超过 3 MB" }, 413);
     const normalizedName = Array.from(body.name.normalize("NFKC"), (char) => char.charCodeAt(0) < 32 || /[\\/:*?"<>|]/.test(char) ? "-" : char).join("").replace(/\s+/g, " ").trim();
     const safeName = (normalizedName || `music.${extension || "mp3"}`).slice(-120);
     const path = `public/audio/${Date.now()}-${safeName}`;
@@ -232,12 +232,12 @@ async function handleApi(request: Request, env: Env) {
   if (url.pathname === "/api/media" && request.method === "POST") {
     const origin = request.headers.get("origin");
     if (origin && origin !== url.origin) return json({ error: "请求来源无效" }, 403);
-    const body = await request.json<{ name?: string; type?: string; size?: number; base64?: string }>();
+    const body = await request.json() as { name?: string; type?: string; size?: number; base64?: string };
     if (!body.name || !body.base64 || !body.size) return json({ error: "文件数据不完整" }, 400);
     const extension = body.name.match(/\.([^.]+)$/)?.[1]?.toLowerCase() ?? "";
     const isAudio = /^audio\//.test(body.type ?? "") || ["mp3", "m4a", "ogg", "wav", "webm", "aac", "flac"].includes(extension);
-    const maxSize = isAudio ? 20 * 1024 * 1024 : 8 * 1024 * 1024;
-    if (body.size > maxSize) return json({ error: `单个${isAudio ? "音频" : "媒体"}文件不能超过 ${isAudio ? 20 : 8} MB` }, 413);
+    const maxSize = 3 * 1024 * 1024;
+    if (body.size > maxSize) return json({ error: `Vercel 部署下单个${isAudio ? "音频" : "媒体"}文件不能超过 3 MB` }, 413);
     if (!isAudio && !/^(image|video)\//.test(body.type ?? "")) return json({ error: "仅支持图片、视频和音频" }, 415);
     const normalizedName = Array.from(body.name.normalize("NFKC"), (char) => char.charCodeAt(0) < 32 || /[\\/:*?"<>|]/.test(char) ? "-" : char).join("").replace(/\s+/g, " ").trim();
     const safeName = (normalizedName || `media${extension ? `.${extension}` : ""}`).slice(-120);
