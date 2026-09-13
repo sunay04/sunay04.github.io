@@ -79,6 +79,6 @@ Vercel Functions 的请求体上限为 4.5 MB。编辑器使用 Base64 提交媒
 
 ### Pages 编辑入口跳转
 
-在 GitHub 仓库 Settings → Secrets and variables → Actions → Variables 中设置 `EDITOR_ORIGIN`，值为 Vercel 固定正式站点的 HTTPS 根地址。不要填写单次部署地址或 GitHub Pages 地址。
+GitHub Pages 的编辑入口固定指向 `https://sunay04.vercel.app/edits`。如果以后更换 Vercel 正式域名，需要同步修改 `.github/workflows/deploy-pages.yml` 中的 `EDITOR_ORIGIN`。
 
 Pages 工作流在构建后将 `dist/edits/index.html` 替换为独立跳转页，因此 `/edits`、`/edits/` 和 `/edits/index.html` 最终进入 Vercel 的 `/edits`。跳转不依赖应用脚本，提供浏览器自动跳转与手动链接；不转发查询参数。Vercel 使用常规构建，编辑器不受影响。缺少域名配置时 Pages 工作流会停止，避免发布错误入口。

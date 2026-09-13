@@ -29,7 +29,7 @@ jobs:
       - name: Route editing to Vercel
         run: node scripts/editor-redirect.mjs
         env:
-          EDITOR_ORIGIN: ${{ vars.EDITOR_ORIGIN }}
+          EDITOR_ORIGIN: https://sunay04.vercel.app/
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
