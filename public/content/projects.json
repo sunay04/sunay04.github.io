@@ -1842,16 +1842,28 @@
     ],
     "experiences": [
       {
-        "period": "2026.7 — Present",
+        "period": "2026.07 — 2026.08",
         "role": "中国国家地理探索",
-        "organization": "设计与运营",
+        "organization": "运营实习生",
         "type": "实习",
         "description": "参与项目日常设计与运营支持，围绕自然探索、科普内容和活动传播场景完成视觉物料设计；协助内容选题、素材整理、社交媒体配图与发布支持，在保证品牌调性和信息准确性的基础上提升内容呈现效果。",
         "highlights": [
           "视觉物料",
           "内容运营",
           "社媒支持"
-        ]
+        ],
+        "startDate": "2026-07",
+        "endDate": "2026-08"
+      },
+      {
+        "period": "2026.08 — 2026.09",
+        "startDate": "2026-08",
+        "role": "羯磨科技",
+        "organization": "AI美术实习生",
+        "type": "实习",
+        "description": "",
+        "highlights": [],
+        "endDate": "2026-09"
       }
     ],
     "friendLinks": [
