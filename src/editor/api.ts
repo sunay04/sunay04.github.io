@@ -4,8 +4,9 @@ import type { SiteContent } from "../content/site";
 export type EditorUser = { login: string; avatarUrl: string; repository: string };
 
 async function api<T>(path: string, init?: RequestInit): Promise<T> {
-  const response = await fetch(path, { ...init, credentials: "include" });
+  const response = await fetch(path, { ...init, credentials: "include", signal: init?.signal ?? AbortSignal.timeout(30000) });
   const body = await response.json().catch(() => ({}));
+  if (response.status === 409) throw new Error("线上内容已被其他窗口更新。你的草稿仍保留，请先备份草稿，再重新载入线上版本并核对修改。");
   if (!response.ok) throw new Error((body as { error?: string }).error ?? "请求失败");
   return body as T;
 }

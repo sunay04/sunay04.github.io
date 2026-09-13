@@ -2,7 +2,7 @@ import { ExternalLink } from "lucide-react";
 import type { PortfolioImage, ProjectBlock } from "../content/projects";
 import { cn } from "../lib/utils";
 
-function BlockMedia({ media }: { media: PortfolioImage }) {
+function BlockMedia({ media, onOpen }: { media: PortfolioImage; onOpen?: (media: PortfolioImage) => void }) {
   const isVideo = media.type === "video";
   const className = cn(
     "block h-full w-full bg-[#ebe9e4]",
@@ -14,20 +14,20 @@ function BlockMedia({ media }: { media: PortfolioImage }) {
       {isVideo ? (
         <video className={className} src={media.src} controls playsInline preload="metadata" />
       ) : (
-        <img className={className} src={media.src} alt={media.alt} loading="lazy" />
+        <button type="button" className="block w-full" aria-label={`放大查看：${media.alt || "作品图片"}`} onClick={() => onOpen?.(media)}><img className={className} src={media.src} alt={media.alt} loading="lazy" /></button>
       )}
       {media.caption && <figcaption>{media.caption}</figcaption>}
     </figure>
   );
 }
 
-export function ProjectBlocks({ blocks }: { blocks: ProjectBlock[] }) {
+export function ProjectBlocks({ blocks, onOpen }: { blocks: ProjectBlock[]; onOpen?: (media: PortfolioImage) => void }) {
   return (
     <div className="project-blocks mt-14 md:mt-20">
       {blocks.map((block) => {
         if (block.type === "text") {
           return (
-            <section key={block.id} className="project-copy-block">
+            <section key={block.id} className={cn("project-copy-block", block.width !== "wide" && "is-narrow")}>
               {block.heading && <h3>{block.heading}</h3>}
               <p>{block.body}</p>
             </section>
@@ -43,12 +43,12 @@ export function ProjectBlocks({ blocks }: { blocks: ProjectBlock[] }) {
           );
         }
 
-        if (block.type === "media") return <BlockMedia key={block.id} media={block.media} />;
+        if (block.type === "media") return <BlockMedia key={block.id} media={block.media} onOpen={onOpen} />;
 
         if (block.type === "gallery") {
           return (
             <section key={block.id} className={cn("project-block-gallery", block.columns === 3 && "is-three-column")}>
-              {block.items.map((media, index) => <BlockMedia key={`${media.src}-${index}`} media={media} />)}
+              {block.items.map((media, index) => <BlockMedia key={`${media.src}-${index}`} media={media} onOpen={onOpen} />)}
             </section>
           );
         }

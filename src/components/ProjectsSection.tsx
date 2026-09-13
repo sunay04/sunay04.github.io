@@ -242,7 +242,7 @@ function ImageLightbox({ images, index, onChange, onClose }: { images: Portfolio
 }
 
 export function ProjectDetail({ project, onBack, onPrevious, onNext }: { project: Project; onBack: () => void; onPrevious: () => void; onNext: () => void }) {
-  const images = [project.hero, ...(project.heroSupport ? [project.heroSupport] : []), ...project.gallery].filter((media) => media.type !== "video");
+  const images = (project.blocks !== undefined ? project.blocks.flatMap((block) => block.type === "media" ? [block.media] : block.type === "gallery" ? block.items : []) : [project.hero, ...(project.heroSupport ? [project.heroSupport] : []), ...project.gallery]).filter((media) => media.type !== "video");
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const openMedia = (media: PortfolioImage) => {
     const index = images.findIndex((image) => image.src === media.src);
@@ -263,7 +263,7 @@ export function ProjectDetail({ project, onBack, onPrevious, onNext }: { project
 
           <article>
             <ProjectOverview project={project} />
-            {project.blocks?.length ? <ProjectBlocks blocks={project.blocks} /> : <>
+            {project.blocks !== undefined ? <ProjectBlocks blocks={project.blocks} onOpen={openMedia} /> : <>
               <HeroShowcase project={project} onOpen={openMedia} />
               <ProjectEvidence project={project} />
               <Gallery project={project} onOpen={openMedia} />

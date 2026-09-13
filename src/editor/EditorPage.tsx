@@ -1,3 +1,4 @@
+import { migrateProject } from "./migrateProject";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Reorder } from "framer-motion";
 import { ArrowDown, ArrowLeft, ArrowUp, Check, ChevronRight, Copy, Eye, FileAudio, FileText, Github, GripVertical, Image, Images, LayoutDashboard, LoaderCircle, LogOut, Music2, Plus, Quote, Save, Sparkles, Trash2, Upload, X } from "lucide-react";
@@ -11,8 +12,13 @@ import { FriendsSection } from "../components/FriendsSection";
 import { bundledSite, type MusicTrack, type SiteContent } from "../content/site";
 import { getDeploymentStatus, getEditorSession, getRepositoryContent, publishRepositoryContent, saveMusicPlaylist, uploadRepositoryAudio, uploadRepositoryMedia, type DeploymentStatus, type EditorUser } from "./api";
 
-const DRAFT_KEY = "sunay-editor-draft-v1";
-const SITE_DRAFT_KEY = "sunay-editor-site-draft-v1";
+const DRAFT_KEY = import.meta.env.DEV ? "sunay-editor-demo-draft-v1" : "sunay-editor-draft-v1";
+const BASE_KEY = import.meta.env.DEV ? "sunay-editor-demo-base-v1" : "sunay-editor-base-v1";
+function readDraft<T>(key: string): T | null {
+  try { return JSON.parse(localStorage.getItem(key) ?? "null") as T | null; } catch { return null; }
+}
+
+const SITE_DRAFT_KEY = import.meta.env.DEV ? "sunay-editor-demo-site-draft-v1" : "sunay-editor-site-draft-v1";
 
 function uid() {
   return crypto.randomUUID?.() ?? `${Date.now()}-${Math.random().toString(16).slice(2)}`;
@@ -32,22 +38,6 @@ function blankProject(_index?: number): Project {
   };
 }
 
-function migrateProject(project: Project): Project {
-  const hadBlocks = Boolean(project.blocks?.length);
-  const blocks = [...(project.blocks ?? [])];
-  if (project.role && !blocks.some((block) => block.type === "text" && block.heading === "担任角色")) blocks.unshift({ id: uid(), type: "text", heading: "担任角色", body: project.role, width: "narrow" });
-  if (project.metrics?.length && !blocks.some((block) => block.type === "text" && block.heading === "成果")) blocks.splice(1, 0, { id: uid(), type: "text", heading: "成果", body: project.metrics.join("\n"), width: "narrow" });
-  if (!hadBlocks) {
-    blocks.push({ id: uid(), type: "media", media: { ...project.hero } });
-    if (project.takeaways?.length) blocks.push({ id: uid(), type: "text", heading: "关键决策与贡献", body: project.takeaways.join("\n"), width: "wide" });
-    if (project.gallery.length) blocks.push({ id: uid(), type: "gallery", items: project.gallery.map((item) => ({ ...item })), columns: 2 });
-  }
-  if (project.heroSupport && !blocks.some((block) => block.type === "media" && block.media.src === project.heroSupport?.src)) blocks.splice(1, 0, { id: uid(), type: "media", media: { ...project.heroSupport } });
-  const addNotes = (media: PortfolioImage, heading: string) => { const body = [media.alt && `替代文本：${media.alt}`, media.caption && `说明：${media.caption}`].filter(Boolean).join("\n"); if (body && !blocks.some((block) => block.type === "text" && block.body === body)) blocks.push({ id: uid(), type: "text", heading, body, width: "narrow" }); };
-  addNotes(project.hero, "封面媒体说明");
-  project.gallery.forEach((media, index) => addNotes(media, `媒体 ${index + 1} 说明`));
-  return { ...project, startDate: project.startDate ?? (project.year ? `${project.year}-01` : ""), blocks, role: undefined, metrics: undefined, number: undefined };
-}
 
 function newBlock(type: ProjectBlock["type"]): ProjectBlock {
   if (type === "text") return { id: uid(), type, heading: "段落标题", body: "输入正文内容。", width: "narrow" };
@@ -107,9 +97,12 @@ function MonthWheel({ label, value, allowPresent, onChange }: { label: string; v
 function MediaFields({ media, onChange, onUpload, label = "媒体来源" }: { media: PortfolioImage; onChange: (media: PortfolioImage) => void; onUpload: (file: File) => Promise<string>; label?: string }) {
   return <>
     {media.src && <div className="editor-inline-media-preview">{media.type === "video" ? <video src={media.src} controls /> : <img src={media.src} alt="" />}</div>}
+    <Field label="图片说明（替代文本）" value={media.alt} onChange={(alt) => onChange({ ...media, alt })} />
+    <Field label="展示说明" value={media.caption ?? ""} onChange={(caption) => onChange({ ...media, caption })} />
+    <label className="editor-field"><span>画面显示方式</span><select value={media.fit ?? "cover"} onChange={(event) => onChange({ ...media, fit: event.target.value as "cover" | "contain" })}><option value="cover">填满画面（可能裁切）</option><option value="contain">完整展示</option></select></label>
     <Field label={label} value={media.src} placeholder="https://... 或 /uploads/example.jpg" onChange={(src) => onChange({ ...media, src })} />
     <p className="editor-field-help">支持完整链接或仓库内的站点相对路径（例如 /uploads/example.jpg）。</p>
-    <label className="editor-upload-button"><Upload size={15} />上传本地文件（最大 8 MB）<input type="file" accept="image/*,video/*" onChange={async (event) => { const file = event.target.files?.[0]; if (file) onChange({ ...media, src: await onUpload(file), type: file.type.startsWith("video/") ? "video" : "image" }); event.currentTarget.value = ""; }} /></label>
+    <label className="editor-upload-button"><Upload size={15} />上传本地文件（最大 3 MB）<input type="file" accept="image/*,video/*" onChange={async (event) => { const input = event.currentTarget; const file = input.files?.[0]; try { if (file) onChange({ ...media, src: await onUpload(file), type: file.type.startsWith("video/") ? "video" : "image" }); } catch { /* The upload action displays the error. */ } finally { input.value = ""; } }} /></label>
     <div className="editor-segmented" aria-label="媒体类型">
       <button aria-pressed={(media.type ?? "image") === "image"} onClick={() => onChange({ ...media, type: "image" })}>图片</button>
       <button aria-pressed={media.type === "video"} onClick={() => onChange({ ...media, type: "video" })}>视频</button>
@@ -118,11 +111,11 @@ function MediaFields({ media, onChange, onUpload, label = "媒体来源" }: { me
 }
 
 function AvatarField({ name, value, onChange, onUpload }: { name: string; value: string; onChange: (value: string) => void; onUpload: (file: File) => Promise<string> }) {
-  return <div className="editor-avatar-field"><span>头像</span><div className="editor-avatar-preview">{value ? <img src={value} alt={`${name} 头像预览`} /> : <span>{name.slice(0, 1) || "?"}</span>}</div><Field label="媒体来源" value={value} placeholder="https://... 或 /uploads/avatar.png" onChange={onChange} /><p className="editor-field-help">支持完整链接、仓库相对路径或上传本地图片，单个文件最大 8 MB。</p><label className="editor-upload-button"><Upload size={15} />上传头像<input type="file" accept="image/*" onChange={async (event) => { const file = event.target.files?.[0]; if (file) onChange(await onUpload(file)); event.currentTarget.value = ""; }} /></label></div>;
+  return <div className="editor-avatar-field"><span>头像</span><div className="editor-avatar-preview">{value ? <img src={value} alt={`${name} 头像预览`} /> : <span>{name.slice(0, 1) || "?"}</span>}</div><Field label="媒体来源" value={value} placeholder="https://... 或 /uploads/avatar.png" onChange={onChange} /><p className="editor-field-help">支持完整链接、仓库相对路径或上传本地图片，单个文件最大 3 MB。</p><label className="editor-upload-button"><Upload size={15} />上传头像<input type="file" accept="image/*" onChange={async (event) => { const input = event.currentTarget; const file = input.files?.[0]; try { if (file) onChange(await onUpload(file)); } catch { /* The upload action displays the error. */ } finally { input.value = ""; } }} /></label></div>;
 }
 
 function BlockInspector({ block, onChange, onUpload }: { block: ProjectBlock; onChange: (block: ProjectBlock) => void; onUpload: (file: File) => Promise<string> }) {
-  if (block.type === "text") return <><Field label="标题" value={block.heading ?? ""} onChange={(heading) => onChange({ ...block, heading })} /><Field label="正文" multiline value={block.body} onChange={(body) => onChange({ ...block, body })} /></>;
+  if (block.type === "text") return <><label className="editor-field"><span>正文宽度</span><select value={block.width ?? "narrow"} onChange={(event) => onChange({ ...block, width: event.target.value as "narrow" | "wide" })}><option value="narrow">舒适阅读</option><option value="wide">通栏展示</option></select></label><Field label="标题" value={block.heading ?? ""} onChange={(heading) => onChange({ ...block, heading })} /><Field label="正文" multiline value={block.body} onChange={(body) => onChange({ ...block, body })} /></>;
   if (block.type === "quote") return <><Field label="引用" multiline value={block.body} onChange={(body) => onChange({ ...block, body })} /><Field label="署名" value={block.attribution ?? ""} onChange={(attribution) => onChange({ ...block, attribution })} /></>;
   if (block.type === "media") return <MediaFields media={block.media} onUpload={onUpload} onChange={(media) => onChange({ ...block, media })} />;
   if (block.type === "gallery") return <><div className="editor-segmented"><button aria-pressed={block.columns !== 3} onClick={() => onChange({ ...block, columns: 2 })}>两列</button><button aria-pressed={block.columns === 3} onClick={() => onChange({ ...block, columns: 3 })}>三列</button></div>{block.items.map((media, index) => <div className="editor-nested-fields" key={index}><strong>媒体 {index + 1}</strong><MediaFields media={media} onUpload={onUpload} onChange={(next) => onChange({ ...block, items: block.items.map((item, itemIndex) => itemIndex === index ? next : item) })} /><button className="editor-text-button danger" onClick={() => onChange({ ...block, items: block.items.filter((_, itemIndex) => itemIndex !== index) })}>移除媒体</button></div>)}<button className="editor-secondary-button" onClick={() => onChange({ ...block, items: [...block.items, { src: "", alt: `画廊图片 ${block.items.length + 1}`, fit: "cover" }] })}><Plus size={15} />添加媒体</button></>;
@@ -132,7 +125,7 @@ function BlockInspector({ block, onChange, onUpload }: { block: ProjectBlock; on
 
 function ResourceFields({ project, onChange }: { project: Project; onChange: (project: Project) => void }) {
   const resources = project.resources ?? [];
-  return <section className="editor-resource-fields"><div className="editor-section-heading"><div><span>项目资料</span><small>正式作品页底部的外部链接或仓库文件</small></div><button type="button" onClick={() => onChange({ ...project, resources: [...resources, { label: "新资料", href: "", note: "" }] })}><Plus size={15} />添加资料</button></div>{resources.map((resource, index) => <div className="editor-nested-fields" key={`${resource.href}-${index}`}><Field label="资料名称" value={resource.label} onChange={(label) => onChange({ ...project, resources: resources.map((item, itemIndex) => itemIndex === index ? { ...item, label } : item) })} /><Field label="资料链接" value={resource.href} placeholder="https://... 或 /content/file.pdf" onChange={(href) => onChange({ ...project, resources: resources.map((item, itemIndex) => itemIndex === index ? { ...item, href } : item) })} /><Field label="补充说明" value={resource.note ?? ""} onChange={(note) => onChange({ ...project, resources: resources.map((item, itemIndex) => itemIndex === index ? { ...item, note } : item) })} /><button className="editor-text-button danger" type="button" onClick={() => onChange({ ...project, resources: resources.filter((_, itemIndex) => itemIndex !== index) })}>移除资料</button></div>)}</section>;
+  return <section className="editor-resource-fields"><div className="editor-section-heading"><div><span>项目资料</span><small>正式作品页底部的外部链接或仓库文件</small></div><button type="button" onClick={() => onChange({ ...project, resources: [...resources, { label: "新资料", href: "", note: "" }] })}><Plus size={15} />添加资料</button></div>{resources.map((resource, index) => <div className="editor-nested-fields" key={index}><Field label="资料名称" value={resource.label} onChange={(label) => onChange({ ...project, resources: resources.map((item, itemIndex) => itemIndex === index ? { ...item, label } : item) })} /><Field label="资料链接" value={resource.href} placeholder="https://... 或 /content/file.pdf" onChange={(href) => onChange({ ...project, resources: resources.map((item, itemIndex) => itemIndex === index ? { ...item, href } : item) })} /><Field label="补充说明" value={resource.note ?? ""} onChange={(note) => onChange({ ...project, resources: resources.map((item, itemIndex) => itemIndex === index ? { ...item, note } : item) })} /><button className="editor-text-button danger" type="button" onClick={() => onChange({ ...project, resources: resources.filter((_, itemIndex) => itemIndex !== index) })}>移除资料</button></div>)}</section>;
 }
 
 type EditorPageKey = "about" | "services" | "experience" | "projects" | "friends" | "music";
@@ -207,7 +200,7 @@ function MusicEditor({ tracks, onChange, onUpload, onPersist }: { tracks: MusicT
       <CollectionList title="播放列表（拖拽排序）" addLabel="添加曲目" items={tracks} selectedIndex={selectedIndex} getLabel={(track) => track.title || "未命名曲目"} onSelect={setSelectedIndex} onAdd={() => { onChange([...tracks, { id: uid(), title: "未命名曲目", artist: "", src: "" }]); setSelectedIndex(tracks.length); }} onReorder={(next) => { const current = selected; onChange(next); void onPersist(next); if (current) setSelectedIndex(Math.max(0, next.indexOf(current))); }} />
     </aside>
     <div className="editor-collection-detail editor-site-fields">
-      {selected ? <><SectionHeading title="编辑曲目" /><ItemActions onCopy={() => { const copy = { ...selected, id: uid(), title: `${selected.title} 副本` }; onChange([...tracks.slice(0, selectedIndex + 1), copy, ...tracks.slice(selectedIndex + 1)]); setSelectedIndex(selectedIndex + 1); }} onDelete={() => { const next = tracks.filter((_, index) => index !== selectedIndex); onChange(next); void onPersist(next); setSelectedIndex(Math.max(0, selectedIndex - 1)); }} /><div className="editor-audio-preview"><div><Music2 /><span><strong>{selected.title || "未命名曲目"}</strong><small>{selected.artist || "未填写艺术家"}</small></span></div>{selected.src ? <audio controls preload="metadata" src={selected.src} /> : <p>上传音频后可在这里试听</p>}</div><Field label="曲目名称" value={selected.title} onChange={(title) => update({ ...selected, title })} /><Field label="艺术家 / 来源" value={selected.artist ?? ""} onChange={(artist) => update({ ...selected, artist })} /><Field label="音频 URL" value={selected.src} placeholder="/audio/music.mp3" onChange={(src) => update({ ...selected, src })} /><label className="editor-upload-button editor-audio-upload"><FileAudio size={16} />上传音频文件<input type="file" accept="audio/mpeg,audio/mp4,audio/ogg,audio/wav,audio/webm,.mp3,.m4a,.ogg,.wav,.webm" onChange={async (event) => { const file = event.target.files?.[0]; if (!file) return; await onUpload(file, tracks, selected.id); event.target.value = ""; }} /></label><p className="editor-field-help">上传成功后会立即加入线上播放列表；拖拽排序和删除也会自动保存。</p></> : <div className="editor-music-empty"><Music2 /><strong>播放列表为空</strong><p>添加一首音乐，访客就能在站点导航中播放。</p><button type="button" className="editor-secondary-button" onClick={() => { onChange([{ id: uid(), title: "未命名曲目", artist: "", src: "" }]); setSelectedIndex(0); }}><Plus size={15} />添加曲目</button></div>}
+      {selected ? <><SectionHeading title="编辑曲目" /><ItemActions onCopy={() => { const copy = { ...selected, id: uid(), title: `${selected.title} 副本` }; onChange([...tracks.slice(0, selectedIndex + 1), copy, ...tracks.slice(selectedIndex + 1)]); setSelectedIndex(selectedIndex + 1); }} onDelete={() => { const next = tracks.filter((_, index) => index !== selectedIndex); onChange(next); void onPersist(next); setSelectedIndex(Math.max(0, selectedIndex - 1)); }} /><div className="editor-audio-preview"><div><Music2 /><span><strong>{selected.title || "未命名曲目"}</strong><small>{selected.artist || "未填写艺术家"}</small></span></div>{selected.src ? <audio controls preload="metadata" src={selected.src} /> : <p>上传音频后可在这里试听</p>}</div><Field label="曲目名称" value={selected.title} onChange={(title) => update({ ...selected, title })} /><Field label="艺术家 / 来源" value={selected.artist ?? ""} onChange={(artist) => update({ ...selected, artist })} /><Field label="音频 URL" value={selected.src} placeholder="/audio/music.mp3" onChange={(src) => update({ ...selected, src })} /><label className="editor-upload-button editor-audio-upload"><FileAudio size={16} />上传音频文件<input type="file" accept="audio/mpeg,audio/mp4,audio/ogg,audio/wav,audio/webm,.mp3,.m4a,.ogg,.wav,.webm" onChange={async (event) => { const file = event.target.files?.[0]; if (!file) return; try { await onUpload(file, tracks, selected.id); } catch { /* The upload action displays the error. */ } event.target.value = ""; }} /></label><p className="editor-field-help">上传成功后会立即加入线上播放列表；拖拽排序和删除也会自动保存。</p></> : <div className="editor-music-empty"><Music2 /><strong>播放列表为空</strong><p>添加一首音乐，访客就能在站点导航中播放。</p><button type="button" className="editor-secondary-button" onClick={() => { onChange([{ id: uid(), title: "未命名曲目", artist: "", src: "" }]); setSelectedIndex(0); }}><Plus size={15} />添加曲目</button></div>}
     </div>
   </div>;
 }
@@ -226,6 +219,14 @@ export function EditorPage() {
   const [message, setMessage] = useState("");
   const [hydrated, setHydrated] = useState(false);
   const [deployment, setDeployment] = useState<DeploymentStatus | null>(null);
+  const [baseline, setBaseline] = useState("");
+  const [draftState, setDraftState] = useState("正在读取内容");
+  const [review, setReview] = useState(false);
+  const [collapsed, setCollapsed] = useState<string[]>([]);
+  const [removed, setRemoved] = useState<{ projectId: string; block: ProjectBlock; index: number } | null>(null);
+  const pollTimer = useRef<number>();
+  useEffect(() => () => window.clearTimeout(pollTimer.current), []);
+  const dirty = JSON.stringify({ projects, site }) !== baseline;
   const musicSaveTimerRef = useRef<number | null>(null);
 
   useEffect(() => { document.title = "编辑模式 · Sunay's Portfolio"; }, []);
@@ -236,10 +237,11 @@ export function EditorPage() {
 
   useEffect(() => {
     if (demoMode) {
-      const projectDraft = localStorage.getItem(DRAFT_KEY);
-      const siteDraft = localStorage.getItem(SITE_DRAFT_KEY);
-      const nextProjects = (projectDraft ? JSON.parse(projectDraft) as Project[] : bundledProjects).map(migrateProject);
-      const nextSite = siteDraft ? JSON.parse(siteDraft) as SiteContent : bundledSite;
+      const projectDraft = readDraft<Project[]>(DRAFT_KEY);
+      const siteDraft = readDraft<SiteContent>(SITE_DRAFT_KEY);
+      const nextProjects = (projectDraft ? projectDraft : bundledProjects).map(migrateProject);
+      const nextSite = siteDraft ? siteDraft : bundledSite;
+      setBaseline(JSON.stringify({ projects: bundledProjects.map(migrateProject), site: bundledSite }));
       setProjects(nextProjects.length ? nextProjects : bundledProjects);
       setSelectedId((nextProjects[0] ?? bundledProjects[0])?.id ?? "");
       setSite({ ...nextSite, music: nextSite.music ?? bundledSite.music });
@@ -253,24 +255,50 @@ export function EditorPage() {
       if (!nextSession.authenticated) { setStatus("idle"); return; }
       try {
         const remote = await getRepositoryContent();
-        const draft = localStorage.getItem(DRAFT_KEY);
-        const nextProjects = (draft ? JSON.parse(draft) as Project[] : remote.projects).map(migrateProject);
-        const siteDraft = localStorage.getItem(SITE_DRAFT_KEY);
-        const nextSite = siteDraft ? JSON.parse(siteDraft) as SiteContent : remote.site ?? bundledSite;
+        const draft = readDraft<Project[]>(DRAFT_KEY);
+        const nextProjects = (draft ? draft : remote.projects).map(migrateProject);
+        const siteDraft = readDraft<SiteContent>(SITE_DRAFT_KEY);
+        const nextSite = siteDraft ? siteDraft : remote.site ?? bundledSite;
         setSite({ ...nextSite, music: nextSite.music ?? bundledSite.music });
         setProjects(nextProjects.length ? nextProjects : bundledProjects);
         setSelectedId((nextProjects[0] ?? bundledProjects[0])?.id ?? "");
-        setSha(remote.sha);
+        setSha(draft || siteDraft ? readDraft<{ sha: string | null }>(BASE_KEY)?.sha ?? null : remote.sha);
+        if (draft || siteDraft) setMessage("已恢复这台设备上的草稿，尚未发布。可先预览，或备份后载入线上版本。");
+        setBaseline(JSON.stringify({ projects: remote.projects.map(migrateProject), site: remote.site ?? bundledSite }));
         setStatus("idle");
         setHydrated(true);
-      } catch (error) { setStatus("error"); setMessage(error instanceof Error ? error.message : "加载失败"); setHydrated(true); }
+      } catch (error) { setStatus("error"); setMessage(error instanceof Error ? error.message : "加载失败"); setHydrated(false); }
     }).catch(() => { setSession({ authenticated: false, configured: false }); setStatus("idle"); });
   }, [demoMode]);
 
   useEffect(() => {
-    if (session?.authenticated && hydrated && projects.length) localStorage.setItem(DRAFT_KEY, JSON.stringify(projects));
-  }, [projects, session?.authenticated, hydrated]);
-  useEffect(() => { if (session?.authenticated && hydrated) localStorage.setItem(SITE_DRAFT_KEY, JSON.stringify(site)); }, [site, session?.authenticated, hydrated]);
+    if (!session?.authenticated || !hydrated) return;
+    try {
+      if (JSON.stringify({ projects, site }) === baseline) {
+        localStorage.removeItem(DRAFT_KEY); localStorage.removeItem(SITE_DRAFT_KEY); localStorage.removeItem(BASE_KEY);
+        setDraftState("与上次提交的版本一致");
+      } else {
+        localStorage.setItem(DRAFT_KEY, JSON.stringify(projects));
+        localStorage.setItem(SITE_DRAFT_KEY, JSON.stringify(site));
+        localStorage.setItem(BASE_KEY, JSON.stringify({ sha }));
+        setDraftState("草稿已保存到此设备 · 尚未发布");
+      }
+    } catch { setDraftState("本机保存失败，请保持页面打开并备份草稿"); }
+  }, [projects, site, sha, baseline, session?.authenticated, hydrated]);
+  const backup = () => {
+    const url = URL.createObjectURL(new Blob([JSON.stringify({ projects, site }, null, 2)], { type: "application/json" }));
+    const link = document.createElement("a"); link.href = url; link.download = "portfolio-draft.json"; link.click(); URL.revokeObjectURL(url);
+  };
+  const reloadPublished = async () => {
+    if (!window.confirm("将用线上版本替换当前草稿。需要保留修改时，请先点击「备份草稿」。继续吗？")) return;
+    try {
+      const remote = await getRepositoryContent();
+      const next = (remote.projects.length ? remote.projects : bundledProjects).map(migrateProject);
+      const nextSite = remote.site ?? bundledSite;
+      setProjects(next); setSite(nextSite); setSha(remote.sha); setSelectedId(next[0]?.id ?? "");
+      setBaseline(JSON.stringify({ projects: next, site: nextSite })); setHydrated(true); setMessage("已载入线上版本"); setStatus("idle");
+    } catch (error) { setMessage(error instanceof Error ? error.message : "读取失败，请重试"); }
+  };
 
   const updateProject = (next: Project) => setProjects((items) => items.map((item) => item.id === project.id ? next : item));
   const updateBlock = (next: ProjectBlock) => updateProject({ ...project, blocks: project.blocks?.map((block) => block.id === next.id ? next : block) });
@@ -281,14 +309,16 @@ export function EditorPage() {
   const updateTaxonomyColor = (kind: "category" | "tag", value: string, color: string) => setProjects((items) => items.map((item) => kind === "category" && item.category === value ? { ...item, categoryColor: color } : kind === "tag" && item.tags.includes(value) ? { ...item, tagColors: { ...item.tagColors, [value]: color } } : item));
   const uploadMedia = async (file: File) => {
     const isAudio = file.type.startsWith("audio/") || /\.(mp3|m4a|ogg|wav|webm|aac|flac)$/i.test(file.name);
-    const maxSize = isAudio ? 20 * 1024 * 1024 : 8 * 1024 * 1024;
-    if (file.size > maxSize) throw new Error(`单个${isAudio ? "音频" : "媒体"}文件不能超过 ${isAudio ? 20 : 8} MB`);
+    const maxSize = 3 * 1024 * 1024;
+    if (file.size > maxSize) { const error = `单个${isAudio ? "音频" : "媒体"}文件不能超过 3 MB，请压缩后重试或填写外部链接`; setStatus("error"); setMessage(error); throw new Error(error); }
+    if (demoMode) return URL.createObjectURL(file);
     setStatus("saving"); setMessage("正在上传媒体");
     try { const result = await uploadRepositoryMedia(file); setStatus("idle"); setMessage(""); return result.url; }
     catch (error) { setStatus("error"); setMessage(error instanceof Error ? error.message : "上传失败"); throw error; }
   };
   const uploadAudio = async (file: File, tracks: MusicTrack[], trackId: string) => {
-    if (file.size > 20 * 1024 * 1024) throw new Error("单个音频文件不能超过 20 MB");
+    if (file.size > 3 * 1024 * 1024) { setStatus("error"); setMessage("单个音频文件不能超过 3 MB"); return; }
+    if (demoMode) { setMessage("本地演示不上传音乐，请使用音频链接预览。"); return; }
     setStatus("saving"); setMessage("正在上传背景音乐");
     try {
       if (musicSaveTimerRef.current !== null) window.clearTimeout(musicSaveTimerRef.current);
@@ -326,29 +356,34 @@ export function EditorPage() {
     updateProject({ ...project, blocks: next });
   };
   const publish = async () => {
-    if (projects.some((item) => !/^\d{4}-\d{2}$/.test(item.startDate ?? ""))) { setStatus("error"); setMessage("每个作品都必须填写开始时间"); return; }
+    const invalidProject = projects.find((item) => !/^\d{4}-(0[1-9]|1[0-2])$/.test(item.startDate ?? "") || !item.name.trim() || !item.hero.src.trim() || item.blocks?.some((block) => block.type === "media" ? !block.media.src.trim() : block.type === "gallery" ? !block.items.length || block.items.some((media) => !media.src.trim()) : false));
+    if (invalidProject) { setSelectedId(invalidProject.id); setActivePage("projects"); setMode("edit"); setReview(false); setStatus("error"); setMessage(`请检查「${invalidProject.name || "未命名作品"}」：填写名称、开始时间和封面，并补全图片 / 画廊的媒体链接。`); return; }
     if (projects.some((item) => item.endDate && item.startDate! > item.endDate)) { setStatus("error"); setMessage("作品的开始时间不能晚于结束时间"); return; }
     if (site.experiences.some((item) => { const dates = experienceDates(item.period, item.startDate, item.endDate); return !dates.start || Boolean(dates.end && dates.start > dates.end); })) { setStatus("error"); setMessage("履历时间不能为空，且开始时间不能晚于结束时间"); return; }
+    setReview(false);
     setStatus("saving"); setMessage("");
-    if (demoMode) { setStatus("saved"); setMessage("本地预览已保存，不会提交仓库"); setTimeout(() => setStatus("idle"), 2500); return; }
+    if (demoMode) { setBaseline(JSON.stringify({ projects, site })); setStatus("saved"); setMessage("本地预览已保存，不会提交仓库"); setTimeout(() => setStatus("idle"), 2500); return; }
     try {
       const result = await publishRepositoryContent(projects, site, sha);
       setSha(result.sha);
+      setBaseline(JSON.stringify({ projects, site }));
       localStorage.removeItem(DRAFT_KEY);
       localStorage.removeItem(SITE_DRAFT_KEY);
       setStatus("saved");
       setMessage("");
       setDeployment({ state: "queued", progress: 10, label: "等待构建任务" });
+      const started = Date.now();
       const poll = async () => {
+        if (Date.now() - started > 300000) { setDeployment(null); setStatus("idle"); setMessage("内容已提交，但暂时无法确认上线状态。请稍后查看网站，无需重复发布。"); return; }
         try {
           const next = await getDeploymentStatus(result.commitSha);
           setDeployment(next);
           if (next.state === "success") { setStatus("idle"); return; }
           if (next.state === "failure") { setStatus("error"); setMessage("部署失败，请打开构建记录查看详情"); return; }
         } catch { setDeployment((current) => current ? { ...current, label: "正在刷新部署状态" } : current); }
-        window.setTimeout(poll, 5000);
+        pollTimer.current = window.setTimeout(poll, 5000);
       };
-      window.setTimeout(poll, 2500);
+      pollTimer.current = window.setTimeout(poll, 2500);
     }
     catch (error) { setStatus("error"); setMessage(error instanceof Error ? error.message : "发布失败"); }
   };
@@ -358,16 +393,18 @@ export function EditorPage() {
     <header className="editor-topbar liquid-glass-strong">
       <div className="editor-brand"><a href="https://sunay04.github.io/" aria-label="返回作品集">S</a><div><span>Sunay's Portfolio</span>{deployment ? <a className={`editor-deployment is-${deployment.state}`} href={deployment.url} target="_blank" rel="noreferrer" aria-label={`${deployment.label}，${deployment.progress}%`}><span><i />{deployment.label}</span><progress value={deployment.progress} max="100" /></a> : <small>{session.user?.repository}</small>}</div></div>
       <nav className="editor-page-switch" aria-label="编辑页面"><button aria-current={activePage === "about"} onClick={() => navigateContent("about")}>关于</button><button aria-current={activePage === "services"} onClick={() => navigateContent("services")}>技能</button><button aria-current={activePage === "experience"} onClick={() => navigateContent("experience")}>履历</button><button aria-current={activePage === "projects"} onClick={() => navigateContent("projects")}>作品</button><button aria-current={activePage === "friends"} onClick={() => navigateContent("friends")}>友链</button><button aria-current={activePage === "music"} onClick={() => navigateContent("music")}>音乐</button></nav>
-      <div className="editor-top-actions"><div className="editor-mode-switch"><button aria-pressed={mode === "edit"} onClick={() => setMode("edit")}><LayoutDashboard size={15} />编辑</button><button aria-pressed={mode === "preview"} onClick={() => setMode("preview")}><Eye size={15} />预览</button></div><button className="editor-publish-button" disabled={status === "saving"} onClick={publish}>{status === "saving" ? <LoaderCircle className="editor-spinner" size={16} /> : status === "saved" ? <Check size={16} /> : <Save size={16} />}{status === "saving" ? "正在发布" : "发布"}</button><div className="editor-account-actions"><img className="editor-avatar" src={session.user?.avatarUrl} alt={session.user?.login} title={session.user?.login} /><a className="editor-icon-button editor-repository-button" href={repositoryHref} target="_blank" rel="noreferrer" aria-label="打开 GitHub 仓库"><Github size={17} /></a><a className="editor-icon-button editor-logout-button editor-tooltip" href="/api/auth/logout" aria-label="退出登录" data-tooltip="退出登录"><LogOut size={16} /></a></div></div>
+      <div className="editor-top-actions"><div className="editor-mode-switch"><button aria-pressed={mode === "edit"} onClick={() => setMode("edit")}><LayoutDashboard size={15} />编辑</button><button aria-pressed={mode === "preview"} onClick={() => setMode("preview")}><Eye size={15} />预览</button></div><button className="editor-publish-button" disabled={!hydrated || !dirty || status === "saving" || Boolean(deployment && !["success", "failure"].includes(deployment.state))} onClick={() => setReview(true)}>{status === "saving" ? <LoaderCircle className="editor-spinner" size={16} /> : status === "saved" ? <Check size={16} /> : <Save size={16} />}{status === "saving" ? "正在发布" : "检查并发布"}</button><div className="editor-account-actions"><img className="editor-avatar" src={session.user?.avatarUrl} alt={session.user?.login} title={session.user?.login} /><a className="editor-icon-button editor-repository-button" href={repositoryHref} target="_blank" rel="noreferrer" aria-label="打开 GitHub 仓库"><Github size={17} /></a><a className="editor-icon-button editor-logout-button editor-tooltip" href="/api/auth/logout" aria-label="退出登录" data-tooltip="退出登录"><LogOut size={16} /></a></div></div>
     </header>
-    {message && <div className={`editor-toast is-${status}`}>{message}</div>}
+    {message && <div role="status" className={`editor-toast is-${status}`}>{message}</div>}
+    <div className="editor-save-strip"><span role="status">{draftState}</span><span>编辑 → 预览 → 检查并发布 → 等待上线</span><button onClick={backup}>备份草稿</button><button disabled={status === "saving" || demoMode} onClick={() => void reloadPublished()}>载入线上版本</button></div>
+    {review && <section className="editor-publish-review" aria-label="发布检查"><h2>将当前草稿发布到网站</h2><p>本次包含全部 {projects.length} 个作品及个人资料、技能、履历和友链。先用「预览」检查效果，再确认发布。</p><p>确认后会自动提交并更新网站，通常需要几分钟。无需操作 GitHub。音乐的自动保存仍单独生效。</p><button className="editor-publish-button" onClick={() => void publish()}>确认发布全部修改</button><button className="editor-secondary-button" onClick={() => { setReview(false); setMode("preview"); }}>返回预览</button></section>}
     <div className="editor-workspace" data-mode={mode} data-area={activePage === "projects" ? "projects" : "site"}>
       {activePage === "projects" && mode === "edit" && <aside className="editor-sidebar"><div className="editor-panel-title"><span>作品（拖拽排序）</span><button title="新建作品" aria-label="新建作品" onClick={() => { const next = blankProject(projects.length); setProjects([...projects, next]); setSelectedId(next.id); }}><Plus size={17} /></button></div><Reorder.Group as="div" axis="y" values={projects} onReorder={setProjects} className="editor-project-list">{projects.map((item) => <Reorder.Item as="button" value={item} key={item.id} aria-current={item.id === project.id} whileDrag={{ scale: 1.025, boxShadow: "0 12px 30px rgba(24,28,34,.16)" }} transition={{ type: "spring", bounce: 0.08, duration: 0.36 }} onClick={() => { setSelectedId(item.id); setSelectedBlockId(null); }}><GripVertical size={14} /><strong>{item.name}</strong></Reorder.Item>)}</Reorder.Group><div className="editor-sidebar-actions"><button onClick={() => { const copy = { ...project, id: `${project.id}-copy-${Date.now()}`, name: `${project.name} 副本`, blocks: project.blocks?.map((block) => ({ ...block, id: uid() })) }; setProjects([...projects, copy]); setSelectedId(copy.id); }}><Copy size={15} />创建副本</button><button className="danger" disabled={projects.length === 1} onClick={() => { const next = projects.filter((item) => item.id !== project.id); setProjects(next); setSelectedId(next[0].id); }}><Trash2 size={15} />删除作品</button></div></aside>}
       <section className="editor-canvas"><div className="editor-document">
         {activePage !== "projects" && activePage !== "music" && (mode === "preview" ? <SitePreview page={activePage} site={site} /> : <SiteEditor page={activePage} site={site} onChange={setSite} onUpload={uploadMedia} />)}
         {activePage === "music" && <MusicEditor tracks={site.music ?? bundledSite.music} onChange={(music) => setSite({ ...site, music })} onUpload={uploadAudio} onPersist={persistMusic} />}
         {activePage === "projects" && mode === "edit" && <div className="editor-project-meta"><Field label="作品名称" value={project.name} onChange={(name) => updateProject({ ...project, name })} /><div className="editor-month-range" data-invalid={Boolean(projectDateError)}><MonthWheel label="开始时间（必填）" value={project.startDate} onChange={(startDate) => updateProject({ ...project, startDate })} /><MonthWheel label="结束时间" value={project.endDate} allowPresent onChange={(endDate) => updateProject({ ...project, endDate })} /></div>{projectDateError && <p className="editor-validation-message">{projectDateError}</p>}<div className="editor-properties"><PropertyPicker label="类别" options={categories} values={[project.category].filter(Boolean)} colors={categoryColors} onColorChange={(value, color) => updateTaxonomyColor("category", value, color)} onChange={(values) => updateProject({ ...project, category: values[0] ?? "", categoryColor: categoryColors[values[0]] ?? "#dce2e8" })} /><PropertyPicker label="标签" options={tagPool} values={project.tags} colors={tagColors} multiple onColorChange={(value, color) => updateTaxonomyColor("tag", value, color)} onChange={(tags) => updateProject({ ...project, tags, tagColors: { ...project.tagColors, ...Object.fromEntries(tags.map((tag) => [tag, tagColors[tag] ?? "#dce2e8"])) } })} /></div><Field label="作品描述" multiline value={project.summary} onChange={(summary) => updateProject({ ...project, summary })} /><Field label="在线作品链接" value={project.liveUrl ?? ""} placeholder="https://..." onChange={(liveUrl) => updateProject({ ...project, liveUrl: liveUrl || undefined })} /><Field label="链接按钮文字" value={project.linkLabel ?? ""} placeholder="查看在线作品" onChange={(linkLabel) => updateProject({ ...project, linkLabel: linkLabel || undefined })} /><MediaFields label="封面URL" media={project.hero} onUpload={uploadMedia} onChange={(hero) => updateProject({ ...project, hero })} /><ResourceFields project={project} onChange={updateProject} /></div>}
-        {activePage === "projects" && (mode === "preview" ? <div className="editor-real-preview"><PortfolioPreviewShell><ProjectDetail project={project} onBack={() => setMode("edit")} onPrevious={() => setSelectedId(projects[(selectedIndex - 1 + projects.length) % projects.length].id)} onNext={() => setSelectedId(projects[(selectedIndex + 1) % projects.length].id)} /></PortfolioPreviewShell></div> : <div className="editor-block-list">{blocks.map((block, index) => <section key={block.id} className="editor-inline-block"><div className="editor-block-controls"><GripVertical size={15} /><span>{blockCatalog.find((item) => item.type === block.type)?.label}</span><button disabled={index === 0} onClick={() => moveBlock(index, -1)} title="上移" aria-label="上移"><ArrowUp size={14} /></button><button disabled={index === blocks.length - 1} onClick={() => moveBlock(index, 1)} title="下移" aria-label="下移"><ArrowDown size={14} /></button><button onClick={() => updateProject({ ...project, blocks: blocks.filter((item) => item.id !== block.id) })} title="删除块" aria-label="删除块"><X size={14} /></button></div><div className="editor-inline-block-body"><BlockInspector block={block} onUpload={uploadMedia} onChange={updateBlock} /></div></section>)}<div className="editor-add-block"><span>添加内容块</span>{blockCatalog.map(({ type, label, icon: Icon }) => <button key={type} onClick={() => { const block = newBlock(type); updateProject({ ...project, blocks: [...blocks, block] }); }}><Icon size={16} />{label}</button>)}</div></div>)}
+        {activePage === "projects" && (mode === "preview" ? <div className="editor-real-preview"><PortfolioPreviewShell><ProjectDetail project={project} onBack={() => setMode("edit")} onPrevious={() => setSelectedId(projects[(selectedIndex - 1 + projects.length) % projects.length].id)} onNext={() => setSelectedId(projects[(selectedIndex + 1) % projects.length].id)} /></PortfolioPreviewShell></div> : <div className="editor-block-list"><h2>作品内容 · {blocks.length} 个块</h2><p className="editor-field-help">按展示顺序自由组合文本、图片、视频和画廊。封面用于作品列表，正文由下方内容块决定。</p>{removed?.projectId === project.id && <button className="editor-secondary-button" onClick={() => { const next = [...blocks]; next.splice(removed.index, 0, removed.block); updateProject({ ...project, blocks: next }); setRemoved(null); }}>撤销删除内容块</button>}{blocks.map((block, index) => <section key={block.id} className="editor-inline-block"><div className="editor-block-controls"><button aria-expanded={!collapsed.includes(block.id)} onClick={() => setCollapsed(collapsed.includes(block.id) ? collapsed.filter((id) => id !== block.id) : [...collapsed, block.id])}>{collapsed.includes(block.id) ? "展开" : "收起"}</button><span>{index + 1}. {blockCatalog.find((item) => item.type === block.type)?.label}</span><button disabled={index === 0} onClick={() => moveBlock(index, -1)} title="上移" aria-label="上移"><ArrowUp size={14} /></button><button disabled={index === blocks.length - 1} onClick={() => moveBlock(index, 1)} title="下移" aria-label="下移"><ArrowDown size={14} /></button><button title="复制内容块" aria-label="复制内容块" onClick={() => { const next = [...blocks]; next.splice(index + 1, 0, { ...structuredClone(block), id: uid() }); updateProject({ ...project, blocks: next }); }}><Copy size={14} /></button><button onClick={() => { setRemoved({ projectId: project.id, block, index }); updateProject({ ...project, blocks: blocks.filter((item) => item.id !== block.id) }); }} title="删除块" aria-label="删除块"><X size={14} /></button></div><div hidden={collapsed.includes(block.id)} className="editor-inline-block-body"><BlockInspector block={block} onUpload={uploadMedia} onChange={updateBlock} /></div><label className="editor-insert">在此块后插入<select value="" onChange={(event) => { const next = [...blocks]; next.splice(index + 1, 0, newBlock(event.target.value as ProjectBlock["type"])); updateProject({ ...project, blocks: next }); }}><option value="" disabled>选择内容块</option>{blockCatalog.map((item) => <option key={item.type} value={item.type}>{item.label}</option>)}</select></label></section>)}<div className="editor-add-block"><span>添加内容块</span>{blockCatalog.map(({ type, label, icon: Icon }) => <button key={type} onClick={() => { const block = newBlock(type); updateProject({ ...project, blocks: [...blocks, block] }); }}><Icon size={16} />{label}</button>)}</div></div>)}
       </div></section>
     </div>
   </main>;

@@ -17,8 +17,9 @@ npm run build
 
 项目部署到 Vercel。导入 GitHub 仓库后，Vercel 使用 `npm run build` 构建并发布 `dist`，每次推送到 `main` 都会自动部署。
 
-Vercel 承载 HTML、编辑器和 API。`.github/workflows/publish-cdn.yml` 会在每次推送到 `main` 后把构建产物发布到 `cdn` 分支，并预热 `cdn.jsdmirror.com`。生产构建中的图片、视频、PDF、CSS 和 JavaScript 使用该镜像地址，以改善中国大陆的静态资源访问；Vercel 上的同名静态文件仍作为回源与备用副本。
+Vercel 承载 HTML、编辑器和 API。生产构建默认从当前网站域名加载 JavaScript、CSS 和静态资源，GitHub Pages 与 Vercel 均可使用同一份构建。不要将启动脚本指向可变的 `@cdn` 镜像分支：两处发布不同步或镜像缓存未刷新时，旧 HTML 会引用已不存在的脚本并导致白屏。
 
+`.github/workflows/publish-cdn.yml` 仍将构建产物发布到 `cdn` 分支，并预热镜像，但镜像不再是启动网站的前提。GitHub Pages 仅提供静态访问，在线编辑和登录需使用 Vercel 域名的 `/edits`。
 Vercel 自身也会通过全球 CDN 分发静态文件。`/assets/*` 中带内容哈希的构建资源和 `/audio/*` 中使用时间戳命名的音频采用一年不可变缓存；`public/content/projects.json` 在边缘节点短时缓存并后台重新验证。
 
 ## 作品管理
@@ -59,3 +60,13 @@ Vercel Functions 的请求体上限为 4.5 MB。编辑器使用 Base64 提交媒
 
 个人资料、导航和服务内容位于 `src/content/site.ts`；作品共享类型位于
 `src/content/projects/types.ts`。
+
+## 编辑与发布流程
+
+1. 在 Vercel 网站打开 `/edits` 并登录。修改自动保存在当前设备的浏览器中，不等于上线。
+2. 作品正文支持文本、媒体、画廊、引用、数据和留白。可在任意块后插入、上移下移、复制、折叠，或撤销最近一次块删除。删除全部正文块后不会自动补回旧画廊。
+3. 点击「预览」检查真实作品页，再点击「检查并发布」及「确认发布全部修改」。发布包含整个网站草稿，并自动提交到 GitHub，触发 Vercel 构建。
+4. 等待部署状态完成。五分钟仍无法确认时会停止等待并提示，不应重复提交同一内容。
+5. 如果其他窗口修改了线上内容，编辑器拒绝覆盖。先「备份草稿」下载 JSON，再「载入线上版本」，参考备份重新应用修改。旧版草稿没有版本信息时也按此流程处理。
+
+音乐列表保留原有独立自动保存机制，界面会明确提示。备份 JSON 用于保留和人工恢复内容，当前不提供导入按钮。开发环境 `/edits?demo=1` 使用独立草稿空间，不发布到仓库。
