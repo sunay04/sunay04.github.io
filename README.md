@@ -70,3 +70,15 @@ Vercel Functions 的请求体上限为 4.5 MB。编辑器使用 Base64 提交媒
 5. 如果其他窗口修改了线上内容，编辑器拒绝覆盖。先「备份草稿」下载 JSON，再「载入线上版本」，参考备份重新应用修改。旧版草稿没有版本信息时也按此流程处理。
 
 音乐列表保留原有独立自动保存机制，界面会明确提示。备份 JSON 用于保留和人工恢复内容，当前不提供导入按钮。开发环境 `/edits?demo=1` 使用独立草稿空间，不发布到仓库。
+
+## GitHub Pages 独立发布
+
+`sunay04.github.io` 由 GitHub Pages 提供，更新 Vercel 不会更新这个地址。仓库 Pages 设置应保留 GitHub Actions 模式；`.github/workflows/deploy-pages.yml` 在推送到 `main` 后构建并通过 `deploy-pages` 发布。`Publish CDN assets` 成功仅代表镜像分支更新，不代表 Pages 已上线。
+
+排查白屏时，先核对线上 HTML 引用的脚本是否返回 200，再分别查看 `Deploy to GitHub Pages` 与 Vercel 的部署结果。不能只以镜像构建或 Vercel 成功判断 `github.io` 已更新。
+
+### Pages 编辑入口跳转
+
+在 GitHub 仓库 Settings → Secrets and variables → Actions → Variables 中设置 `EDITOR_ORIGIN`，值为 Vercel 固定正式站点的 HTTPS 根地址。不要填写单次部署地址或 GitHub Pages 地址。
+
+Pages 工作流在构建后将 `dist/edits/index.html` 替换为独立跳转页，因此 `/edits`、`/edits/` 和 `/edits/index.html` 最终进入 Vercel 的 `/edits`。跳转不依赖应用脚本，提供浏览器自动跳转与手动链接；不转发查询参数。Vercel 使用常规构建，编辑器不受影响。缺少域名配置时 Pages 工作流会停止，避免发布错误入口。
