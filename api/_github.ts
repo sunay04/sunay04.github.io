@@ -1,3 +1,4 @@
+import { handleAi } from "./_ai.js";
 interface AssetsBinding { fetch(request: Request): Promise<Response> }
 
 export interface Env {
@@ -8,6 +9,8 @@ export interface Env {
   REPO_OWNER?: string;
   REPO_NAME?: string;
   CONTENT_PATH?: string;
+  DEEPSEEK_API_KEY?: string;
+  DEEPSEEK_MODEL?: string;
 }
 
 type Session = { accessToken: string; login: string; avatarUrl: string; exp: number };
@@ -151,6 +154,8 @@ export async function handleApi(request: Request, env: Env) {
 
   if (url.pathname === "/api/auth/logout") return new Response(null, { status: 302, headers: { location: "/edits", "set-cookie": "sunay_session=; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=0" } });
   if (!session || !await canEdit(session, env)) return json({ error: "没有仓库编辑权限" }, 403);
+
+  if (url.pathname.startsWith("/api/ai/")) return handleAi(request, env, session.login);
 
   if (url.pathname === "/api/content" && request.method === "GET") {
     const { owner, repo, path } = config(env);

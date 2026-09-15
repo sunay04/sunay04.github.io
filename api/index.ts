@@ -11,6 +11,8 @@ function environment(): Env {
     REPO_OWNER: process.env.REPO_OWNER,
     REPO_NAME: process.env.REPO_NAME,
     CONTENT_PATH: process.env.CONTENT_PATH,
+    DEEPSEEK_API_KEY: process.env.DEEPSEEK_API_KEY,
+    DEEPSEEK_MODEL: process.env.DEEPSEEK_MODEL,
   };
 }
 
