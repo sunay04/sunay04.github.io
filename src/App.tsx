@@ -2,7 +2,7 @@ import { HeroSection } from "./components/HeroSection";
 import { ProjectsSection } from "./components/ProjectsSection";
 import { ServicesSection } from "./components/ServicesSection";
 import { SiteNavigation } from "./components/SiteNavigation";
-
+import { IntroAnimation } from "./components/IntroAnimation";
 import { ExperienceSection } from "./components/ExperienceSection";
 import { FriendsSection } from "./components/FriendsSection";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -21,8 +21,9 @@ export function App() {
   const navigationTargetRef = useRef<string | null>(null);
   const scrollEndTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [activeSection, setActiveSection] = useState("about");
-  const introComplete = true;
+  const [introComplete, setIntroComplete] = useState(false);
 
+  const completeIntro = useCallback(() => setIntroComplete(true), []);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -117,6 +118,7 @@ export function App() {
           </div>
         </div>
       </div>
+      <IntroAnimation onComplete={completeIntro} />
     </main>
   );
 }

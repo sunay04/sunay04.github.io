@@ -6,7 +6,7 @@ export default {
     extend: {
       fontFamily: {
         body: ["Barlow", "sans-serif"],
-        heading: ["Instrument Serif", "serif"],
+        heading: ["Instrument Serif", "Georgia", "Times New Roman", "serif"],
       },
       colors: {
         ink: "#000000",
