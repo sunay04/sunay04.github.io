@@ -19,9 +19,9 @@
       ],
       "resources": [
         {
-          "label": "观看《悬置》视频",
-          "href": "https://pan.quark.cn/s/4b79876358b1?pwd=ac8n",
-          "note": "夸克网盘 / 提取码 ac8n"
+          "label": "在 B 站观看《悬置》",
+          "href": "https://www.bilibili.com/video/BV1hShm6AEWb/",
+          "note": "完整短片"
         },
         {
           "label": "打开分镜剧本",
@@ -174,64 +174,9 @@
             }
           ],
           "columns": 2
-        },
-        {
-          "id": "61e67cc2-d88e-4ced-95ae-85299c794f73",
-          "type": "text",
-          "heading": "封面媒体说明",
-          "body": "替代文本：《悬置》酒吧角色关键帧，蓝色压抑情绪\n说明：情绪关键帧",
-          "width": "narrow"
-        },
-        {
-          "id": "161fa3e1-3b6f-43bd-b2fa-c74421279b46",
-          "type": "text",
-          "heading": "媒体 1 说明",
-          "body": "替代文本：AI 短片分镜图：主角情绪凝滞的室内镜头\n说明：分镜图 01",
-          "width": "narrow"
-        },
-        {
-          "id": "b5b3bd57-d448-4177-8b15-48df3c39e19d",
-          "type": "text",
-          "heading": "媒体 2 说明",
-          "body": "替代文本：AI 短片分镜图：酒吧环境镜头\n说明：分镜图 02",
-          "width": "narrow"
-        },
-        {
-          "id": "de688eac-aab1-47fe-9545-ebfb827f2a0c",
-          "type": "text",
-          "heading": "媒体 3 说明",
-          "body": "替代文本：AI 短片分镜图：手部特写镜头\n说明：分镜图 03",
-          "width": "narrow"
-        },
-        {
-          "id": "ff6c83b6-988f-4416-a9a6-4597dd73e631",
-          "type": "text",
-          "heading": "媒体 4 说明",
-          "body": "替代文本：AI 短片分镜图：人物冲突镜头\n说明：分镜图 04",
-          "width": "narrow"
-        },
-        {
-          "id": "ce3b5b6e-19e7-4b44-b27a-f23fe54d2c1d",
-          "type": "text",
-          "heading": "媒体 5 说明",
-          "body": "替代文本：AI 短片分镜图：人物表情特写\n说明：分镜图 05",
-          "width": "narrow"
-        },
-        {
-          "id": "6dea5594-c8d2-4bfb-8930-9557c4c439f0",
-          "type": "text",
-          "heading": "媒体 6 说明",
-          "body": "替代文本：AI 短片分镜图：黑白人物镜头\n说明：分镜图 06",
-          "width": "narrow"
-        },
-        {
-          "id": "4e69b409-8d35-4e03-ab97-413805e0127c",
-          "type": "text",
-          "heading": "媒体 7 说明",
-          "body": "替代文本：《悬置》压抑开场关键帧\n说明：压抑中心构图",
-          "width": "narrow"
         }
-      ]
+      ],
+      "bilibiliVideoId": "BV1hShm6AEWb"
     },
     {
       "id": "gentle-monster-folded-dimension",

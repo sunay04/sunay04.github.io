@@ -12,6 +12,7 @@ import presentation from "./assets/xuanzhi-presentation.pdf";
 
 const project = {
     id: "xuanzhi-ai-short-film",
+    bilibiliVideoId: "BV1hShm6AEWb",
     number: "01",
     name: "《悬置》AI 短片",
     category: "AIGC 影像",
@@ -28,9 +29,9 @@ const project = {
     ],
     resources: [
       {
-        label: "观看《悬置》视频",
-        href: "https://pan.quark.cn/s/4b79876358b1?pwd=ac8n",
-        note: "夸克网盘 / 提取码 ac8n",
+        label: "在 B 站观看《悬置》",
+        href: "https://www.bilibili.com/video/BV1hShm6AEWb/",
+        note: "完整短片",
       },
       {
         label: "打开分镜剧本",

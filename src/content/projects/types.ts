@@ -39,6 +39,7 @@ export type Project = {
   metrics?: string[];
   takeaways?: string[];
   liveUrl?: string;
+  bilibiliVideoId?: string;
   linkLabel?: string;
   resources?: ProjectResource[];
   hero: PortfolioImage;

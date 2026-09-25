@@ -263,6 +263,22 @@ export function ProjectDetail({ project, onBack, onPrevious, onNext }: { project
 
           <article>
             <ProjectOverview project={project} />
+            {project.bilibiliVideoId && /^BV[0-9A-Za-z]+$/.test(project.bilibiliVideoId) && (
+              <section className="mt-12 md:mt-16" aria-label="完整短片">
+                <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+                  <h3 className="text-lg font-medium text-white">完整短片</h3>
+                  <a href={`https://www.bilibili.com/video/${project.bilibiliVideoId}/`} target="_blank" rel="noreferrer" className="text-sm text-white/65 underline underline-offset-4 hover:text-white">在 B 站观看 ↗</a>
+                </div>
+                <iframe
+                  key={project.bilibiliVideoId}
+                  src={`https://player.bilibili.com/player.html?bvid=${project.bilibiliVideoId}&autoplay=0&danmaku=0&poster=1`}
+                  title={`${project.name} — B 站视频播放器`}
+                  className="aspect-video w-full rounded-lg border-0 bg-black"
+                  allow="fullscreen; picture-in-picture; encrypted-media"
+                  allowFullScreen
+                />
+              </section>
+            )}
             {project.blocks !== undefined ? <ProjectBlocks blocks={project.blocks} onOpen={openMedia} /> : <>
               <HeroShowcase project={project} onOpen={openMedia} />
               <ProjectEvidence project={project} />
