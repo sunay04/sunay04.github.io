@@ -14,10 +14,10 @@ const project = {
   ],
   "bilibiliVideoId": "BV1MVhm6ZEtT",
   "hero": {
-    "src": "/artworks/hbn-daguangsai/cover.jpg",
-    "alt": "HBN 大广赛广告短片中的产品特写",
+    "src": "/artworks/hbn-daguangsai/cover-selected.png",
+    "alt": "HBN 产品与画中人物的广告短片封面",
     "fit": "cover",
-    "caption": "产品特写"
+    "caption": "作品封面"
   },
   "gallery": [
     {

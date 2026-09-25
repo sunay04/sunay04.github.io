@@ -11,6 +11,6 @@ import project9 from "./shanxia-yousong-fragrance-illustration/project";
 import project10 from "./3d-asset-production/project";
 import project11 from "./unity-interactive-scene-study/project";
 
-export const projects: Project[] = [project1, hbnProject, project2, project3, project4, project5, project7, project8, project9, project10, project11];
+export const projects: Project[] = [project1, project2, project3, project4, project5, project7, hbnProject, project8, project9, project10, project11];
 
 export type { PortfolioImage, Project, ProjectBlock, ProjectResource } from "./types";
