@@ -325,41 +325,6 @@
             }
           ],
           "columns": 2
-        },
-        {
-          "id": "f89360ff-d2c5-4693-9d1d-b3b79710e13e",
-          "type": "text",
-          "heading": "封面媒体说明",
-          "body": "替代文本：GENTLE MONSTER 折叠的维度主视觉，以虫观我\n说明：主图 01",
-          "width": "narrow"
-        },
-        {
-          "id": "07a4d3e3-75f2-4d5b-8f31-0da1c1945893",
-          "type": "text",
-          "heading": "媒体 1 说明",
-          "body": "替代文本：GENTLE MONSTER 折叠的维度项目封面\n说明：项目封面",
-          "width": "narrow"
-        },
-        {
-          "id": "887fdc58-fe8d-4dc9-9cf4-6d85bc44aa7d",
-          "type": "text",
-          "heading": "媒体 2 说明",
-          "body": "替代文本：GENTLE MONSTER 折叠的维度橱窗样机，以镜观骨\n说明：橱窗样机 01",
-          "width": "narrow"
-        },
-        {
-          "id": "81e75981-818b-4d04-8c23-ba270ba63061",
-          "type": "text",
-          "heading": "媒体 3 说明",
-          "body": "替代文本：GENTLE MONSTER 折叠的维度橱窗样机，以虫观我\n说明：橱窗样机 02",
-          "width": "narrow"
-        },
-        {
-          "id": "6d864107-2616-4450-8e64-d62157a28ed6",
-          "type": "text",
-          "heading": "媒体 4 说明",
-          "body": "替代文本：GENTLE MONSTER 折叠的维度延展动态视觉\n说明：延展动态视觉",
-          "width": "narrow"
         }
       ]
     },
@@ -458,27 +423,6 @@
             }
           ],
           "columns": 2
-        },
-        {
-          "id": "185f57b4-7efc-4bf0-9558-7010a5a7b1bb",
-          "type": "text",
-          "heading": "封面媒体说明",
-          "body": "替代文本：Future Echoes 动态海报视频\n说明：动态海报",
-          "width": "narrow"
-        },
-        {
-          "id": "ce92390b-58d3-4ea1-ad54-007a71be9b21",
-          "type": "text",
-          "heading": "媒体 1 说明",
-          "body": "替代文本：Future Echoes 主海报\n说明：主海报",
-          "width": "narrow"
-        },
-        {
-          "id": "2784ef90-47a2-44cd-af90-e182c5bf8246",
-          "type": "text",
-          "heading": "媒体 2 说明",
-          "body": "替代文本：Future Echoes 空间延展场景\n说明：空间延展",
-          "width": "narrow"
         }
       ]
     },
@@ -620,48 +564,6 @@
             }
           ],
           "columns": 2
-        },
-        {
-          "id": "cd2c9988-f7f9-49a5-8202-b0a5501ea3b9",
-          "type": "text",
-          "heading": "封面媒体说明",
-          "body": "替代文本：聚金沙 4.0 说唱演出主海报\n说明：演出主海报",
-          "width": "narrow"
-        },
-        {
-          "id": "333512a5-824d-4ace-b89e-2037f1f65ed0",
-          "type": "text",
-          "heading": "媒体 1 说明",
-          "body": "替代文本：聚金沙 4.0 说唱演出海报变体\n说明：海报变体",
-          "width": "narrow"
-        },
-        {
-          "id": "601b35d8-fc0e-4557-b6db-d5a40d5aaedb",
-          "type": "text",
-          "heading": "媒体 2 说明",
-          "body": "替代文本：聚金沙 4.0 说唱演出入场券设计\n说明：入场券",
-          "width": "narrow"
-        },
-        {
-          "id": "b0c2fda1-0039-4275-866a-fff88976dc3b",
-          "type": "text",
-          "heading": "媒体 3 说明",
-          "body": "替代文本：聚金沙 4.0 说唱演出邀请函设计\n说明：邀请函",
-          "width": "narrow"
-        },
-        {
-          "id": "9f5c69a1-630e-469a-9163-cc0294a13484",
-          "type": "text",
-          "heading": "媒体 4 说明",
-          "body": "替代文本：聚金沙 4.0 说唱演出主视觉展板应用\n说明：现场展板应用",
-          "width": "narrow"
-        },
-        {
-          "id": "61564441-b2a3-4e1a-a924-2951fa9edb33",
-          "type": "text",
-          "heading": "媒体 5 说明",
-          "body": "替代文本：聚金沙 4.0 说唱演出 BOOZE 酒瓶视觉样机\n说明：酒瓶视觉样机",
-          "width": "narrow"
         }
       ]
     },
@@ -744,13 +646,6 @@
           "heading": "关键决策与贡献",
           "body": "根据不同品牌命题提炼情绪关键词，并转化为清晰的画面生成方向。\n对 AI 生成结果继续进行构图筛选、文字编排与品牌信息校正，保证可用性。\n针对赛事命题与真实开业活动采用不同的信息密度和视觉策略。",
           "width": "wide"
-        },
-        {
-          "id": "dfbe1bb0-ef56-4506-879e-1b9e06da2500",
-          "type": "text",
-          "heading": "封面媒体说明",
-          "body": "替代文本：泡泡马特大广赛 AI 生成概念海报，Angry Molly\n说明：泡泡马特大广赛命题 / AI 生成概念海报",
-          "width": "narrow"
         }
       ]
     },
@@ -813,13 +708,6 @@
           "heading": "关键决策与贡献",
           "body": "用角色动作与视线关系建立叙事中心，让观看顺序从人物自然延伸到环境。\n通过动物意象连接现实与幻想，使画面在单一场景中保留想象空间。\n以暖色城市光和清晰的前后景层次统一复杂元素，避免视觉焦点分散。",
           "width": "wide"
-        },
-        {
-          "id": "89a73d3f-c570-4955-9635-6382dcb91f6c",
-          "type": "text",
-          "heading": "封面媒体说明",
-          "body": "替代文本：城市天台叙事插画，人物拥抱与动物意象\n说明：叙事插画",
-          "width": "narrow"
         }
       ]
     },
@@ -946,41 +834,6 @@
             }
           ],
           "columns": 2
-        },
-        {
-          "id": "a0ecfa7c-0e2d-4ae2-92cd-3c57824b1355",
-          "type": "text",
-          "heading": "封面媒体说明",
-          "body": "替代文本：海娜文化快闪集市同类市集与摊位参考\n说明：市集氛围参考",
-          "width": "narrow"
-        },
-        {
-          "id": "4bef8523-cfc5-4506-a383-de66586fda85",
-          "type": "text",
-          "heading": "媒体 1 说明",
-          "body": "替代文本：海娜文化快闪集市招牌与摊位展示\n说明：摊位招牌",
-          "width": "narrow"
-        },
-        {
-          "id": "4b23232e-d476-48ad-ad01-ee0229a14456",
-          "type": "text",
-          "heading": "媒体 2 说明",
-          "body": "替代文本：海娜手绘服务交付细节\n说明：服务交付细节",
-          "width": "narrow"
-        },
-        {
-          "id": "af0ba5f8-1250-4257-a617-bb8ebcd476b8",
-          "type": "text",
-          "heading": "媒体 3 说明",
-          "body": "替代文本：海娜手绘图案落地效果\n说明：图案落地效果",
-          "width": "narrow"
-        },
-        {
-          "id": "90cbedab-e483-4a70-ab38-5fb9412bed71",
-          "type": "text",
-          "heading": "媒体 4 说明",
-          "body": "替代文本：海娜文化快闪集市现场服务与招牌\n说明：线下快闪服务现场",
-          "width": "narrow"
         }
       ]
     },
@@ -1094,34 +947,6 @@
             }
           ],
           "columns": 2
-        },
-        {
-          "id": "e0475806-fd66-432f-99a5-51a168a0faf8",
-          "type": "text",
-          "heading": "封面媒体说明",
-          "body": "替代文本：山下有松 Songmont 香氛主视觉插画\n说明：香氛主视觉",
-          "width": "narrow"
-        },
-        {
-          "id": "7d7acfe8-c189-4654-ab30-371c8f14523d",
-          "type": "text",
-          "heading": "媒体 1 说明",
-          "body": "替代文本：山下有松 Songmont 香氛烟雾插画\n说明：香气流动视觉",
-          "width": "narrow"
-        },
-        {
-          "id": "513515a5-fc51-4055-94f6-a0f13bff599a",
-          "type": "text",
-          "heading": "媒体 2 说明",
-          "body": "替代文本：山下有松香氛产品与包装样机\n说明：包装样机",
-          "width": "narrow"
-        },
-        {
-          "id": "8ee6360d-abb6-4ecd-8290-436f5041ec7b",
-          "type": "text",
-          "heading": "媒体 3 说明",
-          "body": "替代文本：山下有松香氛产品理念页\n说明：产品理念",
-          "width": "narrow"
         }
       ]
     },
@@ -1336,76 +1161,6 @@
             }
           ],
           "columns": 2
-        },
-        {
-          "id": "6664fc81-c276-4328-ad73-b88073f86a48",
-          "type": "text",
-          "heading": "封面媒体说明",
-          "body": "替代文本：旧钢琴三维场景正面最终渲染\n说明：旧钢琴场景 / 最终渲染",
-          "width": "narrow"
-        },
-        {
-          "id": "290eddef-e484-4ad1-aa5a-d395b0e61eca",
-          "type": "text",
-          "heading": "媒体 1 说明",
-          "body": "替代文本：旧钢琴三维场景原画参考\n说明：原画参考",
-          "width": "narrow"
-        },
-        {
-          "id": "6f2838de-c3aa-492a-a234-ff1c4abbe793",
-          "type": "text",
-          "heading": "媒体 2 说明",
-          "body": "替代文本：旧钢琴场景高模制作展示\n说明：高模制作",
-          "width": "narrow"
-        },
-        {
-          "id": "c2905d0b-21c3-478b-8ce5-37a00d63890c",
-          "type": "text",
-          "heading": "媒体 3 说明",
-          "body": "替代文本：旧钢琴场景低模拓扑展示\n说明：低模拓扑",
-          "width": "narrow"
-        },
-        {
-          "id": "b67d3a08-6be3-49a5-afe0-4681e6a6447d",
-          "type": "text",
-          "heading": "媒体 4 说明",
-          "body": "替代文本：旧钢琴场景 UV 编辑与整理界面\n说明：UV 编辑整理",
-          "width": "narrow"
-        },
-        {
-          "id": "a80171e3-68c8-4bf8-b720-2364cd25dd69",
-          "type": "text",
-          "heading": "媒体 5 说明",
-          "body": "替代文本：旧钢琴场景烘焙贴图检查\n说明：烘焙贴图检查",
-          "width": "narrow"
-        },
-        {
-          "id": "a515a2f5-8342-4d32-93fc-03accc11c01e",
-          "type": "text",
-          "heading": "媒体 6 说明",
-          "body": "替代文本：旧钢琴场景贴图绘制与材质图层\n说明：贴图与材质层",
-          "width": "narrow"
-        },
-        {
-          "id": "8eb51a25-8235-4871-93ca-4bbea94bc551",
-          "type": "text",
-          "heading": "媒体 7 说明",
-          "body": "替代文本：鸟形乌尊金属器物三维渲染\n说明：乌尊 / 金属器物资产",
-          "width": "narrow"
-        },
-        {
-          "id": "eb80c580-2334-45b2-b820-9047b347c669",
-          "type": "text",
-          "heading": "媒体 8 说明",
-          "body": "替代文本：模块化钟楼三维资产正面渲染\n说明：钟楼 / 正面渲染",
-          "width": "narrow"
-        },
-        {
-          "id": "97ca83e3-e454-49e6-b3f0-d24545fc427e",
-          "type": "text",
-          "heading": "媒体 9 说明",
-          "body": "替代文本：模块化钟楼三维资产侧面渲染\n说明：钟楼 / 侧面渲染",
-          "width": "narrow"
         }
       ]
     },
@@ -1551,41 +1306,6 @@
             }
           ],
           "columns": 2
-        },
-        {
-          "id": "2f828e33-736a-4e83-8a96-27de8b7998f7",
-          "type": "text",
-          "heading": "封面媒体说明",
-          "body": "替代文本：Y3K 液态金属主题 Unity 交互页面\n说明：Y3K 交互界面 / 页面呈现",
-          "width": "narrow"
-        },
-        {
-          "id": "decb5d74-b7f3-4714-91f0-c21f55e7924d",
-          "type": "text",
-          "heading": "媒体 1 说明",
-          "body": "替代文本：低多边形自然村落 Unity 场景编辑器\n说明：自然村落 / 场景搭建",
-          "width": "narrow"
-        },
-        {
-          "id": "64154f06-6664-4d0e-a403-a305b162749e",
-          "type": "text",
-          "heading": "媒体 2 说明",
-          "body": "替代文本：低多边形自然村落河畔建筑实时渲染\n说明：自然村落 / 河畔视角",
-          "width": "narrow"
-        },
-        {
-          "id": "ca133bf7-b0ed-47b8-b59e-f9d49c4a8be9",
-          "type": "text",
-          "heading": "媒体 3 说明",
-          "body": "替代文本：低多边形自然村落林地与花田实时渲染\n说明：自然村落 / 林地视角",
-          "width": "narrow"
-        },
-        {
-          "id": "9f6af347-2c78-4f74-9f0f-447c6b3071b7",
-          "type": "text",
-          "heading": "媒体 4 说明",
-          "body": "替代文本：低多边形自然村落滨水建筑实时渲染\n说明：自然村落 / 滨水视角",
-          "width": "narrow"
         }
       ]
     }
