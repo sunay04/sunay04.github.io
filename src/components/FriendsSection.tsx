@@ -19,6 +19,10 @@ export function FriendsSection({ content = friendLinks }: { content?: typeof fri
             </FadeIn>
           ))}
         </div>
+        <p className="mt-10 text-center text-xs leading-relaxed text-white/65">
+          Music: <a className="underline" href="https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1600054">Lobby Time — Kevin MacLeod (incompetech.com)</a>
+          {" · "}<a className="underline" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>
+        </p>
       </div>
     </section>
   );

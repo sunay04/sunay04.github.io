@@ -70,7 +70,7 @@ export function AudioToggle({ enabled, tracks, mobileNavigation }: AudioTogglePr
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
-    audio.volume = 0.34;
+    audio.volume = 0.22;
     if (!enabled) {
       audio.pause();
       setIsPlaying(false);
@@ -144,7 +144,7 @@ export function AudioToggle({ enabled, tracks, mobileNavigation }: AudioTogglePr
   };
 
   return <div ref={playerRef} className={`capsule-player-anchor${mobile ? " is-mobile" : ""}`}>
-    {track && <audio ref={audioRef} src={track.src} playsInline preload="metadata" onLoadedMetadata={(event) => {
+    {track && <audio ref={audioRef} src={track.src} loop={tracks.length === 1} playsInline preload="metadata" onLoadedMetadata={(event) => {
       const audio = event.currentTarget;
       const trackKey = track.id || track.src;
       if (restoredTrack.current === trackKey) return;

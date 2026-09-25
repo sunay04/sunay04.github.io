@@ -92,10 +92,10 @@ export const friendLinks: FriendLink[] = [
 
 export const music: MusicTrack[] = [
   {
-    id: "default-bgm",
-    title: "Portfolio Atmosphere",
-    artist: "Sunay",
-    src: `${import.meta.env.BASE_URL}audio/bgm.mp3`,
+    id: "lobby-time",
+    title: "Lobby Time",
+    artist: "Kevin MacLeod",
+    src: `${import.meta.env.BASE_URL}audio/lobby-time.mp3`,
   },
 ];
 
