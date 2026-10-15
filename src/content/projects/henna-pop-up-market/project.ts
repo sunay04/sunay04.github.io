@@ -22,10 +22,10 @@ const project = {
       "同步负责摊位视觉与 36 篇社媒内容，让线上种草与线下体验形成完整链路。",
     ],
     hero: {
-      src: asset4,
-      alt: "海娜文化快闪集市同类市集与摊位参考",
+      src: asset0,
+      alt: "海娜文化快闪集市现场服务与招牌",
       fit: "contain",
-      caption: "市集氛围参考",
+      caption: "线下快闪服务现场",
       span: "wide",
       orientation: "panorama",
     },

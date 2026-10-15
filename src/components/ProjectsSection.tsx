@@ -10,7 +10,7 @@ import { cn } from "../lib/utils";
 
 const PAGE_SIZE = 6;
 const appleSpring = { type: "spring", bounce: 0, duration: 0.42 } as const;
-const filters = ["全部", "AIGC", "品牌视觉", "视觉设计", "内容运营", "插画"] as const;
+const filters = ["全部", "游戏美术", "AIGC", "品牌视觉", "视觉设计", "内容运营", "插画"] as const;
 
 function projectPeriod(project: Project) {
   if (!project.startDate) return project.year ?? "";
@@ -19,6 +19,7 @@ function projectPeriod(project: Project) {
 
 function projectFilter(project: Project) {
   const text = `${project.category} ${project.tags.join(" ")}`;
+  if (/游戏美术/.test(text)) return "游戏美术";
   if (/AIGC|AI |AI短片|Midjourney|可灵/.test(text)) return "AIGC";
   if (/运营|团购|快闪|本地生活/.test(text)) return "内容运营";
   if (/插画|角色叙事/.test(text)) return "插画";
@@ -128,6 +129,7 @@ function ProjectOverview({ project }: { project: Project }) {
         <div className="flex items-center gap-2"><Folder aria-hidden className="h-4 w-4 text-white/42" /><span className="sr-only">类别：</span><strong className="font-medium text-white/82">{project.category}</strong></div>
         <div className="flex flex-wrap items-center justify-center gap-2"><Tags aria-hidden className="h-4 w-4 text-white/42" /><span className="sr-only">标签：</span>{project.tags.map((tag) => <span key={tag} className="rounded-[5px] px-2.5 py-1 text-xs text-white/78" style={{ background: `color-mix(in srgb, ${project.tagColors?.[tag] ?? "#dce2e8"} 24%, rgba(255,255,255,.06))` }}>{tag}</span>)}</div>
       </div>
+      {project.role && <p className="mx-auto mt-6 max-w-3xl text-sm text-[#c6d5bc]">我的职责 · {project.role}</p>}
       <p className="cosmic-copy mx-auto mt-7 max-w-[48rem] text-base leading-relaxed text-white/78 md:text-lg">{project.summary}</p>
       {project.liveUrl && (
         <div className="mt-7 flex justify-center">
@@ -261,8 +263,18 @@ export function ProjectDetail({ project, onBack, onPrevious, onNext }: { project
             </div>
           </nav>
 
-          <article>
-            <ProjectOverview project={project} />
+          <article className={project.detailLayout === "case-study" ? "spine-case-study" : undefined}>
+            {project.detailLayout === "case-study" ? (
+              <header className="case-study-opening">
+                <div className="case-study-result"><MediaFrame media={project.heroSupport ?? project.hero} onOpen={() => openMedia(project.heroSupport ?? project.hero)} /></div>
+                <div className="case-study-intro">
+                  <span className="case-study-eyebrow">GAME ART / CASE STUDY</span>
+                  <h2>{project.name}</h2>
+                  <p>{project.summary}</p>
+                  <span className="case-study-caption">{project.heroSupport?.caption ?? project.hero.caption}<br />{project.role}</span>
+                </div>
+              </header>
+            ) : <ProjectOverview project={project} />}
             {project.bilibiliVideoId && /^BV[0-9A-Za-z]+$/.test(project.bilibiliVideoId) && (
               <section className="mt-12 md:mt-16" aria-label="完整短片">
                 <div className="mb-4 flex flex-wrap items-center justify-between gap-3">

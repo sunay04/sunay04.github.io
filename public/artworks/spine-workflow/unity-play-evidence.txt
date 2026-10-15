@@ -1,0 +1,2 @@
+PASS Unity 2022.3.62f2 actual Play: full_sequence progressed from0 to16.25 seconds; single skeleton, finite mesh, single-shot end hold; 13 portrait720x1280 renders.
+Silent local resource demo; not game/device or professional art acceptance.

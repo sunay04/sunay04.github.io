@@ -1,22 +1,20 @@
 import type { Project } from "../types";
-
 const project = {
   "id": "obrien-manor-game-art",
-  "name": "《奥布莱恩庄园》游戏美术实习",
+  "name": "悬疑二合｜画风探索与资产制作",
   "category": "游戏美术",
   "year": "2026.09",
-  "role": "游戏美术实习 / AIGC 静态美术资产制作与整理",
-  "summary": "游戏美术实习期间，围绕欧式海滨庄园的悬疑剧情，整理角色立绘、表情、场景、剧情关键帧与合成道具等美术产出。以 Seedream 5.0 Pro 辅助生成，延续既定人物设定与偏写实画风，并通过竖屏剧情预览串联资产与叙事节点。",
+  "role": "多模型测试 / 画风探索与锁定 / 美术资产制作",
+  "summary": "负责悬疑二合项目的多模型测试与画风发散，通过方案对比和迭代确定并锁定视觉方向，并在统一画风下开展角色、场景、表情、剧情关键帧与道具制作。",
   "tags": [
+    "游戏美术",
+    "画风锁定",
     "AIGC",
-    "角色与场景",
     "实习项目"
   ],
-  "liveUrl": "https://obrien-manor-art-archive.cloudlovesunay.chatgpt.site/#player",
-  "linkLabel": "体验剧情预览",
   "hero": {
     "src": "/artworks/obrien-manor/B01_gate_blocked.webp",
-    "alt": "奥布莱恩庄园 / 庄园铁门·荆棘阻挡",
+    "alt": "悬疑二合项目 / 庄园铁门·荆棘阻挡",
     "fit": "cover",
     "caption": "庄园铁门·荆棘阻挡",
     "orientation": "landscape"
@@ -26,8 +24,15 @@ const project = {
     {
       "id": "overview",
       "type": "text",
-      "heading": "海雾、旧金与蓝绿色的记忆",
-      "body": "从一场噩梦，到一封被撕开的信。项目以「重返潮汐湾」为叙事起点，在海滨旧宅、人物关系与日常道具之间建立悬疑氛围。以下按角色、场景、剧情与交互素材展示本次实习产出。"
+      "heading": "从画风探索，到统一视觉下的制作",
+      "body": "围绕年代悬疑题材开展模型测试和视觉方向探索，最终确定偏写实画风。以下展示画风锁定后的角色、环境与叙事资产。"
+    },
+    {
+      "id": "process",
+      "type": "text",
+      "heading": "制作路径 / 多模型测试 → 画风发散 → 筛选迭代 → 画风锁定",
+      "body": "先通过不同模型探索角色与场景的视觉可能，再比较方案并迭代，确定项目的视觉方向。后续在同一画风下延展角色、表情、场景和道具。",
+      "width": "wide"
     },
     {
       "id": "visual-direction",
@@ -35,19 +40,19 @@ const project = {
       "items": [
         {
           "src": "/artworks/obrien-manor/B01_gate_blocked.webp",
-          "alt": "奥布莱恩庄园 / 庄园铁门·荆棘阻挡",
+          "alt": "悬疑二合项目 / 庄园铁门·荆棘阻挡",
           "fit": "contain",
           "caption": "庄园铁门·荆棘阻挡"
         },
         {
           "src": "/artworks/obrien-manor/K06_arrival.webp",
-          "alt": "奥布莱恩庄园 / 艾琳·抵达庄园",
+          "alt": "悬疑二合项目 / 主角·抵达庄园",
           "fit": "contain",
-          "caption": "艾琳·抵达庄园"
+          "caption": "主角·抵达庄园"
         },
         {
           "src": "/artworks/obrien-manor/B10_terrace.webp",
-          "alt": "奥布莱恩庄园 / 海景露台·月夜空景",
+          "alt": "悬疑二合项目 / 海景露台·月夜空景",
           "fit": "contain",
           "caption": "海景露台·月夜空景"
         }
@@ -55,19 +60,10 @@ const project = {
       "columns": 3
     },
     {
-      "id": "scope",
-      "type": "metrics",
-      "items": [
-        "5 组角色 / 30 张表情切图",
-        "12 张场景 / 25 张剧情关键帧",
-        "36 张道具切图 / 17 个剧情节点"
-      ]
-    },
-    {
       "id": "characters-intro",
       "type": "text",
       "heading": "01 / 角色与表情",
-      "body": "沿用既定人物设定与偏写实画风，以艾琳的旅行套装、玛德琳的象牙白礼服和薇薇安的黑裙保持人物辨识度。角色立绘与表情图集分别整理，供不同对白与情绪节点调用。"
+      "body": "画风确定后，围绕人物服装、轮廓与面部特征延展角色资产，并制作不同剧情情绪所需的表情。主角表情组与其他角色立绘结合展示。"
     },
     {
       "id": "characters-main",
@@ -75,21 +71,21 @@ const project = {
       "items": [
         {
           "src": "/artworks/obrien-manor/C01_irene.webp",
-          "alt": "奥布莱恩庄园 / 艾琳·旅行装立绘",
+          "alt": "悬疑二合项目 / 主角·旅行装立绘",
           "fit": "contain",
-          "caption": "艾琳·旅行装立绘"
+          "caption": "主角·旅行装立绘"
         },
         {
           "src": "/artworks/obrien-manor/C02_madeline.webp",
-          "alt": "奥布莱恩庄园 / 玛德琳·晚礼服立绘",
+          "alt": "悬疑二合项目 / 母亲·晚礼服立绘",
           "fit": "contain",
-          "caption": "玛德琳·晚礼服立绘"
+          "caption": "母亲·晚礼服立绘"
         },
         {
           "src": "/artworks/obrien-manor/C03_vivian.webp",
-          "alt": "奥布莱恩庄园 / 薇薇安·黑裙立绘",
+          "alt": "悬疑二合项目 / 访客·黑裙立绘",
           "fit": "contain",
-          "caption": "薇薇安·黑裙立绘"
+          "caption": "访客·黑裙立绘"
         }
       ],
       "columns": 3
@@ -100,15 +96,15 @@ const project = {
       "items": [
         {
           "src": "/artworks/obrien-manor/C04_bernard.webp",
-          "alt": "奥布莱恩庄园 / 伯纳德·管家立绘",
+          "alt": "悬疑二合项目 / 管家·管家立绘",
           "fit": "contain",
-          "caption": "伯纳德·管家立绘"
+          "caption": "管家·管家立绘"
         },
         {
           "src": "/artworks/obrien-manor/C05_nix.webp",
-          "alt": "奥布莱恩庄园 / 尼克斯·黑猫立绘",
+          "alt": "悬疑二合项目 / 黑猫·黑猫立绘",
           "fit": "contain",
-          "caption": "尼克斯·黑猫立绘"
+          "caption": "黑猫·黑猫立绘"
         }
       ],
       "columns": 2
@@ -118,41 +114,10 @@ const project = {
       "type": "media",
       "media": {
         "src": "/artworks/obrien-manor/E01_irene.webp",
-        "alt": "奥布莱恩庄园 / 艾琳·六表情",
+        "alt": "悬疑二合项目 / 主角·六表情",
         "fit": "contain",
-        "caption": "艾琳·六表情"
+        "caption": "主角·六表情"
       }
-    },
-    {
-      "id": "expressions",
-      "type": "gallery",
-      "items": [
-        {
-          "src": "/artworks/obrien-manor/E02_vivian.webp",
-          "alt": "奥布莱恩庄园 / 薇薇安·六表情",
-          "fit": "contain",
-          "caption": "薇薇安·六表情"
-        },
-        {
-          "src": "/artworks/obrien-manor/E03_bernard.webp",
-          "alt": "奥布莱恩庄园 / 伯纳德·六表情",
-          "fit": "contain",
-          "caption": "伯纳德·六表情"
-        },
-        {
-          "src": "/artworks/obrien-manor/E04_madeline.webp",
-          "alt": "奥布莱恩庄园 / 玛德琳·六表情",
-          "fit": "contain",
-          "caption": "玛德琳·六表情"
-        },
-        {
-          "src": "/artworks/obrien-manor/E05_nix.webp",
-          "alt": "奥布莱恩庄园 / 尼克斯·六表情",
-          "fit": "contain",
-          "caption": "尼克斯·六表情"
-        }
-      ],
-      "columns": 2
     },
     {
       "id": "scenes-intro",
@@ -166,19 +131,19 @@ const project = {
       "items": [
         {
           "src": "/artworks/obrien-manor/B01_gate_blocked.webp",
-          "alt": "奥布莱恩庄园 / 庄园铁门·荆棘阻挡",
+          "alt": "悬疑二合项目 / 庄园铁门·荆棘阻挡",
           "fit": "contain",
           "caption": "庄园铁门·荆棘阻挡"
         },
         {
           "src": "/artworks/obrien-manor/B02_gate_cleared.webp",
-          "alt": "奥布莱恩庄园 / 庄园铁门·清除荆棘",
+          "alt": "悬疑二合项目 / 庄园铁门·清除荆棘",
           "fit": "contain",
           "caption": "庄园铁门·清除荆棘"
         },
         {
           "src": "/artworks/obrien-manor/B03_gate_restored.webp",
-          "alt": "奥布莱恩庄园 / 庄园铁门·修复后",
+          "alt": "悬疑二合项目 / 庄园铁门·修复后",
           "fit": "contain",
           "caption": "庄园铁门·修复后"
         }
@@ -191,19 +156,19 @@ const project = {
       "items": [
         {
           "src": "/artworks/obrien-manor/B05_hall.webp",
-          "alt": "奥布莱恩庄园 / 庄园大厅·蒙尘",
+          "alt": "悬疑二合项目 / 庄园大厅·蒙尘",
           "fit": "contain",
           "caption": "庄园大厅·蒙尘"
         },
         {
           "src": "/artworks/obrien-manor/B06_dining_dirty.webp",
-          "alt": "奥布莱恩庄园 / 餐厅·打扫前",
+          "alt": "悬疑二合项目 / 餐厅·打扫前",
           "fit": "contain",
           "caption": "餐厅·打扫前"
         },
         {
           "src": "/artworks/obrien-manor/B07_dining_clean.webp",
-          "alt": "奥布莱恩庄园 / 餐厅·打扫后",
+          "alt": "悬疑二合项目 / 餐厅·打扫后",
           "fit": "contain",
           "caption": "餐厅·打扫后"
         }
@@ -222,25 +187,25 @@ const project = {
       "items": [
         {
           "src": "/artworks/obrien-manor/K01_banquet.webp",
-          "alt": "奥布莱恩庄园 / 噩梦·吊灯摇晃",
+          "alt": "悬疑二合项目 / 噩梦·吊灯摇晃",
           "fit": "contain",
           "caption": "噩梦·吊灯摇晃"
         },
         {
           "src": "/artworks/obrien-manor/K02_mother_back.webp",
-          "alt": "奥布莱恩庄园 / 露台·母亲背影",
+          "alt": "悬疑二合项目 / 露台·母亲背影",
           "fit": "contain",
           "caption": "露台·母亲背影"
         },
         {
           "src": "/artworks/obrien-manor/K03_mother_tears.webp",
-          "alt": "奥布莱恩庄园 / 露台·含泪道歉",
+          "alt": "悬疑二合项目 / 露台·含泪道歉",
           "fit": "contain",
           "caption": "露台·含泪道歉"
         },
         {
           "src": "/artworks/obrien-manor/K04_wake.webp",
-          "alt": "奥布莱恩庄园 / 车内·惊醒",
+          "alt": "悬疑二合项目 / 车内·惊醒",
           "fit": "contain",
           "caption": "车内·惊醒"
         }
@@ -253,25 +218,25 @@ const project = {
       "items": [
         {
           "src": "/artworks/obrien-manor/K13_handprint.webp",
-          "alt": "奥布莱恩庄园 / 玻璃·湿手掌印",
+          "alt": "悬疑二合项目 / 玻璃·湿手掌印",
           "fit": "contain",
           "caption": "玻璃·湿手掌印"
         },
         {
           "src": "/artworks/obrien-manor/K15_cut_seal.webp",
-          "alt": "奥布莱恩庄园 / 信封·划开封蜡",
+          "alt": "悬疑二合项目 / 信封·划开封蜡",
           "fit": "contain",
           "caption": "信封·划开封蜡"
         },
         {
           "src": "/artworks/obrien-manor/K25_fragments.webp",
-          "alt": "奥布莱恩庄园 / 两片信纸·拼接对照",
+          "alt": "悬疑二合项目 / 两片信纸·拼接对照",
           "fit": "contain",
           "caption": "两片信纸·拼接对照"
         },
         {
           "src": "/artworks/obrien-manor/K26_knife.webp",
-          "alt": "奥布莱恩庄园 / 悬念·黑暗中的餐刀",
+          "alt": "悬疑二合项目 / 悬念·黑暗中的餐刀",
           "fit": "contain",
           "caption": "悬念·黑暗中的餐刀"
         }
@@ -290,19 +255,19 @@ const project = {
       "items": [
         {
           "src": "/artworks/obrien-manor/P01_tools.webp",
-          "alt": "奥布莱恩庄园 / 园艺与清洁道具",
+          "alt": "悬疑二合项目 / 园艺与清洁道具",
           "fit": "contain",
           "caption": "园艺与清洁道具"
         },
         {
           "src": "/artworks/obrien-manor/P02_light.webp",
-          "alt": "奥布莱恩庄园 / 照明与开锁道具",
+          "alt": "悬疑二合项目 / 照明与开锁道具",
           "fit": "contain",
           "caption": "照明与开锁道具"
         },
         {
           "src": "/artworks/obrien-manor/P03_story.webp",
-          "alt": "奥布莱恩庄园 / 剧情与餐食道具",
+          "alt": "悬疑二合项目 / 剧情与餐食道具",
           "fit": "contain",
           "caption": "剧情与餐食道具"
         }
@@ -310,49 +275,12 @@ const project = {
       "columns": 3
     },
     {
-      "id": "documents",
-      "type": "gallery",
-      "items": [
-        {
-          "src": "/artworks/obrien-manor/D01_letter.webp",
-          "alt": "奥布莱恩庄园 / 匿名信 · 上半页",
-          "fit": "contain",
-          "caption": "匿名信 · 上半页"
-        },
-        {
-          "src": "/artworks/obrien-manor/D02_warning.webp",
-          "alt": "奥布莱恩庄园 / 残缺信纸",
-          "fit": "contain",
-          "caption": "残缺信纸"
-        },
-        {
-          "src": "/artworks/obrien-manor/D03_recipe.webp",
-          "alt": "奥布莱恩庄园 / 玛德琳的食谱",
-          "fit": "contain",
-          "caption": "玛德琳的食谱"
-        }
-      ],
-      "columns": 3
-    },
-    {
-      "id": "delivery",
+      "id": "scope-note",
       "type": "text",
-      "heading": "05 / 交付与预览",
-      "body": "原始档案收录 51 张模型生成原图及 66 张表情与道具拆分切图，提供逐句对白、节点跳转与合成素材演示。本次展示范围为静态美术与交互预览；尚有 3 张关键帧待补，骨骼动画、配音音效与完整第二章不在当前完成范围内。完整素材及制作记录可在下方档案中查看。"
+      "heading": "展示范围",
+      "body": "本案例展示个人完成的静态美术产出，包括 AI 辅助图像生成及素材整理。页面中的成品用于呈现已锁定的视觉方向；公司、项目名称与内部制作数据已隐去。"
     }
   ],
-  "resources": [
-    {
-      "label": "查看完整美术档案",
-      "href": "https://obrien-manor-art-archive.cloudlovesunay.chatgpt.site/#assets",
-      "note": "角色、场景、表情、道具与制作记录"
-    },
-    {
-      "label": "查看剧情分镜",
-      "href": "https://obrien-manor-art-archive.cloudlovesunay.chatgpt.site/#story",
-      "note": "开场、第一章与第二章开篇"
-    }
-  ]
+  "resources": []
 } satisfies Project;
-
 export default project;

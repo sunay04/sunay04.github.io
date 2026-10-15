@@ -1,22 +1,364 @@
 {
   "projects": [
     {
+      "id": "ai-spine-game-art-workflow",
+      "name": "AI 辅助游戏动态资产设计",
+      "category": "游戏美术",
+      "year": "2026.10",
+      "summary": "从视觉匹配、角色资产生成、PS 修整拆层\n到 Spine 动画适配",
+      "role": "全流程制作 / PS 手工拆分 / AI 辅助视觉与动画制作",
+      "tags": [
+        "Spine",
+        "AIGC",
+        "动态资产",
+        "剧情演出"
+      ],
+      "detailLayout": "case-study",
+      "hero": {
+        "src": "/artworks/spine-workflow/background.png",
+        "alt": "庄园入口剧情动画场景",
+        "caption": "庄园入口剧情动画场景",
+        "fit": "contain"
+      },
+      "heroSupport": {
+        "src": "/artworks/spine-workflow/full-preview.gif",
+        "alt": "剪刀剪荆棘、递花、开门与推进动态预览合辑",
+        "caption": "庄园开场演出 / 制作预览合辑 · 自动循环",
+        "fit": "contain"
+      },
+      "gallery": [],
+      "blocks": [
+        {
+          "id": "task",
+          "type": "text",
+          "heading": "02 / Original Task｜让静态场景承接剧情",
+          "body": "围绕庄园入口制作荆棘剪除、人物递花、铁门开启与镜头推进。既有场景需要保持统一构图，静态图像则需要转换为可独立控制的动画部件。"
+        },
+        {
+          "id": "task-comparison",
+          "type": "gallery",
+          "columns": 2,
+          "items": [
+            {
+              "src": "/artworks/spine-workflow/original-task.png",
+              "alt": "原始需求｜既有 UI 与荆棘场景",
+              "caption": "原始需求｜既有 UI 与荆棘场景",
+              "fit": "contain"
+            },
+            {
+              "src": "/artworks/spine-workflow/full-preview.gif",
+              "alt": "目标效果｜四段演出制作预览合辑",
+              "caption": "目标效果｜四段演出制作预览合辑",
+              "fit": "contain"
+            }
+          ]
+        },
+        {
+          "id": "task-steps",
+          "type": "metrics",
+          "items": [
+            "荆棘剪除",
+            "人物递花",
+            "铁门开启",
+            "镜头推进"
+          ]
+        },
+        {
+          "id": "analysis",
+          "type": "text",
+          "heading": "03 / Visual Analysis｜从画面关系判断动作",
+          "body": "剪刀需要围绕连接点开合，左右门扇需要围绕门轴向内开启；镜头推进时，门轴与场景关系也需要保持稳定。"
+        },
+        {
+          "id": "motion-analysis",
+          "type": "media",
+          "media": {
+            "src": "/artworks/spine-workflow/motion-analysis.svg",
+            "alt": "剪刀轴心、左右门轴、人物位置与镜头方向标注图",
+            "caption": "Static Image → Motion Relationship Analysis → Separable Assets",
+            "fit": "contain"
+          }
+        },
+        {
+          "id": "ai",
+          "type": "text",
+          "heading": "04 / AI Generation & Refinement｜让生成结果满足制作需求",
+          "body": "项目由我负责完整制作，视觉与动态制作使用 AI 辅助，PS 拆分由我手工完成。以庄园底图为例：首版去门底层可以辅助定位，但留下了大面积透明缺口，无法承接开门后的画面。我要求保留原构图，补全天空、草地与道路，重新生成完整底图后再用于分层制作。"
+        },
+        {
+          "id": "ai-base-selection",
+          "type": "gallery",
+          "columns": 2,
+          "items": [
+            {
+              "src": "/artworks/spine-workflow/ai-base-incomplete.png",
+              "alt": "× 不作为完整底图｜地面缺口、透明区域",
+              "caption": "× 不作为完整底图｜地面缺口、透明区域",
+              "fit": "contain"
+            },
+            {
+              "src": "/artworks/spine-workflow/ai-base-complete.png",
+              "alt": "✓ 选用完整底图｜道路、草地与背景连续",
+              "caption": "✓ 选用完整底图｜道路、草地与背景连续",
+              "fit": "contain"
+            }
+          ]
+        },
+        {
+          "id": "ai-character",
+          "type": "text",
+          "heading": "角色生成｜锁定身份，再改变动作",
+          "body": "以持篮人物为造型参考，保持镜头、面部、服装与光照一致，生成向前递花的姿态；重点检查头部与身体中心、双手及花篮边缘，保留完整轮廓。选用结果再进入 PS，准备持篮 / 递花两种可切换状态。底图补全使用 Seedream 5.0 Pro Edit，人物姿态使用内置图像编辑。"
+        },
+        {
+          "id": "ai-character-process",
+          "type": "gallery",
+          "columns": 3,
+          "items": [
+            {
+              "src": "/artworks/spine-workflow/ai-vivian-hold.png",
+              "alt": "Reference｜持篮造型参考",
+              "caption": "Reference｜持篮造型参考",
+              "fit": "contain"
+            },
+            {
+              "src": "/artworks/spine-workflow/ai-vivian-offer.png",
+              "alt": "AI Generation｜花篮向前递出",
+              "caption": "AI Generation｜花篮向前递出",
+              "fit": "contain"
+            },
+            {
+              "src": "/artworks/spine-workflow/vivian_offer.png",
+              "alt": "PS Layered Asset｜递花状态切片",
+              "caption": "PS Layered Asset｜递花状态切片",
+              "fit": "contain"
+            }
+          ]
+        },
+        {
+          "id": "ps-control",
+          "type": "text",
+          "heading": "人工修整与定位｜让 AI 辅助制作变得可控",
+          "body": "当第一版剪刀位置不符合要求时，我在场景 PSD 中直接摆好剪刀的位置、大小与角度，并保留前后刀片及连接点独立图层。后续开合与纵向运动依据这份定位稿制作，减少对剪切位置的猜测。"
+        },
+        {
+          "id": "ps-placement-comparison",
+          "type": "gallery",
+          "columns": 2,
+          "items": [
+            {
+              "src": "/artworks/spine-workflow/original-task.png",
+              "alt": "Before｜原始场景 UI 参考",
+              "caption": "Before｜原始场景 UI 参考",
+              "fit": "contain"
+            },
+            {
+              "src": "/artworks/spine-workflow/ps-placement.png",
+              "alt": "After｜手工 PSD 定位与分层稿",
+              "caption": "After｜手工 PSD 定位与分层稿",
+              "fit": "contain"
+            }
+          ]
+        },
+        {
+          "id": "separation",
+          "type": "text",
+          "heading": "05 / Asset Separation｜按运动关系拆分",
+          "body": "将剪刀拆为前刀片、后刀片与连接点，将荆棘和左右门扇独立分层；人物递花使用持篮与递出两种状态。拆层的目的，是让各部件围绕自己的运动关系控制，保留统一画风与完整轮廓。"
+        },
+        {
+          "id": "scissors",
+          "type": "gallery",
+          "columns": 3,
+          "items": [
+            {
+              "src": "/artworks/spine-workflow/blade_front.png",
+              "alt": "Front Blade｜Rotation",
+              "caption": "Front Blade｜Rotation",
+              "fit": "contain"
+            },
+            {
+              "src": "/artworks/spine-workflow/blade_back.png",
+              "alt": "Back Blade｜Rotation",
+              "caption": "Back Blade｜Rotation",
+              "fit": "contain"
+            },
+            {
+              "src": "/artworks/spine-workflow/screw.png",
+              "alt": "Pivot｜24×24 原尺寸连接点",
+              "caption": "Pivot｜24×24 原尺寸连接点",
+              "fit": "contain"
+            }
+          ]
+        },
+        {
+          "id": "scene-parts",
+          "type": "gallery",
+          "columns": 2,
+          "items": [
+            {
+              "src": "/artworks/spine-workflow/vine_left.png",
+              "alt": "Vine L｜剪后下落与淡出",
+              "caption": "Vine L｜剪后下落与淡出",
+              "fit": "contain"
+            },
+            {
+              "src": "/artworks/spine-workflow/vine_right.png",
+              "alt": "Vine R｜剪后下落与淡出",
+              "caption": "Vine R｜剪后下落与淡出",
+              "fit": "contain"
+            },
+            {
+              "src": "/artworks/spine-workflow/gate_left.png",
+              "alt": "Gate L｜Pivot Rotation",
+              "caption": "Gate L｜Pivot Rotation",
+              "fit": "contain"
+            },
+            {
+              "src": "/artworks/spine-workflow/gate_right.png",
+              "alt": "Gate R｜Pivot Rotation",
+              "caption": "Gate R｜Pivot Rotation",
+              "fit": "contain"
+            }
+          ]
+        },
+        {
+          "id": "character-states",
+          "type": "gallery",
+          "columns": 2,
+          "items": [
+            {
+              "src": "/artworks/spine-workflow/vivian_hold.png",
+              "alt": "Hold｜Pose Transition",
+              "caption": "Hold｜Pose Transition",
+              "fit": "contain"
+            },
+            {
+              "src": "/artworks/spine-workflow/vivian_offer.png",
+              "alt": "Offer｜Pose Transition",
+              "caption": "Offer｜Pose Transition",
+              "fit": "contain"
+            }
+          ]
+        },
+        {
+          "id": "motion",
+          "type": "text",
+          "heading": "06 / Motion Design｜用分段动作组织叙事",
+          "body": "剪除 → 人物揭示与递花 → 开门 → 镜头推进。分段动作便于独立检查节奏、透视与转场。"
+        },
+        {
+          "id": "motion-clips",
+          "type": "gallery",
+          "columns": 3,
+          "items": [
+            {
+              "src": "/artworks/spine-workflow/cut-preview.gif",
+              "alt": "Scissors｜进场 → 剪合 → 荆棘落下",
+              "caption": "Scissors｜进场 → 剪合 → 荆棘落下",
+              "fit": "contain"
+            },
+            {
+              "src": "/artworks/spine-workflow/vivian-offer-preview.gif",
+              "alt": "Character｜Hold → Reach → Offer",
+              "caption": "Character｜Hold → Reach → Offer",
+              "fit": "contain"
+            },
+            {
+              "src": "/artworks/spine-workflow/gate-preview.gif",
+              "alt": "Gate｜恢复 → Opening → Open",
+              "caption": "Gate｜恢复 → Opening → Open",
+              "fit": "contain"
+            }
+          ]
+        },
+        {
+          "id": "spine-evidence",
+          "type": "media",
+          "media": {
+            "src": "/artworks/spine-workflow/spine-control-evidence.svg",
+            "alt": "Spine 控制骨层级与剪切事件时间线",
+            "caption": "真实工程数据可视化 / 非 Spine 编辑器截图",
+            "fit": "contain"
+          }
+        },
+        {
+          "id": "final",
+          "type": "text",
+          "heading": "07 / Final｜动态资产与引擎验证",
+          "body": "已形成可编辑 Spine 工程与 JSON、atlas、PNG 交付包。剪除与原演出有本地 Unity 播放验证记录，镜头平稳推进有原生采样记录。下方合辑串联剪除、递花、新铁门开启与推进；新版铁门尚未合入当前 Unity，也未完成正式游戏验收。"
+        },
+        {
+          "id": "final-animation",
+          "type": "media",
+          "media": {
+            "src": "/artworks/spine-workflow/full-preview.gif",
+            "alt": "FINAL ANIMATION｜庄园开场演出制作预览合辑",
+            "caption": "自动循环 / 由不同版本的既有制作片段剪辑，非当前 Unity 完整录屏",
+            "fit": "contain"
+          }
+        },
+        {
+          "id": "unity-evidence",
+          "type": "gallery",
+          "columns": 3,
+          "items": [
+            {
+              "src": "/artworks/spine-workflow/unity-cut.png",
+              "alt": "Unity Play｜剪刀与荆棘",
+              "caption": "Unity Play｜剪刀与荆棘",
+              "fit": "contain"
+            },
+            {
+              "src": "/artworks/spine-workflow/unity-offer.png",
+              "alt": "Unity Play｜人物递花",
+              "caption": "Unity Play｜人物递花",
+              "fit": "contain"
+            },
+            {
+              "src": "/artworks/spine-workflow/unity-push.png",
+              "alt": "Unity 原生采样｜平稳推进末态",
+              "caption": "Unity 原生采样｜平稳推进末态",
+              "fit": "contain"
+            }
+          ]
+        },
+        {
+          "id": "pipeline",
+          "type": "text",
+          "heading": "AI Generation → PS Refinement → Asset Separation → Spine → Unity",
+          "body": "生成与筛选 → 人工修整拆层 → 动画制作 → JSON / atlas / PNG → 本地运行验证"
+        }
+      ],
+      "resources": [
+        {
+          "label": "Unity Play 验证记录",
+          "href": "/artworks/spine-workflow/unity-play-evidence.txt",
+          "note": "本地资源演示，非正式游戏或设备验收"
+        },
+        {
+          "label": "镜头推进原生采样记录",
+          "href": "/artworks/spine-workflow/unity-camera-evidence.txt",
+          "note": "0 / 2.1 / 4.2 秒编辑态原生采样"
+        }
+      ]
+    },
+    {
       "id": "obrien-manor-game-art",
-      "name": "《奥布莱恩庄园》游戏美术实习",
+      "name": "悬疑二合｜画风探索与资产制作",
       "category": "游戏美术",
       "year": "2026.09",
-      "role": "游戏美术实习 / AIGC 静态美术资产制作与整理",
-      "summary": "游戏美术实习期间，围绕欧式海滨庄园的悬疑剧情，整理角色立绘、表情、场景、剧情关键帧与合成道具等美术产出。以 Seedream 5.0 Pro 辅助生成，延续既定人物设定与偏写实画风，并通过竖屏剧情预览串联资产与叙事节点。",
+      "role": "多模型测试 / 画风探索与锁定 / 美术资产制作",
+      "summary": "负责悬疑二合项目的多模型测试与画风发散，通过方案对比和迭代确定并锁定视觉方向，并在统一画风下开展角色、场景、表情、剧情关键帧与道具制作。",
       "tags": [
+        "游戏美术",
+        "画风锁定",
         "AIGC",
-        "角色与场景",
         "实习项目"
       ],
-      "liveUrl": "https://obrien-manor-art-archive.cloudlovesunay.chatgpt.site/#player",
-      "linkLabel": "体验剧情预览",
       "hero": {
         "src": "/artworks/obrien-manor/B01_gate_blocked.webp",
-        "alt": "奥布莱恩庄园 / 庄园铁门·荆棘阻挡",
+        "alt": "悬疑二合项目 / 庄园铁门·荆棘阻挡",
         "fit": "cover",
         "caption": "庄园铁门·荆棘阻挡",
         "orientation": "landscape"
@@ -26,8 +368,15 @@
         {
           "id": "overview",
           "type": "text",
-          "heading": "海雾、旧金与蓝绿色的记忆",
-          "body": "从一场噩梦，到一封被撕开的信。项目以「重返潮汐湾」为叙事起点，在海滨旧宅、人物关系与日常道具之间建立悬疑氛围。以下按角色、场景、剧情与交互素材展示本次实习产出。"
+          "heading": "从画风探索，到统一视觉下的制作",
+          "body": "围绕年代悬疑题材开展模型测试和视觉方向探索，最终确定偏写实画风。以下展示画风锁定后的角色、环境与叙事资产。"
+        },
+        {
+          "id": "process",
+          "type": "text",
+          "heading": "制作路径 / 多模型测试 → 画风发散 → 筛选迭代 → 画风锁定",
+          "body": "先通过不同模型探索角色与场景的视觉可能，再比较方案并迭代，确定项目的视觉方向。后续在同一画风下延展角色、表情、场景和道具。",
+          "width": "wide"
         },
         {
           "id": "visual-direction",
@@ -35,19 +384,19 @@
           "items": [
             {
               "src": "/artworks/obrien-manor/B01_gate_blocked.webp",
-              "alt": "奥布莱恩庄园 / 庄园铁门·荆棘阻挡",
+              "alt": "悬疑二合项目 / 庄园铁门·荆棘阻挡",
               "fit": "contain",
               "caption": "庄园铁门·荆棘阻挡"
             },
             {
               "src": "/artworks/obrien-manor/K06_arrival.webp",
-              "alt": "奥布莱恩庄园 / 艾琳·抵达庄园",
+              "alt": "悬疑二合项目 / 主角·抵达庄园",
               "fit": "contain",
-              "caption": "艾琳·抵达庄园"
+              "caption": "主角·抵达庄园"
             },
             {
               "src": "/artworks/obrien-manor/B10_terrace.webp",
-              "alt": "奥布莱恩庄园 / 海景露台·月夜空景",
+              "alt": "悬疑二合项目 / 海景露台·月夜空景",
               "fit": "contain",
               "caption": "海景露台·月夜空景"
             }
@@ -55,19 +404,10 @@
           "columns": 3
         },
         {
-          "id": "scope",
-          "type": "metrics",
-          "items": [
-            "5 组角色 / 30 张表情切图",
-            "12 张场景 / 25 张剧情关键帧",
-            "36 张道具切图 / 17 个剧情节点"
-          ]
-        },
-        {
           "id": "characters-intro",
           "type": "text",
           "heading": "01 / 角色与表情",
-          "body": "沿用既定人物设定与偏写实画风，以艾琳的旅行套装、玛德琳的象牙白礼服和薇薇安的黑裙保持人物辨识度。角色立绘与表情图集分别整理，供不同对白与情绪节点调用。"
+          "body": "画风确定后，围绕人物服装、轮廓与面部特征延展角色资产，并制作不同剧情情绪所需的表情。主角表情组与其他角色立绘结合展示。"
         },
         {
           "id": "characters-main",
@@ -75,21 +415,21 @@
           "items": [
             {
               "src": "/artworks/obrien-manor/C01_irene.webp",
-              "alt": "奥布莱恩庄园 / 艾琳·旅行装立绘",
+              "alt": "悬疑二合项目 / 主角·旅行装立绘",
               "fit": "contain",
-              "caption": "艾琳·旅行装立绘"
+              "caption": "主角·旅行装立绘"
             },
             {
               "src": "/artworks/obrien-manor/C02_madeline.webp",
-              "alt": "奥布莱恩庄园 / 玛德琳·晚礼服立绘",
+              "alt": "悬疑二合项目 / 母亲·晚礼服立绘",
               "fit": "contain",
-              "caption": "玛德琳·晚礼服立绘"
+              "caption": "母亲·晚礼服立绘"
             },
             {
               "src": "/artworks/obrien-manor/C03_vivian.webp",
-              "alt": "奥布莱恩庄园 / 薇薇安·黑裙立绘",
+              "alt": "悬疑二合项目 / 访客·黑裙立绘",
               "fit": "contain",
-              "caption": "薇薇安·黑裙立绘"
+              "caption": "访客·黑裙立绘"
             }
           ],
           "columns": 3
@@ -100,15 +440,15 @@
           "items": [
             {
               "src": "/artworks/obrien-manor/C04_bernard.webp",
-              "alt": "奥布莱恩庄园 / 伯纳德·管家立绘",
+              "alt": "悬疑二合项目 / 管家·管家立绘",
               "fit": "contain",
-              "caption": "伯纳德·管家立绘"
+              "caption": "管家·管家立绘"
             },
             {
               "src": "/artworks/obrien-manor/C05_nix.webp",
-              "alt": "奥布莱恩庄园 / 尼克斯·黑猫立绘",
+              "alt": "悬疑二合项目 / 黑猫·黑猫立绘",
               "fit": "contain",
-              "caption": "尼克斯·黑猫立绘"
+              "caption": "黑猫·黑猫立绘"
             }
           ],
           "columns": 2
@@ -118,41 +458,10 @@
           "type": "media",
           "media": {
             "src": "/artworks/obrien-manor/E01_irene.webp",
-            "alt": "奥布莱恩庄园 / 艾琳·六表情",
+            "alt": "悬疑二合项目 / 主角·六表情",
             "fit": "contain",
-            "caption": "艾琳·六表情"
+            "caption": "主角·六表情"
           }
-        },
-        {
-          "id": "expressions",
-          "type": "gallery",
-          "items": [
-            {
-              "src": "/artworks/obrien-manor/E02_vivian.webp",
-              "alt": "奥布莱恩庄园 / 薇薇安·六表情",
-              "fit": "contain",
-              "caption": "薇薇安·六表情"
-            },
-            {
-              "src": "/artworks/obrien-manor/E03_bernard.webp",
-              "alt": "奥布莱恩庄园 / 伯纳德·六表情",
-              "fit": "contain",
-              "caption": "伯纳德·六表情"
-            },
-            {
-              "src": "/artworks/obrien-manor/E04_madeline.webp",
-              "alt": "奥布莱恩庄园 / 玛德琳·六表情",
-              "fit": "contain",
-              "caption": "玛德琳·六表情"
-            },
-            {
-              "src": "/artworks/obrien-manor/E05_nix.webp",
-              "alt": "奥布莱恩庄园 / 尼克斯·六表情",
-              "fit": "contain",
-              "caption": "尼克斯·六表情"
-            }
-          ],
-          "columns": 2
         },
         {
           "id": "scenes-intro",
@@ -166,19 +475,19 @@
           "items": [
             {
               "src": "/artworks/obrien-manor/B01_gate_blocked.webp",
-              "alt": "奥布莱恩庄园 / 庄园铁门·荆棘阻挡",
+              "alt": "悬疑二合项目 / 庄园铁门·荆棘阻挡",
               "fit": "contain",
               "caption": "庄园铁门·荆棘阻挡"
             },
             {
               "src": "/artworks/obrien-manor/B02_gate_cleared.webp",
-              "alt": "奥布莱恩庄园 / 庄园铁门·清除荆棘",
+              "alt": "悬疑二合项目 / 庄园铁门·清除荆棘",
               "fit": "contain",
               "caption": "庄园铁门·清除荆棘"
             },
             {
               "src": "/artworks/obrien-manor/B03_gate_restored.webp",
-              "alt": "奥布莱恩庄园 / 庄园铁门·修复后",
+              "alt": "悬疑二合项目 / 庄园铁门·修复后",
               "fit": "contain",
               "caption": "庄园铁门·修复后"
             }
@@ -191,19 +500,19 @@
           "items": [
             {
               "src": "/artworks/obrien-manor/B05_hall.webp",
-              "alt": "奥布莱恩庄园 / 庄园大厅·蒙尘",
+              "alt": "悬疑二合项目 / 庄园大厅·蒙尘",
               "fit": "contain",
               "caption": "庄园大厅·蒙尘"
             },
             {
               "src": "/artworks/obrien-manor/B06_dining_dirty.webp",
-              "alt": "奥布莱恩庄园 / 餐厅·打扫前",
+              "alt": "悬疑二合项目 / 餐厅·打扫前",
               "fit": "contain",
               "caption": "餐厅·打扫前"
             },
             {
               "src": "/artworks/obrien-manor/B07_dining_clean.webp",
-              "alt": "奥布莱恩庄园 / 餐厅·打扫后",
+              "alt": "悬疑二合项目 / 餐厅·打扫后",
               "fit": "contain",
               "caption": "餐厅·打扫后"
             }
@@ -222,25 +531,25 @@
           "items": [
             {
               "src": "/artworks/obrien-manor/K01_banquet.webp",
-              "alt": "奥布莱恩庄园 / 噩梦·吊灯摇晃",
+              "alt": "悬疑二合项目 / 噩梦·吊灯摇晃",
               "fit": "contain",
               "caption": "噩梦·吊灯摇晃"
             },
             {
               "src": "/artworks/obrien-manor/K02_mother_back.webp",
-              "alt": "奥布莱恩庄园 / 露台·母亲背影",
+              "alt": "悬疑二合项目 / 露台·母亲背影",
               "fit": "contain",
               "caption": "露台·母亲背影"
             },
             {
               "src": "/artworks/obrien-manor/K03_mother_tears.webp",
-              "alt": "奥布莱恩庄园 / 露台·含泪道歉",
+              "alt": "悬疑二合项目 / 露台·含泪道歉",
               "fit": "contain",
               "caption": "露台·含泪道歉"
             },
             {
               "src": "/artworks/obrien-manor/K04_wake.webp",
-              "alt": "奥布莱恩庄园 / 车内·惊醒",
+              "alt": "悬疑二合项目 / 车内·惊醒",
               "fit": "contain",
               "caption": "车内·惊醒"
             }
@@ -253,25 +562,25 @@
           "items": [
             {
               "src": "/artworks/obrien-manor/K13_handprint.webp",
-              "alt": "奥布莱恩庄园 / 玻璃·湿手掌印",
+              "alt": "悬疑二合项目 / 玻璃·湿手掌印",
               "fit": "contain",
               "caption": "玻璃·湿手掌印"
             },
             {
               "src": "/artworks/obrien-manor/K15_cut_seal.webp",
-              "alt": "奥布莱恩庄园 / 信封·划开封蜡",
+              "alt": "悬疑二合项目 / 信封·划开封蜡",
               "fit": "contain",
               "caption": "信封·划开封蜡"
             },
             {
               "src": "/artworks/obrien-manor/K25_fragments.webp",
-              "alt": "奥布莱恩庄园 / 两片信纸·拼接对照",
+              "alt": "悬疑二合项目 / 两片信纸·拼接对照",
               "fit": "contain",
               "caption": "两片信纸·拼接对照"
             },
             {
               "src": "/artworks/obrien-manor/K26_knife.webp",
-              "alt": "奥布莱恩庄园 / 悬念·黑暗中的餐刀",
+              "alt": "悬疑二合项目 / 悬念·黑暗中的餐刀",
               "fit": "contain",
               "caption": "悬念·黑暗中的餐刀"
             }
@@ -290,19 +599,19 @@
           "items": [
             {
               "src": "/artworks/obrien-manor/P01_tools.webp",
-              "alt": "奥布莱恩庄园 / 园艺与清洁道具",
+              "alt": "悬疑二合项目 / 园艺与清洁道具",
               "fit": "contain",
               "caption": "园艺与清洁道具"
             },
             {
               "src": "/artworks/obrien-manor/P02_light.webp",
-              "alt": "奥布莱恩庄园 / 照明与开锁道具",
+              "alt": "悬疑二合项目 / 照明与开锁道具",
               "fit": "contain",
               "caption": "照明与开锁道具"
             },
             {
               "src": "/artworks/obrien-manor/P03_story.webp",
-              "alt": "奥布莱恩庄园 / 剧情与餐食道具",
+              "alt": "悬疑二合项目 / 剧情与餐食道具",
               "fit": "contain",
               "caption": "剧情与餐食道具"
             }
@@ -310,47 +619,66 @@
           "columns": 3
         },
         {
-          "id": "documents",
-          "type": "gallery",
-          "items": [
-            {
-              "src": "/artworks/obrien-manor/D01_letter.webp",
-              "alt": "奥布莱恩庄园 / 匿名信 · 上半页",
-              "fit": "contain",
-              "caption": "匿名信 · 上半页"
-            },
-            {
-              "src": "/artworks/obrien-manor/D02_warning.webp",
-              "alt": "奥布莱恩庄园 / 残缺信纸",
-              "fit": "contain",
-              "caption": "残缺信纸"
-            },
-            {
-              "src": "/artworks/obrien-manor/D03_recipe.webp",
-              "alt": "奥布莱恩庄园 / 玛德琳的食谱",
-              "fit": "contain",
-              "caption": "玛德琳的食谱"
-            }
-          ],
-          "columns": 3
-        },
-        {
-          "id": "delivery",
+          "id": "scope-note",
           "type": "text",
-          "heading": "05 / 交付与预览",
-          "body": "原始档案收录 51 张模型生成原图及 66 张表情与道具拆分切图，提供逐句对白、节点跳转与合成素材演示。本次展示范围为静态美术与交互预览；尚有 3 张关键帧待补，骨骼动画、配音音效与完整第二章不在当前完成范围内。完整素材及制作记录可在下方档案中查看。"
+          "heading": "展示范围",
+          "body": "本案例展示个人完成的静态美术产出，包括 AI 辅助图像生成及素材整理。页面中的成品用于呈现已锁定的视觉方向；公司、项目名称与内部制作数据已隐去。"
         }
       ],
-      "resources": [
+      "resources": []
+    },
+    {
+      "id": "zoo-game-art",
+      "name": "动物园二合｜角色与地图设计",
+      "category": "游戏美术",
+      "year": "2026",
+      "role": "前期角色设计 / 园区地图设计与多轮迭代",
+      "summary": "围绕动物园主题与欧美卡通风格，开展前期角色设计和园区地图设计，并经历多轮地图方案迭代。",
+      "tags": [
+        "游戏美术",
+        "角色设计",
+        "地图设计",
+        "实习项目"
+      ],
+      "hero": {
+        "src": "/artworks/zoo/map.png",
+        "alt": "动物园园区地图方案",
+        "caption": "动物园园区地图方案",
+        "fit": "contain"
+      },
+      "gallery": [],
+      "blocks": [
         {
-          "label": "查看完整美术档案",
-          "href": "https://obrien-manor-art-archive.cloudlovesunay.chatgpt.site/#assets",
-          "note": "角色、场景、表情、道具与制作记录"
+          "id": "intro",
+          "type": "text",
+          "heading": "亲和的角色，明亮的园区",
+          "body": "通过角色服装、工具与表情表现动物园主题；地图结合木质建筑、动物活动区、水域与植物，呈现明亮的欧美卡通视觉。"
         },
         {
-          "label": "查看剧情分镜",
-          "href": "https://obrien-manor-art-archive.cloudlovesunay.chatgpt.site/#story",
-          "note": "开场、第一章与第二章开篇"
+          "id": "characters",
+          "type": "media",
+          "media": {
+            "src": "/artworks/zoo/characters.png",
+            "alt": "前期角色设定：造型、表情、正背面与道具",
+            "caption": "前期角色设定：造型、表情、正背面与道具",
+            "fit": "contain"
+          }
+        },
+        {
+          "id": "map-intro",
+          "type": "text",
+          "heading": "园区地图 / 多轮迭代中的一版方案",
+          "body": "地图经历了多轮版本调整。这里选取其中一版展示整体视觉与园区关系，不将单张方案标记为最终上线效果。"
+        },
+        {
+          "id": "map",
+          "type": "media",
+          "media": {
+            "src": "/artworks/zoo/map.png",
+            "alt": "园区地图：建筑、水域与活动区域",
+            "caption": "园区地图：建筑、水域与活动区域",
+            "fit": "contain"
+          }
         }
       ]
     },
@@ -443,7 +771,6 @@
         }
       ],
       "galleryLayout": "sequence-grid",
-      "startDate": "2026-01",
       "blocks": [
         {
           "id": "61bc79b5-0e66-4b06-8d0c-08c582458c8d",
@@ -600,7 +927,6 @@
           "span": "wide"
         }
       ],
-      "startDate": "2026-01",
       "blocks": [
         {
           "id": "7692e567-7257-4944-b6e1-bfd7140a0ad2",
@@ -722,7 +1048,6 @@
           "orientation": "landscape"
         }
       ],
-      "startDate": "2026-01",
       "blocks": [
         {
           "id": "8adcb315-c4ad-4a5b-9301-2ff3ed5c6821",
@@ -842,7 +1167,6 @@
         }
       ],
       "galleryLayout": "feature-poster",
-      "startDate": "2025-01",
       "blocks": [
         {
           "id": "a2c9a5c9-e1ca-49f4-9845-abf0bced98ab",
@@ -923,14 +1247,13 @@
     },
     {
       "id": "ai-commercial-poster-exploration",
-      "name": "AI 商业海报与活动视觉探索",
+      "name": "AI 命题海报与活动视觉",
       "category": "AIGC 视觉",
       "year": "2026",
       "summary": "两张面向不同传播任务的商业海报：MOLLY 20 周年命题以 AI 生成强化“愤怒转化为热爱”的情绪张力；山海旁酒吧开业项目则围绕真实活动信息，完成插画符号、文案层级与高识别色块的整合。",
       "tags": [
         "AIGC",
         "海报设计",
-        "商业项目",
         "视觉设计"
       ],
       "takeaways": [
@@ -955,7 +1278,6 @@
       },
       "gallery": [],
       "detailLayout": "poster-pair",
-      "startDate": "2026-01",
       "blocks": [
         {
           "id": "ed14b9be-2a5d-4368-8d65-e49765dccbd9",
@@ -1028,7 +1350,6 @@
         "orientation": "landscape"
       },
       "gallery": [],
-      "startDate": "2025-01",
       "blocks": [
         {
           "id": "f067e136-b89a-4f3f-9771-5bfa78db50eb",
@@ -1159,10 +1480,10 @@
         "同步负责摊位视觉与 36 篇社媒内容，让线上种草与线下体验形成完整链路。"
       ],
       "hero": {
-        "src": "/assets/haina-market-reference-B8LrDMhm.png",
-        "alt": "海娜文化快闪集市同类市集与摊位参考",
+        "src": "/assets/haina-market-service-Dpa9rWPu.png",
+        "alt": "海娜文化快闪集市现场服务与招牌",
         "fit": "contain",
-        "caption": "市集氛围参考",
+        "caption": "线下快闪服务现场",
         "span": "wide",
         "orientation": "panorama"
       },
@@ -1196,7 +1517,6 @@
           "orientation": "panorama"
         }
       ],
-      "startDate": "2026-01",
       "blocks": [
         {
           "id": "912b3f95-3529-4cc8-a96f-e93d88d62c7e",
@@ -1317,7 +1637,6 @@
         }
       ],
       "galleryLayout": "sequence-grid",
-      "startDate": "2026-01",
       "blocks": [
         {
           "id": "1e49474b-0f50-4b0f-a964-b46d916b81c8",
@@ -1477,7 +1796,6 @@
           "orientation": "portrait"
         }
       ],
-      "startDate": "2026-01",
       "blocks": [
         {
           "id": "d15eeeb9-e21f-4550-8f9b-f8f59480e8dd",
@@ -1657,7 +1975,6 @@
         }
       ],
       "galleryLayout": "sequence-grid",
-      "startDate": "2026-01",
       "blocks": [
         {
           "id": "fed422d8-2044-484a-b732-a3ca43e314a3",
@@ -1744,62 +2061,71 @@
   "site": {
     "profile": {
       "name": "sunay",
-      "title": "AIGC Creative Portfolio",
+      "title": "AI 游戏美术 · AIGC 视觉设计",
       "heroTitle": "Sunay",
       "education": [
         "太原理工大学（211）",
         "数字媒体艺术",
-        "27届"
+        "2027 届"
       ]
     },
     "highlights": [
       {
-        "label": "目标方向",
-        "value": "AI Native 视觉设计 / AIGC / 内容运营",
-        "detail": "适配互联网活动视觉、品牌传播、创意内容与 AI 工作流岗位。"
+        "label": "求职方向",
+        "value": "AI 游戏美术 / AIGC 视觉设计",
+        "detail": "多模型测试、画风探索与锁定，以及角色、场景和道具的统一风格制作。"
       },
       {
-        "label": "核心工具",
-        "value": "Figma / PS / PR / Blender / 3ds Max / Midjourney",
-        "detail": "同时使用即梦、可灵、豆包等 AI 工具完成图像、视频与流程探索。"
+        "label": "制作工具",
+        "value": "ComfyUI / Photoshop / 即梦 / 可灵",
+        "detail": "结合 Figma、PR、Blender 与 3ds Max，完成视觉设计、动态表现与三维实践。"
       }
     ],
     "services": [
       {
         "number": "01",
-        "name": "AIGC 影像叙事",
-        "tag": "AI Film",
-        "description": "从主题、剧本、分镜到提示词、画面生成和剪辑，搭建完整的 AI 影像制作流程，让概念不只停留在灵感阶段。"
+        "name": "画风探索与锁定",
+        "tag": "Art Direction",
+        "description": "测试不同图像生成模型，发散角色与场景的视觉方向，通过方案对比与迭代确定项目画风。"
       },
       {
         "number": "02",
-        "name": "视觉系统设计",
-        "tag": "Visual System",
-        "description": "能处理品牌调性、字体、色彩、插画、海报、橱窗和延展物料，让视觉不只是单张图，而是一套可延展的表达系统。"
+        "name": "游戏美术资产",
+        "tag": "Game Art",
+        "description": "在确定的视觉方向下制作角色、表情、场景、剧情关键帧及道具，关注同一项目中的风格一致性。"
       },
       {
         "number": "03",
-        "name": "内容运营策划",
-        "tag": "Content Ops",
-        "description": "理解社媒内容从选题、拍摄、文案到发布的链路，做过线下快闪项目和小红书内容发布，关注转化而不是只看表面数据。"
+        "name": "ComfyUI 工作流",
+        "tag": "Workflow",
+        "description": "搭建文生图与多参考图生成流程，连接模型、提示词、采样与输出环节，支持方案探索和图像迭代。"
       },
       {
         "number": "04",
-        "name": "三维镜头表现",
-        "tag": "Motion / 3D",
-        "description": "熟悉 PR、剪映、Blender、3ds Max 等工具，可以把静态视觉继续推进成动态镜头、空间氛围和展示视频。"
-      },
-      {
-        "number": "05",
-        "name": "跨工具执行",
-        "tag": "Workflow",
-        "description": "能在 Figma、PS、Midjourney、即梦、可灵、豆包等工具之间建立流程，用 AI 提升效率，同时保留自己的判断和审美。"
+        "name": "影像与视觉延展",
+        "tag": "Visual / Motion",
+        "description": "结合分镜、剪辑、平面设计与三维制作，将静态视觉延展为影像、品牌物料与空间呈现。"
       }
     ],
     "experiences": [
       {
+        "period": "2026.08 — 2026.09",
+        "startDate": "2026-08",
+        "role": "游戏研发公司（匿名）",
+        "organization": "AI美术实习生",
+        "type": "实习",
+        "description": "参与动物园、希腊神话换装及悬疑题材二合项目。负责动物园项目前期角色与地图设计；在悬疑项目中进行多模型测试、画风发散与锁定，并开展后续美术资产制作。",
+        "highlights": [
+          "多模型测试",
+          "画风锁定",
+          "角色与地图设计",
+          "ComfyUI"
+        ],
+        "endDate": "2026-09"
+      },
+      {
         "period": "2026.07 — 2026.08",
-        "role": "中国国家地理探索",
+        "role": "自然科普机构（匿名）",
         "organization": "运营实习生",
         "type": "实习",
         "description": "参与项目日常设计与运营支持，围绕自然探索、科普内容和活动传播场景完成视觉物料设计；协助内容选题、素材整理、社交媒体配图与发布支持，在保证品牌调性和信息准确性的基础上提升内容呈现效果。",
@@ -1810,24 +2136,14 @@
         ],
         "startDate": "2026-07",
         "endDate": "2026-08"
-      },
-      {
-        "period": "2026.08 — 2026.09",
-        "startDate": "2026-08",
-        "role": "羯磨科技",
-        "organization": "AI美术实习生",
-        "type": "实习",
-        "description": "",
-        "highlights": [],
-        "endDate": "2026-09"
       }
     ],
     "friendLinks": [
       {
         "name": "Cloud09_Space",
-        "description": "这里是最爱Sunay的管理员sama的Blog",
+        "description": "朋友的个人创作空间",
         "href": "https://cloud09.space/",
-        "icon": "/assets/cloud09-icon-B41ca2cl.png"
+        "icon": "/artworks/friend-icon.png"
       }
     ],
     "music": [

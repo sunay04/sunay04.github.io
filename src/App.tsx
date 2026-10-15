@@ -12,7 +12,7 @@ import { bundledSite } from "./content/site";
 import { EditorPage } from "./editor/EditorPage";
 import { AstralCursor } from "./components/AstralCursor";
 
-const sectionIds = ["about", "services", "experience", "projects", "friends"];
+const sectionIds = ["about", "projects", "experience", "services", "friends"];
 
 export function App() {
   const [projects, setProjects] = useState<Project[]>(bundledProjects);
@@ -102,16 +102,19 @@ export function App() {
         <SiteNavigation activeSection={activeSection} audioEnabled={introComplete} tracks={site.music?.length ? site.music : bundledSite.music} onNavigate={navigateTo} />
         <div ref={viewportRef} className="horizontal-viewport relative z-10">
           <div id="about" className="horizontal-panel">
-            <HeroSection content={site.profile} />
+            <HeroSection content={site.profile} projects={projects} onNavigate={navigateTo} />
           </div>
-          <div id="services" className="horizontal-panel">
-            <ServicesSection content={{ highlights: site.highlights, services: site.services }} />
+
+
+
+          <div id="projects" className="horizontal-panel">
+            <ProjectsSection projects={projects} />
           </div>
           <div id="experience" className="horizontal-panel">
             <ExperienceSection content={site.experiences} />
           </div>
-          <div id="projects" className="horizontal-panel">
-            <ProjectsSection projects={projects} />
+          <div id="services" className="horizontal-panel">
+            <ServicesSection content={{ highlights: site.highlights, services: site.services }} />
           </div>
           <div id="friends" className="horizontal-panel">
             <FriendsSection content={site.friendLinks} />

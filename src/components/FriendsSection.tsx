@@ -6,8 +6,9 @@ export function FriendsSection({ content = friendLinks }: { content?: typeof fri
     <section className="relative min-h-full px-5 py-24 sm:px-8 md:px-10 md:py-28">
       <div className="pointer-events-none absolute inset-x-8 top-0 h-px bg-white/20 md:inset-x-16" />
       <div className="mx-auto w-full max-w-7xl">
-        <FadeIn as="h2" className="cosmic-heading pb-2 text-center text-[clamp(3rem,8vw,7.5rem)] leading-[0.9]">Friend Link</FadeIn>
+        <FadeIn as="h2" className="cosmic-heading pb-2 text-center text-[clamp(3rem,8vw,7.5rem)] leading-[0.9]">Let’s talk.</FadeIn>
 
+        <div className="my-12 text-center"><p className="mb-6 text-white/70">欢迎交流 AI 游戏美术、AIGC 视觉设计与实习机会。</p><a className="text-xl sm:text-3xl underline underline-offset-8 break-all" href="mailto:1147850266ly@gmail.com">1147850266ly@gmail.com ↗</a><p className="mt-12 text-xs text-white/45">FRIENDS / 友情链接</p></div>
         <div className="mt-10 grid grid-cols-[repeat(auto-fit,minmax(min(100%,14rem),18rem))] justify-center gap-4">
           {content.map((link, index) => (
             <FadeIn key={link.href} immediate delay={index * 0.08} className="h-full">

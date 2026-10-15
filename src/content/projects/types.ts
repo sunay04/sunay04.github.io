@@ -46,6 +46,6 @@ export type Project = {
   heroSupport?: PortfolioImage;
   gallery: PortfolioImage[];
   galleryLayout?: "feature-poster" | "sequence-grid";
-  detailLayout?: "default" | "poster-pair";
+  detailLayout?: "default" | "poster-pair" | "case-study";
   blocks?: ProjectBlock[];
 };
