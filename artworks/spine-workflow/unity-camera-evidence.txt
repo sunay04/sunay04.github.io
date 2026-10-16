@@ -1,0 +1,1 @@
+PASS Unity 2022.3.62f2: reimported B01 JSON, cleared SkeletonData cache, rebuilt 1 active preview instances preserving selection/time; active animations=;; camera_push hinges fixed at 0/2.1/4.2; native720x1280 captures. Buttons/all animation data untouched. Editor evaluation, not Play.
